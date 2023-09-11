@@ -28,9 +28,6 @@ C++ can be thought of as a super-set of the C language. We will start with C, an
 | 9 | GUI OOP | OOP with Qt Widgets |
 | 10 | Functional Programming | C++ closures, recursive programming |
 
-
-
-
 ### Recommended Resources
 For the fundamentals of the C programming language and basic programming concepts, we recommend the following.
 
