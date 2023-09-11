@@ -1,5 +1,13 @@
 # Level 4 Software Engineering
 
+## Table of Contents
+ [1. COMP1000 Software Engineering 1](#comp1000---software-engineering-1)
+ 
+ [1.1 Provisional Course Outline](#provisional-course-outline)
+
+ [1.2 Recommended Resources](#recommended-resources)
+
+
 ## COMP1000 - Software Engineering 1
 This module exposes students to the principles of software design and construction. The basics of constructing source code to solve a problem will be introduced, exposing students to common control structures alongside concepts such as types and generics. Major programming paradigms such as object orientation and functional programming are introduced. Additionally, key software development tools and methods are explored.
 
@@ -11,7 +19,7 @@ C++ can be thought of as a super-set of the C language. We will start with C, an
 
 | Week | Title | Topics | 
 | - | - | - |
-| 1. | Introduction | Getting Set. Using the development tools, including the build tools, version control and debugger; |
+| 1. | [Introduction](/docs/level4/Introduction.md) | Getting Setup: Using the development tools, including the build tools, version control and debugger; |
 |  | Variables and arithmetic | Using the development tools to use variables to store and manipulate numerical values  | 
 | 2. | Control Flow  | Conditions and Comparisons using if-else if-else |
 |   |   | switch-case |
