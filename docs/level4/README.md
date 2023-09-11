@@ -12,12 +12,23 @@ C++ can be thought of as a super-set of the C language. We will start with C, an
 | Week | Title | Topics | 
 | - | - | - |
 | 1. | Introduction | Getting Set. Using the development tools, including the build tools, version control and debugger; |
-| - | Variables and arithmetic | Using the development tools to use variables to store and manipulate numerical values  | 
+|  | Variables and arithmetic | Using the development tools to use variables to store and manipulate numerical values  | 
 | 2. | Control Flow  | Conditions and Comparisons using if-else if-else |
-| -  | -  | switch-case |
+|   |   | switch-case |
 | 3. | Iteration | while and do-while loops |
-| - | - | for loops and goto |
-| 4. | Functions |  | 
+|  |  | for loops and goto |
+| 4. | Functions | Syntax, factoring code |
+|  |  | Splitting code across modules |
+| | | Variable Scope |
+| 5 |  Arrays, strings and pointers | C arrays; C strings, C++ strings |
+| | | Pointer fundamentals |
+| 6 | User and File IO | Terminals and File IO in C and C++ |
+| 7 | Structures and C++ Classes | structures, simple classes, encapsulation, objects, statics |
+| 8 | Object Orientated Programming (OOP) | Inheritance, composition, overloading, overriding |
+| 9 | GUI OOP | OOP with Qt Widgets |
+| 10 | Functional Programming | C++ closures, recursive programming |
+
+
 
 
 ### Recommended Resources
