@@ -55,3 +55,32 @@ We want to keep things simple to we can focus on learning to program. Finding th
 > Remember - we don't want to spend all our time sharpening our pencils. We also need to write something!
 
 
+## Setting up Visual Studio 
+
+
+
+### Installation Options
+
+
+### Wring your first application
+
+### Debugging your first application
+
+## Visual Studio Code Version
+
+### Download and install VS Code
+
+### Install build tools
+
+### Wring your first application
+
+### Debugging your first application
+
+## Building from the command line
+
+### Debugging
+
+## Version Control
+
+### Installing git
+
