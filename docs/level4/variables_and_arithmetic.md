@@ -6,9 +6,7 @@ Chris - you are welcome to add some here
 
 Without input or output, a computer cannot fulfill a useful function.
 
-> Philosophically speaking, is a computer actually a computer if it has no input or output?
->
-> Discuss<sup>**</sup> (max. 2000 words)
+> Philosophically speaking, is a computer actually a computer if it has no input or output? Discuss<sup>**</sup> (max. 2000 words)
 
 > **<sub>Only joking. If you ever hear me ask for an essay, assume I have been abducted by aliens and replaced with a extra-terrestrial imitation.<sub> 
 
