@@ -136,3 +136,34 @@ for (int i = 0; i <= 9; i++)        // There are 10 values in the array in posit
 | Task | Details |
 | :--- | :--- |
 |  8 | There is a bit more going on in this example but this time we have added comments in the code to explain help understanding. Comments are a good way to explain to others what the code does and equally when you come back to your code at a later date they will help you as well. Run the code and observe the results. The important lesson here is the way each element of the array is accessed using it's place. For example the first letter in the array name[] is accessed by the construct name[0]. We use a short 'if'  statement to determine when the for loops get to the end.
+
+## Nested loops
+
+It is possible to put loop inside another - this is known as nested loops.
+
+| Task | Details |
+| :--- | :--- |
+|  9 | Here is a simple example of nested loops. Change the code within main() to the following:
+
+```C++
+// Outer loop 
+for (int i = 1; i <= 2; i++)        // Outer loop executes twice
+{
+    printf("Outer loop number %d\n", i);
+
+    // Inner loop
+    for (int j = 1; j <= 5; j++)    // Inner loop executes 5 times for each outer loop run so 10 time in total
+    {
+        printf("\tInner loop number %d\n", j);  // note the use of the tab (\t) option at the start to improve the layout
+    }
+}
+```
+
+| Task | Details |
+| :--- | :--- |
+|  10 | Run the code and observe the results, try changing the vaulues for the loop variable. Note we have set the initial values of i and j to 1, you can set them to whatever suits your application. Note also the use of the tab (\t) construct in the printf() function. This is the same as pressing the tab key.
+|  11 | This task is to use nested loops to output the classic 'times table'
+from early school days, the output should look like this:
+
+
+![times table](image.png)
