@@ -167,3 +167,57 @@ from early school days, the output should look like this:
 
 
 ![times table](image.png)
+
+
+## Break and Continue
+
+Sometimes there is a need for finer control over how loops execute, for this we have the statements 'break' and 'continue'. They can be used in 'for loops' and 'while loops'.
+
+| Task | Details |
+| :--- | :--- |
+|  11 | Replace the code within main() with the following:
+
+```C++
+int stopHere = 5;               // this variable could be set by another part of your application
+
+for (int i = 1; i <= 10; i++)   // potentially loop from 1 to 10  
+{
+    if (i == stopHere)          // check loop counter (i) against the stop variable
+    {
+        printf("\tLoop stopped at %d\n", stopHere);
+        break;                  // break out of the for loop
+    }
+    printf("Loop counter = %d\n", i);
+    // printf("Loop ended loop counter = %d\n", i);
+}
+// program execution from here when loop exits
+```
+| Task | Details |
+| :--- | :--- |
+|  12 | Run the program and observe the results, try changing the value of the variable stopHere. The last line of the code is commented out because it causes a compiler error - why? The task now is to be able to tell wether the loop exited because it had finished it's 10 loops or because it hit the break statement. See if you can amend the program such that the printf() statement at the end can tell how the loop exited. Hint - you need access to the loop variable after it has finished counting - variable scope?
+
+| Task | Details |
+| :--- | :--- |
+|  13 | The 'continue' statement allows us to control the loop execution in another way. Replace the code within main() with the following:
+
+```C==
+int missThis = 5;                                   // these variables could be set by another part of your application
+int andMissThis = 7;
+
+for (int i = 1; i <= 10; i++)                       // loop from 1 to 10  
+{
+    if (i == missThis || i == andMissThis)          // check loop counter (i) against the continue variables
+    {                                               // using the 'or' (||) operator. 
+    
+        printf("\tLoop continue statement\n");
+        continue;                                   // continue to the next iteration 
+    }
+    printf("Loop counter = %d\n", i);
+}
+// program execution from here when loop exits
+```
+| Task | Details |
+| :--- | :--- |
+|  14 | Run the program and observe the results, note that for the loop counter values 5 and 7 the printf() doesn't execute because the continue statement causes the loop to skip straight to the next iteration. The loop still does all 10 loops. Try changing the values of the two variables. Note the use of the 'logical or' operator in the if() statement.
+
+
