@@ -18,7 +18,26 @@ Without input or output, a computer cannot fulfill a useful function.
 
 So it is that we cannot begin to learn a programming language without some form of input and output.
 
-### `puts` (put string)
+### HelloWorld with `puts` (put string)
+
+In this task, we will learn to do two things:
+
+* Open, build and run a lab project  
+* Write "strings" to the terminal
+
+| TASK | HelloWorld-101 |
+| - | - |
+| 1. | Watch this video to see how to open, build and run the HelloWorld-101 task |
+| 2. | Replicate what you saw in the video |
+| 3. | Modify the code such that the output reads as follows: |
+| - | A solution is provided |
+
+
+```
+**********
+Hello World
+***********
+```
 
 ### `printf` (print formatted)
 
