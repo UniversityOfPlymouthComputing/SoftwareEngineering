@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="107-ReadingTheKeyboard.cpp">
+    <ClCompile Include="107-ReadingTheKeyboardWithGetChar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

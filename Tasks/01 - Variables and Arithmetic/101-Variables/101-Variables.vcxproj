@@ -24,7 +24,7 @@
     <ProjectGuid>{5e972d2f-3b27-4122-97d5-1c6efa2c2330}</ProjectGuid>
     <RootNamespace>My101Variables</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>107-Variables</ProjectName>
+    <ProjectName>109-IntegerArithmetic</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -128,7 +128,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="101-Variables.cpp" />
+    <ClCompile Include="109-Variables.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
