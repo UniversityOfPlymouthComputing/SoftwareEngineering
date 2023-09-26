@@ -62,13 +62,18 @@ There is a significant amount of self-study time allocated to every module. It i
 
 So for that, we first discuss installing software on your own computer. If you plan to only use University computers, you can skip this step.
 
-## Setting up Visual Studio 
-For Microsoft Windows 10 and 11 users, Visual Studio is available in the Microsoft Store
+## Setting up Visual Studio
+For Microsoft Windows 10 and 11 users, Visual Studio is available in the Microsoft Store (See image below).
 
 <figure>
-<img src="/docs/level4/img/microsoftstore.jpg" width="300px">
+<img src="./img/microsoftstore.jpg" width="600px">
 <figcaption>Visual Studio Community Edition 2022 in the Microsoft Store</figcaption>
 </figure>
+
+You can also download it directly via the following URLs:
+
+https://visualstudio.microsoft.com/downloads/
+
 
 ### Installation Options
 
