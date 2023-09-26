@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="103-WritingToTheConsole.cpp">
+    <ClCompile Include="105-WritingToTheConsoleWithC++.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
