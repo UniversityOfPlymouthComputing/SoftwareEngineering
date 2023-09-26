@@ -173,11 +173,29 @@ Again a video has been prepared to help you use the debugger for the first time.
 | 1. | [Watch this video](https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=d4a3fe33-e7e8-4a62-b767-b08501008c07&instance=dle) |#
 | 2. | Replicate what you see in the video on the computer you are using |
 
-## Wring your first application (Visual Studio Code)
+## Wring and debugging your first application (Visual Studio Code)
 
-## Debugging your first application (Visual Studio Code)
+Although flexible, powerful and cross platform, Visual Studio Code is a more advanced tool. For those interested in using it, the following video has been prepared:
+
+https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=f8f7f6f2-8d25-4259-ad49-b08900ca2d99
+
+For more advanced debugging, maybe watch the following if you are interested:
+
+https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=17c13ddd-0f2e-4dc3-9487-b08900ccfaeb
 
 ## Building from the command line (Windows)
+
+Once you have installed Visual Studio (or the Microsoft Build Tools), you should be able to build software from the command line. This is sometimes a useful thing to know as ultimately, this is what tools such as Visual Studio do for you.
+
+| TASK | Building from the Command Line |
+| - | -| 
+| 1. | Watch [this video](https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=02759f6f-899e-4fd3-a31f-b08900d18e19) |
+| 2. | See if you can reproduce what was done on the computer you are using |
+| 3. | Add another line to the code to write "Bye" on the screen |
+| 4. | Rebuild the code and run to check the output |
+| | |
+
+It should be pointed out that we do not need to build code from the command line on this module. However, in some environments this might sometimes be necessary, so it is good to have done this at least once.
 
 ## Version Control
 
