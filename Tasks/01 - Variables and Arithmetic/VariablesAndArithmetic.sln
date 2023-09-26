@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "105-ReadingTheKeyboard", "1
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "101-HelloWorld", "101-HelloWorld\101-HelloWorld.vcxproj", "{384EC8D9-A178-4B85-B8D4-12490D8FC2A2}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "101-HelloWorld-Solution", "101-HelloWorld-Solution\101-HelloWorld-Solution.vcxproj", "{25B13C93-F3FB-4DC9-B32F-66A889969AFC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -51,6 +53,14 @@ Global
 		{384EC8D9-A178-4B85-B8D4-12490D8FC2A2}.Release|x64.Build.0 = Release|x64
 		{384EC8D9-A178-4B85-B8D4-12490D8FC2A2}.Release|x86.ActiveCfg = Release|Win32
 		{384EC8D9-A178-4B85-B8D4-12490D8FC2A2}.Release|x86.Build.0 = Release|Win32
+		{25B13C93-F3FB-4DC9-B32F-66A889969AFC}.Debug|x64.ActiveCfg = Debug|x64
+		{25B13C93-F3FB-4DC9-B32F-66A889969AFC}.Debug|x64.Build.0 = Debug|x64
+		{25B13C93-F3FB-4DC9-B32F-66A889969AFC}.Debug|x86.ActiveCfg = Debug|Win32
+		{25B13C93-F3FB-4DC9-B32F-66A889969AFC}.Debug|x86.Build.0 = Debug|Win32
+		{25B13C93-F3FB-4DC9-B32F-66A889969AFC}.Release|x64.ActiveCfg = Release|x64
+		{25B13C93-F3FB-4DC9-B32F-66A889969AFC}.Release|x64.Build.0 = Release|x64
+		{25B13C93-F3FB-4DC9-B32F-66A889969AFC}.Release|x86.ActiveCfg = Release|Win32
+		{25B13C93-F3FB-4DC9-B32F-66A889969AFC}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
