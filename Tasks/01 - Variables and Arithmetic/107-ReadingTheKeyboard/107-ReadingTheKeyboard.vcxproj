@@ -24,6 +24,7 @@
     <ProjectGuid>{74c01bbb-22c3-496f-a2f5-2905836f61a4}</ProjectGuid>
     <RootNamespace>My107ReadingTheKeyboard</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>105-ReadingTheKeyboard</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
