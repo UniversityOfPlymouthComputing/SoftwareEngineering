@@ -54,31 +54,46 @@ We want to keep things simple to we can focus on learning to program. Finding th
 
 > Remember - we don't want to spend all our time sharpening our pencils. We also need to write something!
 
+# Working from Home
+
+There is a significant amount of self-study time allocated to every module. It is unlikely that all students will complete labs in the allocated lab time.
+
+> Think of lab time as the opportunity to ask questions rather than finish everything.
+
+So for that, we first discuss installing software on your own computer. If you plan to only use University computers, you can skip this step.
 
 ## Setting up Visual Studio 
+For Microsoft Windows 10 and 11 users, Visual Studio is available in the Microsoft Store
 
-
+<figure>
+<img src="/docs/level4/img/microsoftstore.jpg" width="300px">
+<figcaption>Visual Studio Community Edition 2022 in the Microsoft Store</figcaption>
+</figure>
 
 ### Installation Options
 
-
-### Wring your first application
-
-### Debugging your first application
-
-## Visual Studio Code Version
+## Setting up Visual Studio Code (alternative)
 
 ### Download and install VS Code
 
 ### Install build tools
 
-### Wring your first application
+## Git and Github
 
-### Debugging your first application
+
+# Working on the Module
+
+## Wring your first application (Visual Studio)
+
+## Debugging your first application (Visual Studio)
+
+
+## Wring your first application (Visual Studio Code)
+
+## Debugging your first application (Visual Studio Code)
 
 ## Building from the command line
 
-### Debugging
 
 ## Version Control
 

@@ -1,6 +1,12 @@
 # Variables and Arithmetic
 
-Chris - you are welcome to add some here
+This this session, the objective as follows:
+
+* Store data in local and global variables
+* Display variables in the terminal
+* Read data from the terminal intput (keyboard) and store
+* Use the debugger to inspect and change variable values
+* Perform basic arithmetic
 
 ## Writing to the Console
 
