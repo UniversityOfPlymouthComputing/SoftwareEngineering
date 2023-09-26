@@ -207,8 +207,10 @@ This very page is part of this. You are strongly advised to keep your own copy (
 
 | TASK | Forking and maintaining the Repository |
 | - | - |
-| 1. | [Watch this video]( TO BE DONE ) |
-| 2. | Replicate what you see in the video on the computer you are using |
+| 1. | [Watch this video](https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=733ad723-95a1-4cdd-9044-b08900d3d61b ) |
+| 2. | Using what you see in the video, create your own fork of the repository |
+| 3. | Clone the repository as shown in the video |
+| - | You are now ready to start the first formal lab! |
 
 **Key Points**
 

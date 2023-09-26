@@ -28,17 +28,17 @@ So it is that we cannot begin to learn a programming language without some form 
 
 ## Integer Arithmetic
 
-## Characters
-
 ## Signed and Unsigned
+
+## Characters
 
 ## Floating Point
 
 ## Floating Point Arithmetic
 
-## Structures
-
 ## Using `sizeof`
+
+## Structures
 
 ## Type casting
 
