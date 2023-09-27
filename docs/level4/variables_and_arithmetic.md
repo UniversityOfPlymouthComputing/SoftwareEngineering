@@ -310,12 +310,16 @@ In this case, the line that reads `int y += 3` adds three to the current value.
 
 As C and C++ are considered *system languages*, they have a facility to perform quite low-level operations. We will look at a few of these now:
 
+The following operators are used to shift the position of binary digits in an integer:
+
 | Operator | Meaning | Type |
 | - | - | - |
 | << | Shift left | Binary |
 | >> | Shift right | Binary |
 | <<= | Shift left | Unary |
 | >>= | Shift right | Unary |
+
+To explain this, an example is given:
 
 | TASK | 111-shiftingbits |
 | - | - |
@@ -344,7 +348,7 @@ Now here is the bad news:
 
 The good news is that you can find out using the `sizeof` function. 
 
-| TASK | 111-sizeof |
+| TASK | 113-sizeof |
 | - | - |
 | 1. | Set the 111-sizeof project as the start up project |
 | 2. | Read through the code. Build and run to see the output |
@@ -352,14 +356,126 @@ The good news is that you can find out using the `sizeof` function.
 | 4. | What do you notice about the size of `long` and `integer`? |
 | 5. | You can also pass variables into `sizeof`. Add the following line and see what it does |
 | | `printf("The size of variable sillyBigPositiveValue is %llu\n", sizeof(sillyBigPositiveValue));` |
+| | A solution is provided |
 
 > **note**
 >
 > You could add the prefix `unsigned` to all the integer variables. It would not change the size. All it would do is impact on the way certain arithmetic is performed. 
 
+## Floating Point Arithmetic
+
+If you want to perform mathematics with fractional numbers (that have decimal points), then you will probably want to use the `float` and `double` data types.
+
+| EXPERIMENT | 115-floatingpoint |
+| - | - |
+| 1. | Make 115-floatingpoint the startup project |
+| 2. | Set a break point on the first line |
+| 3. | Step through the code, observing the corresponding output |
+| 4. | Note anything unusual |
+| - | - |
+
+**Key points:**
+
+* Both `float` and `double` have finite precision. We saw that the value `0.123456789` was not stored in a `float` without error.
+* As numbers become very large, this is traded for precision. So although 0.123456789123456789 can be represented by `double` to 17 decimal places, 10000000000.123456789 was only accurate to 7 decimal places.
+
+Finally, let's look at that last line!
+
+```C++
+x = x / 0.0;      //Error!!!!????
+printf("x = %f\n", x);
+```
+
+Unlike integers, this did not crash. Instead we for the result `inf`, which represents *infinity*. If you add the following afterwards:
+
+```C++
+x = x + 1;
+printf("x = %f\n", x);
+```
+
+you get the same result. Indeed, infinity + 1 = infinity. The **floating point** standard reserves a internal mechanism to handle infinity.
+
+If you write this:
+
+```C++
+    x = 0.0;
+    x = x / 0.0;
+    printf("x = %f\n", x);
+```
+
+you will get the result `nan`. This stands for "not a number".
+
+> Mathematical Curiosity
+>
+> Did you know that infinity is indeed non a number? It is actually a *limit* (a mathematical concept). The rules for limits are not the same for numbers.
+>
+> If you have not done a level-3 mathematics course, then it is unlikely you would have been taught this. Don't worry, I don't plan to mention it again, but you might see this in your code
+
+It is also worth noting that much of the above is true for other languages, including `C#` and `Java`. 
+
 ## Type casting
 
-## Floating Point Arithmetic
+Sometimes you will want to force a change in variable type. This is known as **type casting**. To illustrate why you might do this, consider the following example:
+
+```C++
+int main()
+{
+	//Read the terminal input
+	unsigned char c = 0b10101100;
+	displayAndCompare(c);
+
+	//Shift left 56 bits and store in a 64bit variable
+	unsigned long long x = c << 56;
+	displayAndCompare(x);
+}
+```
+
+
+The expected output is 	`10101100 00000000 00000000 00000000 00000000 00000000 00000000 00000000` (spaces added for clarity).
+
+| EXPERIMENT | 117-typecasting |
+| - | - |
+| 1. | Make 117-typecasting the startup project |
+| 2. | Set a breakpoint, then step through the code checking the output |
+| 3. | The final result is incorrect. Why? |
+| - | <p title="Because you cannot shift a variable of type char 56 places. It is too small">Hover over here to see the solution</p> |
+
+The problem is in this line:
+
+```C++
+unsigned long long x = c << 56;
+```
+
+The left hand side of the expression is fine, as `unsigned long long` is 64 bits wide, so large enough to hold the result. However, *the right hand side of the expression overflows before it can be copied into the left*. This is because the variable `c` is only type char. 
+
+| EXPERIMENT | 117-typecasting |
+| - | - |
+| 4. | Change the line as follows and run again |
+
+```C++
+unsigned long long x = (unsigned long long)c << 56;
+```
+
+This uses a **typecast**. Before the bit shift is performed, value of `c` is stored into temporary location of type unsigned long long (64-bits wide). This can then be shifted safely without overflow.
+
+Sometimes we convert integers into floating point numbers. This was shown in the following code section:
+
+```C++
+int p = 123;
+int q = 2;
+double y = p / q;
+printf("y = %f\n", y);
+```
+
+We can correct this by typecasting the integers into doubles before the calculation is performed:
+
+```C++
+int p = 123;
+int q = 2;
+double y = (double)x / (double)q;
+```
+
+This ensure that a fractional divide is performed, rather than an integer.
 
 ## Structures
 

@@ -21,7 +21,7 @@ int main()
 	printf("\n");
 
 	//Display a table of date types and sizes
-	printf("Type\t\tSize(Bytes)\n");
+	printf("Type\t\tSize(Bytes)\n");	//The \t character is a TAB
 	printf("----\t\t-----------\n");
 
 	//TASK: Display the size of ALL the integer data types

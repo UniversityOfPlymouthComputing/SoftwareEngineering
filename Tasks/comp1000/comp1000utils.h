@@ -14,7 +14,7 @@ void displayAsBinary(T u)
 {
 	unsigned int Nbits = sizeof(T) * 8;				//Number of bits for datatype T
 	for (int n = Nbits - 1; n >= 0; n--) {
-		unsigned int mask = (1 << n);
+		T mask = ((T)1 << n);
 		printf("%c", (u & mask) ? '1' : '0');
 	}
 }
