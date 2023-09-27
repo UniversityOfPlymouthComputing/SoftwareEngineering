@@ -475,19 +475,20 @@ int q = 2;
 double y = (double)x / (double)q;
 ```
 
-This ensure that a fractional divide is performed, rather than an integer.
+This ensures that a fractional divide is performed, rather than an integer.
 
-## Structures
+## The `&` operator
 
-## Constants
+Now we have seen data in memory, you will note once more the two key properties of computer data:
 
-## Pre-processor constants
+* **address** - this is the *location* of the data in the computer memory. In C and C++, it is always an integer value.
+ * **value** - this is the data itself. This is what is stored in the memory at a given address
+ 
 
-## Numerical Errors
-
+* value
 ## Debugging
 
-### Watching Variables
+### Watching Variables and Inspecting Memory
 
 ### Inspecting Memory
 
@@ -495,25 +496,9 @@ All variables are numbers stored in the  memory of a computer. Whatever **type**
 
 Some development tools allow us to look inside the computer memory so we can see how the binary data is organised internally.
 
-## The `&` operator
 
-Now we have seen data in memory, you will note once more the two key properties of computer data:
-
-* **address** - this is the *location* of the data in the computer memory. In C and C++, it is always an integer value
-
-* value
 
 ### `scanf` (scan formatted)
 
-## Challenges
 
-## Advanced Topics
-
-### Unions
-
-### Bitfields
-
-### Endienness
-
-### Compiler warnings
 
