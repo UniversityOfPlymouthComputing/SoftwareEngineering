@@ -151,7 +151,7 @@ Now run GitHub desktop and sign in with your GitHub credentials. You will need t
 
 Whether at home on in the lab, we now start our first task, and that is to write our first application!
 
-## Wring your first application (Visual Studio)
+## Writing your first application (Visual Studio)
 
 Now Visual Studio is installed, please do the following:
 
