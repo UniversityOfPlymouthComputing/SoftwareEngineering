@@ -5,9 +5,9 @@ VisualStudioVersion = 17.7.34024.191
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "103-WritingToTheConsole", "101-WritingToTheConsole\101-WritingToTheConsole.vcxproj", "{CA195B56-3726-49D9-91EB-3DF826229840}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "107-Variables", "101-Variables\101-Variables.vcxproj", "{5E972D2F-3B27-4122-97D5-1C6EFA2C2330}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "109-IntegerArithmetic", "101-Variables\101-Variables.vcxproj", "{5E972D2F-3B27-4122-97D5-1C6EFA2C2330}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "107-ReadingTheKeyboard", "107-ReadingTheKeyboard\107-ReadingTheKeyboard.vcxproj", "{74C01BBB-22C3-496F-A2F5-2905836F61A4}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "107-ReadingTheKeyboardWithGetChar", "107-ReadingTheKeyboard\107-ReadingTheKeyboard.vcxproj", "{74C01BBB-22C3-496F-A2F5-2905836F61A4}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "101-HelloWorld", "101-HelloWorld\101-HelloWorld.vcxproj", "{384EC8D9-A178-4B85-B8D4-12490D8FC2A2}"
 EndProject
@@ -16,6 +16,12 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "103-WritingToTheConsole-Solution", "103-WritingToTheConsole-Solution\103-WritingToTheConsole-Solution.vcxproj", "{E3FEEC91-F76D-4578-A642-405ED8A8B799}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "105-WritingToTheConsoleWithC++", "105-WritingToTheConsoleWithC++\105-WritingToTheConsoleWithC++.vcxproj", "{D465B0C3-9196-4531-BB4F-EA7DC37DC3B2}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "111-sizeof", "111-sizeof\111-sizeof.vcxproj", "{FA4E99B6-C89F-46DA-9DDA-DC95B8C558AF}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "111-sizeof-solution", "111-sizeof-solution\111-sizeof-solution.vcxproj", "{87A8A51D-BDBE-4A3D-83C0-D8F8E32E707B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "113-shiftingbits", "113-shiftingbits\113-shiftingbits.vcxproj", "{A67DEDB3-87B1-44B4-ACB2-992A5A1D250D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +87,30 @@ Global
 		{D465B0C3-9196-4531-BB4F-EA7DC37DC3B2}.Release|x64.Build.0 = Release|x64
 		{D465B0C3-9196-4531-BB4F-EA7DC37DC3B2}.Release|x86.ActiveCfg = Release|Win32
 		{D465B0C3-9196-4531-BB4F-EA7DC37DC3B2}.Release|x86.Build.0 = Release|Win32
+		{FA4E99B6-C89F-46DA-9DDA-DC95B8C558AF}.Debug|x64.ActiveCfg = Debug|x64
+		{FA4E99B6-C89F-46DA-9DDA-DC95B8C558AF}.Debug|x64.Build.0 = Debug|x64
+		{FA4E99B6-C89F-46DA-9DDA-DC95B8C558AF}.Debug|x86.ActiveCfg = Debug|Win32
+		{FA4E99B6-C89F-46DA-9DDA-DC95B8C558AF}.Debug|x86.Build.0 = Debug|Win32
+		{FA4E99B6-C89F-46DA-9DDA-DC95B8C558AF}.Release|x64.ActiveCfg = Release|x64
+		{FA4E99B6-C89F-46DA-9DDA-DC95B8C558AF}.Release|x64.Build.0 = Release|x64
+		{FA4E99B6-C89F-46DA-9DDA-DC95B8C558AF}.Release|x86.ActiveCfg = Release|Win32
+		{FA4E99B6-C89F-46DA-9DDA-DC95B8C558AF}.Release|x86.Build.0 = Release|Win32
+		{87A8A51D-BDBE-4A3D-83C0-D8F8E32E707B}.Debug|x64.ActiveCfg = Debug|x64
+		{87A8A51D-BDBE-4A3D-83C0-D8F8E32E707B}.Debug|x64.Build.0 = Debug|x64
+		{87A8A51D-BDBE-4A3D-83C0-D8F8E32E707B}.Debug|x86.ActiveCfg = Debug|Win32
+		{87A8A51D-BDBE-4A3D-83C0-D8F8E32E707B}.Debug|x86.Build.0 = Debug|Win32
+		{87A8A51D-BDBE-4A3D-83C0-D8F8E32E707B}.Release|x64.ActiveCfg = Release|x64
+		{87A8A51D-BDBE-4A3D-83C0-D8F8E32E707B}.Release|x64.Build.0 = Release|x64
+		{87A8A51D-BDBE-4A3D-83C0-D8F8E32E707B}.Release|x86.ActiveCfg = Release|Win32
+		{87A8A51D-BDBE-4A3D-83C0-D8F8E32E707B}.Release|x86.Build.0 = Release|Win32
+		{A67DEDB3-87B1-44B4-ACB2-992A5A1D250D}.Debug|x64.ActiveCfg = Debug|x64
+		{A67DEDB3-87B1-44B4-ACB2-992A5A1D250D}.Debug|x64.Build.0 = Debug|x64
+		{A67DEDB3-87B1-44B4-ACB2-992A5A1D250D}.Debug|x86.ActiveCfg = Debug|Win32
+		{A67DEDB3-87B1-44B4-ACB2-992A5A1D250D}.Debug|x86.Build.0 = Debug|Win32
+		{A67DEDB3-87B1-44B4-ACB2-992A5A1D250D}.Release|x64.ActiveCfg = Release|x64
+		{A67DEDB3-87B1-44B4-ACB2-992A5A1D250D}.Release|x64.Build.0 = Release|x64
+		{A67DEDB3-87B1-44B4-ACB2-992A5A1D250D}.Release|x86.ActiveCfg = Release|Win32
+		{A67DEDB3-87B1-44B4-ACB2-992A5A1D250D}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
