@@ -141,15 +141,136 @@ printf("This has ASCII code %d\n", c);
 
 Integers are the formal name for "decimal whole numbers", that is, numbers without a decimal point. The word "decimal" refers to base 10 (popular, as we typically have ten toes :).
 
+| EXPERIMENT | 109-IntegerArithmetic |
+| - | - |
+| 1. | Make 109-IntegerArithmetic the startup project. |
+| 2. | Set a breakpoint on the first line. Then step through the code line by line |
+| | For each `printf`` statement, can you predict the output? |
+| 3. | When finished, repeat the experiment, only with some changes: |
+|  | On the first line that reads `age = age / 2;`, change the 2 to 0 |
+|  | Carefully inspect the compiler output (see figure below). Look for any *warnings* |
+| 4. | Using the debugger, step over this line. What happens? |
+| | |
 
+<figure>
+<img src="./img/compilerwarning.png" width="600px">
+<figcaption>Showing the Compiler Output</figcaption>
+</figure>
+
+> A bit of mathematics
+>
+> As far as the microprocessor is concerned, you cannot divide a number by zero and expect to get a numerical result. In the case of 50 / 0, the result would be *infinity*.
+
+In step 4 above, you will have witnessed a **run-time crash**. Dividing an integer by zero causes the CPU to detect an error condition, and your program is informed as it occurs. 
+
+> The say that an error has been **thrown**  
+
+Now
+
+When we wrote `age = age / 0;` in the code, surely this was obvious? Well, actually it was spotted. If you looked at the compiler output you would have seen the following warning:
+
+```
+101-Variables\109-Variables.cpp(34): warning C4723: potential divide by 0
+```
+
+The warnings were there all along!
+
+> As a general rule, you should never ignore compiler warnings
+
+This is one of the benefits of using *compiled languages*. When the compiler converts your code to machine code, it is checking both the rules (known as *syntax*) and looking for potential errors. We will meet more warnings and errors as we progress
+
+> Note
+>
+> Because we ignore the warning, in this case we ended up with a run-time crash, resulting in the program terminating prematurely. This is clearly not a favorable thing to occur. However, in this case, the compiler was able to warn us. Not all errors can be detected, but it does what it can.
+>
+> Interpreted languages such as Python and JavaScript have no compiler, so as a general rule, you discover errors at run-time. You need additional tools to help you *look* for common errors.
+
+**Question**
+In the example above, there were some lines that read as follows:
+
+```C++
+	year = 32767;
+	year = year + 1;
+```
+
+However, the result was `-32768`. You might have wondered why this is? This is known as a numerical *overflow*. Not an error as such, but a practical reality of using integers on a computer.
+
+> The **datatype** of `year` is `short`, which on this compiler is a 16-bit value. The maximum value of short is `32767`
+
+This is discussed more in the next section.
 
 ## Signed and Unsigned
+
+Integer variables are fixed in size, so we can always calculate how much computer memory they consume. Given this fixed size, they therefore have a finite number of values that can be represented. For example, the `char` data type is stored in the computer memory as an 8-bit binary number.
+
+For example, the decimal value 10 is represented as `00001010` in binary. That is 8 + 2. This occupies 1 byte of computer memory.
+
+Binary is fundamentally no different to decimal, you just have less digits (only 2, `0` and `1`). Usually we write in decimal. For example, the value 123 is
+
+| 1000 | 100 | 10 | 1 |
+| - | - | - | - |
+| 0 | 1 | 2 | 3 |
+
+Note the column headings. So we have 1x100 + 2x10 + 3x1 = 123. Binary is no different, it's just that the column headings are powers of 2 and not 10. So the value of 10 will actually be stored as follows:
+
+| 128 | 64 | 32 | 16 | 8 | 4 | 2 | 1 | 
+| - | - | - | - | - | - | - | - |
+| 0 | 0 | 0 | 0 | 1 | 0 | 1 | 0 |
+
+This is 1x8 + 1x2 = 10 (decimal).
+
+> **Question**:
+>
+> Using the calculator on your computer, what is the decimal equivalent of binary `11111111` ?
+> 
+> <p title="255">Hover over this text to see the answer</p>
+
+Given there are 8 binary digits, and each must be a `1` or `0` (on or off in an electronic sense), then there are 2<sup>8</sup> = 256 combinations. In other words, the humble `char` datatype can only represent 256 different values.
+
+Larger data types consume more memory, but have a greater range. In the case of the example above, the variable `year` was of type `short`. This type consumes 2 bytes of data, so has 16 bits of information. It can represent 2<sup>16</sup>=65535 different values. So why did it overflow at 32767?
+
+The answer is that `short` is signed. It can also represent negative values. In fact, all signed data types work like this. Some of the 65536 combinations are allocated to negative values, and some to positive.
+
+> If we write the keyword `unsigned` before an integer type, it only holds positive values.
+
+A summary is shown in the table below:
+
+| Type | Size (bits) | Min | Max |
+| - | - | - | - |
+| char | 8 | -127 | 128 |
+| unsigned char | 8 | 0 | 255 |
+| short | 16 | -32768 | 32767 |
+| unsigned short | 16 | 0 | 65535 |
+
+| TASK | 109-IntegerArithmetic (continued) |
+| - | - |
+| 5. | Continuing with 109-IntegerArithmetic, change the data type of `data` to `unsigned short`. Also modify the `printf` statement to use the unsigned `%u` placeholder (see below). Build the code with ctrl-B and check for compiler warnings |
+| 6. | Now run the code and check the output. Is it correct? |
+
+```c++
+	//Overflow
+	year = 32767;
+	year = year + 1;
+	printf("year = %u\n", year);
+```
+
+| TASK | 109-IntegerArithmetic (continued) |
+| - | - |
+| 7. | Now set year to the value 65535. Repeat the experiment. |
+| - | Is the output correct? |
+| 8. | Now set the year to the value 65536. Build with CTRL-B and check the warnings. |
+
+In the last step above, you should have seen a warning. It was possible for the compiler to spot this error as the literal constant 65536 is out of range for an `unsigned short` variable.
+
+This can quickly become a confusing topic, and there is a lot more that can be said about the distinction between `signed` and `unsigned` values. For now, the main advice is **always check for compiler warnings** and be very careful, whatever language you are using.
+
+## Using `sizeof`
+
+There are more integer data types in the C and C++ languages. 
 
 ## Type casting
 
 ## Floating Point Arithmetic
-
-## Using `sizeof`
 
 ## Structures
 
