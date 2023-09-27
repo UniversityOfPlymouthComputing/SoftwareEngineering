@@ -479,26 +479,55 @@ This ensures that a fractional divide is performed, rather than an integer.
 
 ## The `&` operator
 
-Now we have seen data in memory, you will note once more the two key properties of computer data:
+Variables do two things:
 
-* **address** - this is the *location* of the data in the computer memory. In C and C++, it is always an integer value.
- * **value** - this is the data itself. This is what is stored in the memory at a given address
- 
+* Reserve space in memory
+* Provide us with a name so we can make reference to the data stored in memory
 
-* value
-## Debugging
+We need to make the distinction between two key concepts:
 
-### Watching Variables and Inspecting Memory
+* **address** - this is the *location* of the data in the computer memory. In C and C++, it is always an integer value. This is sometimes referred to as a **reference** in other languages
+ * **value** - this is the data itself. This is what is stored in the memory at a given address.
 
-### Inspecting Memory
+Sometimes, we need to known the address of a variable. We can do this using the `&` operator. Watch the following video for an explanation:
 
-All variables are numbers stored in the  memory of a computer. Whatever **type** of data they are, they all end up stored as binary numbers (grouped together, these make integers) stored in the volatile or persistent memory of the computer.
+| TASK | 119-lookingatmemory |
+| - | - |
+| 1. | [Watch this video first](https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=085eab9e-3880-48be-99da-b08a00c4152d) |
+| 2. | Build and run 119-lookingatmemory and repeat what was shown in the video |
+| - | - |
 
-Some development tools allow us to look inside the computer memory so we can see how the binary data is organised internally.
+### Reading the keyboard with `scanf` (scan formatted)
+
+As a final task, let's look at another way to read information into the computer. We will use the modern (safer) version of the `scanf` function called `scanf_s`
+
+| TASK | 121-scanf |
+| - | - |
+| 1. | Make 121-scanf the startup project |
+| 2. | Build and run and try entering the following: |
+| -  | The number 21 |
+| - | The number 2.5 |
+| - | Three spaces followed by the number 100 |
+| - | The following: "123 Hello" |
+| - | The following: "Hello 123" |
+| 3. | Modify the code to read in an additional number and display it on the screen |
+| 4. | Now write some code to calculate the average of the two values entered, then display it on the screen |
+| | |
+
+Let's look at some of the specifics more closely. The important part of this lab is the following line:
+
+```C++
+int found = scanf_s("%d", &x);
+```
+
+* The first parameter is the *format string*. This tells `scanf_s` what types of information to look for and convert to a numerical value.
+* The second parameter is where to save the result. For this, we give the function the **address**. This allows `scan_s` to overwrite x on our behalf.
+
+This is sometimes called *passing by reference*
+
+---
 
 
-
-### `scanf` (scan formatted)
 
 
 
