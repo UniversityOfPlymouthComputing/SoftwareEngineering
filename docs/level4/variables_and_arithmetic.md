@@ -1,6 +1,6 @@
 # Variables and Arithmetic
 
-This this session, the objective as follows:
+This session, the objective as follows:
 
 * Store data in local and global variables
 * Display variables in the terminal
