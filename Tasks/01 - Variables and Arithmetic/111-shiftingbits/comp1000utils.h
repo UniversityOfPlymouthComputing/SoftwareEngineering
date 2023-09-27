@@ -11,19 +11,34 @@ void displayAsBinary(T u)
 		unsigned int mask = (1 << n);
 		printf("%c", (u & mask) ? '1' : '0');
 	}
-	printf("\n");
 }
 
 //Pass intever value type u and display using the appropriate format string
 template<class T>
 void displayAsDecimal(T u)
 {
-	printf("%u\n", u);
+	printf("%u", u);
 }
 
 template<>
 void displayAsDecimal<unsigned long>(unsigned long u)
 {
-	printf("%lu\n", u);
+	printf("%lu", u);
+}
+
+template<>
+void displayAsDecimal<unsigned long long>(unsigned long long u)
+{
+	printf("%llu", u);
+}
+
+template<class T>
+void displayAndCompare(T u)
+{
+	printf("Binary value ");
+	displayAsBinary(u);
+	printf(" is decimal ");
+	displayAsDecimal(u);
+	printf("\n");
 }
 

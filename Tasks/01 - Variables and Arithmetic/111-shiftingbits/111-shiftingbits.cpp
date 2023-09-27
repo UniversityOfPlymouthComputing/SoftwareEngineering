@@ -8,23 +8,23 @@ int main()
 	unsigned short number = 0b0000000000001011;
 
 	//Write to the terminal (using the tutors bespoke function)
-	displayAsBinary(number);
+	displayAndCompare(number);
 
 	//Shift it left 1 bit position (binary operator)
 	number = number << 1;
-	displayAsBinary(number);
+	displayAndCompare(number);
 
 	//And again, only using the unary operator
 	number <<= 1;
-	displayAsBinary(number);
+	displayAndCompare(number);
 
 	//Shift left 2 bits
 	number <<= 2;
-	displayAsBinary(number);
+	displayAndCompare(number);
 
 	//Right right 4 bits
 	number >>= 4;
-	displayAsBinary(number);
+	displayAndCompare(number);
 
 	//TASKS:
 

@@ -264,9 +264,98 @@ In the last step above, you should have seen a warning. It was possible for the 
 
 This can quickly become a confusing topic, and there is a lot more that can be said about the distinction between `signed` and `unsigned` values. For now, the main advice is **always check for compiler warnings** and be very careful, whatever language you are using.
 
+## Unary Operators
+
+In both C and C++, arithmetic can be performed using the standard mathematical operators:
+
+| Operator | Meaning |
+| - | - |
+| + | Add |
+| - | Subtract |
+| * | Multiply |
+| / | Divide |
+| % | Modulus (remainder of a division) |
+
+So for example:
+
+```C++
+int a = 2;
+int y = 3;
+y = y + b;
+```
+
+For the last line, the right hand side is evaluated in the following order:
+
+1. read `y` from memory - hold in a temporary area of memory
+1. read `b` from memory - hold in a temporary area of memory
+1. add together to form a temporary result. 
+1. Copy the result into the variable `y`. 
+
+Therefore the value if `y` is 5.
+
+The expression `y+b` is using the `+` operator as a **binary operator**, that is, an operator with two parameters.
+
+> Consider the `+` operator to have two operands (left and right), which are summed to form a temporary result
+ 
+There are also **unary operators**. We could write the code above as follows:
+
+```C++
+int y = 2;
+int y += 3;
+```
+
+In this case, the line that reads `int y += 3` adds three to the current value.
+
+## Shift Operators
+
+As C and C++ are considered *system languages*, they have a facility to perform quite low-level operations. We will look at a few of these now:
+
+| Operator | Meaning | Type |
+| - | - | - |
+| << | Shift left | Binary |
+| >> | Shift right | Binary |
+| <<= | Shift left | Unary |
+| >>= | Shift right | Unary |
+
+| TASK | 111-shiftingbits |
+| - | - |
+| 1. | Make 111-shiftingbits the start up project |
+| 2. | Setting a break point at the start of the code, step through observing the code and the corresponding output. |
+| - | Can you see how the binary bits change position? |
+| 3. | Complete the tasks outlined in the source code. |
+| -  | What do you notice about the output? |
+| | <p title="The least significant bit is lost">Hover here to see the answer</p> | 
+
 ## Using `sizeof`
 
-There are more integer data types in the C and C++ languages. 
+There are more integer data types in the C and C++ languages. The list is as follows:
+
+| Signed Type | Unsigned type |
+| - | - |
+| char | unsigned char |
+| short | unsigned short |
+| int | unsigned int |
+| long | unsigned long |
+| long long | unsigned long long |
+
+Now here is the bad news:
+
+> Apart from char, the size of the data types are not standardized. It varies with each compiler.
+
+The good news is that you can find out using the `sizeof` function. 
+
+| TASK | 111-sizeof |
+| - | - |
+| 1. | Set the 111-sizeof project as the start up project |
+| 2. | Read through the code. Build and run to see the output |
+| 3. | Complete the code to display the size (in bytes) of all the integer data types |
+| 4. | What do you notice about the size of `long` and `integer`? |
+| 5. | You can also pass variables into `sizeof`. Add the following line and see what it does |
+| | `printf("The size of variable sillyBigPositiveValue is %llu\n", sizeof(sillyBigPositiveValue));` |
+
+> **note**
+>
+> You could add the prefix `unsigned` to all the integer variables. It would not change the size. All it would do is impact on the way certain arithmetic is performed. 
 
 ## Type casting
 
