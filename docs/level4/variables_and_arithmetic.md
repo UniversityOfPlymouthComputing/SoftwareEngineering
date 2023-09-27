@@ -27,7 +27,7 @@ In this task, we will learn to do two things:
 
 | TASK | HelloWorld-101 |
 | - | - |
-| 1. | Watch this video to see how to open, build and run the HelloWorld-101 task |
+| 1. | [Watch this video to see how to open, build and run the HelloWorld-101 task](https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=f1e24e85-5947-476d-8451-b08900ebf4e8) |
 | 2. | Replicate what you saw in the video |
 | 3. | Modify the code such that the output reads as follows: |
 | - | A solution is provided |
@@ -525,8 +525,15 @@ int found = scanf_s("%d", &x);
 
 This is sometimes called *passing by reference*
 
+# Stretch Tasks
+
+If you want to know more about operators and arithmetic, then [watch this video](https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=a04f917b-82a1-41a6-a6f5-b08a00fdf897).
+
+I would suggest this video is aimed at those with more experience. The slides will be made available as well. 
+
 ---
 
+Next Week - Flow Control
 
 
 
