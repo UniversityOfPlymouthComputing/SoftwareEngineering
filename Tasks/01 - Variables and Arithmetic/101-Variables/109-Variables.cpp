@@ -1,13 +1,5 @@
 #include <stdio.h>
 
-// This is a single line comment - it does nothing
-
-/*
-   This is a block comment. 
-   It also does nothing.
-*/
-
-//Entry point for your code
 int main()
 { // Block opening brace
 
@@ -15,7 +7,7 @@ int main()
 	short year = 2023;			// Short integer
 	int age = 23;				// Integer
 	long bigNumber = 123456789;	// Long integer
-	long long veryBigNumber = 1LL << 30;	//2^30
+	long long veryBigNumber = 1LL << 30;	//2^30 - challenge (advanced), why have I put 1LL?
 
 	printf("c=%d\n", c);
 	printf("year = %hd\n", year);
@@ -35,17 +27,17 @@ int main()
 	//Overflow
 	year = 32767;
 	year = year + 1;
-	printf("year = %hd\n", year);
+	printf("year = %d\n", year);
 
 	//Divide
 	age = 50;
 	age = age / 2;
 	printf("Half of 50 is %d\n", age);
-
+	 
 	//Divide and remainder
 	age = 51;
 	age = age / 2;
 	int remainder = age % 2;
 	printf("Half of 51 is %d, remainder %d\n", age, remainder);
 
-} // Block closing brace
+} 
