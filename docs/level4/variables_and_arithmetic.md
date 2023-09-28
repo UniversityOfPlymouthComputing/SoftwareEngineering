@@ -8,6 +8,15 @@ This session, the objective as follows:
 * Use the debugger to inspect and change variable values
 * Perform basic arithmetic
 
+# Perspective
+If this is your first time programming, do not be surprised if you struggle with some of the content in this lab. You may notice that it takes you longer than others. This is absolutely fine.
+
+> Learning to program is a long game, and is sometimes compared to learning a spoken language. It *needs* time and a lot of practice. You might even say brain neurons need time to prune and connect, so give your brain time to assimilate, and be kind to yourself if you are struggling.
+
+It is quite normal to struggle. Get what you can from these labs. Getting lots of sleep helps. 
+
+Even by the end of the course, the expectation in a programming job would be that you are still a *junior developer*.
+
 ## Writing to the Console
 
 Without input or output, a computer cannot fulfill a useful function.
@@ -529,16 +538,6 @@ int found = scanf_s("%d", &x);
 * The second parameter is **where** to save the result. For this, we give the function the **address** of the variable. This allows `scan_s` to overwrite the variable `x`` on our behalf.
 
 This is sometimes called *passing by reference*.
-
-# Perspective
-If this is your first time programming, do not be surprised if you are struggling. You may notice that it takes you longer than others. This is absolutely fine.
-
-> Learning to program is a long game, and is sometimes compared to learning a spoken language. It *needs* time and a lot of practice. You might even say brain neurons need time to prune and connect, so give your brain time to assimilate, and be kind to yourself if you are struggling.
-
-It is quite normal to struggle. Get what you can from these labs. Getting lots of sleep helps. 
-
-Even by the end of the course, the expectation in a programming job would be that you are still a *junior developer*.
-
 
 # Stretch Tasks
 
