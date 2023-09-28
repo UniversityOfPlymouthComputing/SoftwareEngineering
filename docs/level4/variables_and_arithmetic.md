@@ -92,7 +92,7 @@ In the video we met the *function* `getchar()`. Specifically, we saw these lines
 char c = 0;
 ```
 
-This creates a variable names `c`. It's **type** is char, which means it can store whole numbers in the range -128..127. It is typically used to store ASCII characters.
+This creates a variable named `c`. It's **type** is char, which means it can store whole numbers in the range -128..127. It is typically used to store ASCII characters.
 
 This line both reserves the memory storage, but also assigns the value zero in the same line.
 
@@ -109,11 +109,11 @@ The first line allocates (reserves) the memory. The second line performs an **as
 
 > Assignments with the `=` operator are always performed right to left. 
 >
-> The expression on the right hand side is first evaluated (very simple in this case). 
+> * The expression on the right hand side is first evaluated (very simple in this case). 
 > 
-> The result is then copied from right to left, in this case, setting the value of `c`.
+> * The result is then copied from right to left, in this case, setting the value of `c`.
 
-In this case, we set `c` to a constant numerical value (known as literal constant). It does not have to be constant values. We can also set values that are calculated when the code runs. We see this below:
+In this case, we set `c` to a constant numerical value (known as literal constant). It does not have to be a constant value however. We can also set values that are calculated when the code runs. We see this below:
 
 ```C++
 c = getchar();
@@ -145,7 +145,7 @@ Integers are the formal name for "decimal whole numbers", that is, numbers witho
 | - | - |
 | 1. | Make 109-IntegerArithmetic the startup project. |
 | 2. | Set a breakpoint on the first line. Then step through the code line by line |
-| | For each `printf`` statement, can you predict the output? |
+| | For each `printf` statement, can you predict the output? |
 | 3. | When finished, repeat the experiment, only with some changes: |
 |  | On the first line that reads `age = age / 2;`, change the 2 to 0 |
 |  | Carefully inspect the compiler output (see figure below). Look for any *warnings* |
@@ -159,15 +159,14 @@ Integers are the formal name for "decimal whole numbers", that is, numbers witho
 
 > A bit of mathematics
 >
-> As far as the microprocessor is concerned, you cannot divide a number by zero and expect to get a numerical result. In the case of 50 / 0, the result would be *infinity*.
+> As far as the microprocessor is concerned, you cannot divide a number by zero and expect to get a numerical result. In the case of 50 / 0, the result would be *infinity*. Infinity is not a numerical result (more on this later).
 
-In step 4 above, you will have witnessed a **run-time crash**. Dividing an integer by zero causes the CPU to detect an error condition, and your program is informed as it occurs. 
+In step 4 above, you will have witnessed a **run-time crash**. Dividing an integer by zero causes the CPU to detect an error condition, and your program is terminated as it occurs.
 
 > The say that an error has been **thrown**  
 
-Now
 
-When we wrote `age = age / 0;` in the code, surely this was obvious? Well, actually it was spotted. If you looked at the compiler output you would have seen the following warning:
+When we wrote `age = age / 0` in the code, surely this was obvious? Well, actually it was spotted. If you looked at the compiler output you would have seen the following warning:
 
 ```
 101-Variables\109-Variables.cpp(34): warning C4723: potential divide by 0
@@ -177,11 +176,11 @@ The warnings were there all along!
 
 > As a general rule, you should never ignore compiler warnings
 
-This is one of the benefits of using *compiled languages*. When the compiler converts your code to machine code, it is checking both the rules (known as *syntax*) and looking for potential errors. We will meet more warnings and errors as we progress
+This is one of the benefits of using *compiled languages*. When the compiler converts your code to machine code, it is checking both the rules (known as *syntax*) and looking for potential *logical errors*. We will meet more warnings and errors as we progress
 
-> Note
+> **Note**
 >
-> Because we ignore the warning, in this case we ended up with a run-time crash, resulting in the program terminating prematurely. This is clearly not a favorable thing to occur. However, in this case, the compiler was able to warn us. Not all errors can be detected, but it does what it can.
+> Because we ignored the warning, in this case we ended up with a run-time crash, resulting in the program terminating prematurely. This is clearly not a favorable thing to occur. However, in this case, the compiler was able to warn us. Not all errors can be detected, but it does what it can.
 >
 > Interpreted languages such as Python and JavaScript have no compiler, so as a general rule, you discover errors at run-time. You need additional tools to help you *look* for common errors.
 
@@ -193,9 +192,9 @@ In the example above, there were some lines that read as follows:
 	year = year + 1;
 ```
 
-However, the result was `-32768`. You might have wondered why this is? This is known as a numerical *overflow*. Not an error as such, but a practical reality of using integers on a computer.
+However, the result was `-32768`. You might have wondered why this is? This is known as a numerical *overflow*. Not an error as such, but a practical reality of using integer arithmetic on a computer.
 
-> The **datatype** of `year` is `short`, which on this compiler is a 16-bit value. The maximum value of short is `32767`
+> The **datatype** of `year` is `short`, which on this compiler is a 16-bit value. The maximum value of short is `32767`. If add 1 to this, it will "wrap around" to the most negative value (`-32768`).
 
 This is discussed more in the next section.
 
@@ -205,7 +204,7 @@ Integer variables are fixed in size, so we can always calculate how much compute
 
 For example, the decimal value 10 is represented as `00001010` in binary. That is 8 + 2. This occupies 1 byte of computer memory.
 
-Binary is fundamentally no different to decimal, you just have less digits (only 2, `0` and `1`). Usually we write in decimal. For example, the value 123 is
+Binary is fundamentally no different to decimal, you just have less symbols (`0` and `1`). Usually we write in decimal. For example, the value 123 is
 
 | 1000 | 100 | 10 | 1 |
 | - | - | - | - |
@@ -217,7 +216,7 @@ Note the column headings. So we have 1x100 + 2x10 + 3x1 = 123. Binary is no diff
 | - | - | - | - | - | - | - | - |
 | 0 | 0 | 0 | 0 | 1 | 0 | 1 | 0 |
 
-This is 1x8 + 1x2 = 10 (decimal).
+This is 1x8 + 1x2 = 10 (decimal). Binary is used as it represents the underlying digital electronics that makes up your microprocessor. `1` is sometimes referred to as `ON` and `0` as `OFF`. Computer memory storage is made up of (commonly) billions of single binary storage elements, each of which can be `ON` or `OFF`. It's a long story and I promise not to mention it too often :) 
 
 > **Question**:
 >
@@ -227,7 +226,7 @@ This is 1x8 + 1x2 = 10 (decimal).
 
 Given there are 8 binary digits, and each must be a `1` or `0` (on or off in an electronic sense), then there are 2<sup>8</sup> = 256 combinations. In other words, the humble `char` datatype can only represent 256 different values.
 
-Larger data types consume more memory, but have a greater range. In the case of the example above, the variable `year` was of type `short`. This type consumes 2 bytes of data, so has 16 bits of information. It can represent 2<sup>16</sup>=65535 different values. So why did it overflow at 32767?
+Larger data types consume more memory, but have a greater range. In the case of the example above, the variable `year` was of type `short`. This type consumes 2 bytes of data, so has 16 bits of information. It can represent 2<sup>16</sup>=65536 different values. So why did it overflow at 32767?
 
 The answer is that `short` is signed. It can also represent negative values. In fact, all signed data types work like this. Some of the 65536 combinations are allocated to negative values, and some to positive.
 
@@ -286,14 +285,14 @@ y = y + b;
 
 For the last line, the right hand side is evaluated in the following order:
 
-1. read `y` from memory - hold in a temporary area of memory
-1. read `b` from memory - hold in a temporary area of memory
+1. read `y` from memory - hold in a temporary area
+1. read `b` from memory - hold in a temporary area
 1. add together to form a temporary result. 
 1. Copy the result into the variable `y`. 
 
 Therefore the value if `y` is 5.
 
-The expression `y+b` is using the `+` operator as a **binary operator**, that is, an operator with two parameters.
+The expression `y+b` is using the `+` operator as a **binary operator**, that is, an operator with two parameters (one on the left, one on the right).
 
 > Consider the `+` operator to have two operands (left and right), which are summed to form a temporary result
  
@@ -332,7 +331,7 @@ To explain this, an example is given:
 
 ## Using `sizeof`
 
-There are more integer data types in the C and C++ languages. The list is as follows:
+There are more *integer* data types in the C and C++ languages. The list is as follows:
 
 | Signed Type | Unsigned type |
 | - | - |
@@ -346,7 +345,7 @@ Now here is the bad news:
 
 > Apart from char, the size of the data types are not standardized. It varies with each compiler.
 
-The good news is that you can find out using the `sizeof` function. 
+The good news is that you can find out using the `sizeof` function.
 
 | TASK | 113-sizeof |
 | - | - |
@@ -363,8 +362,9 @@ The good news is that you can find out using the `sizeof` function.
 > You could add the prefix `unsigned` to all the integer variables. It would not change the size. All it would do is impact on the way certain arithmetic is performed. 
 
 ## Floating Point Arithmetic
+One of the great strengths of computers is to perform highly intensive and fast mathematical operations. Applications include AI, data science, games, graphics programming and data encryption (just to name a few).
 
-If you want to perform mathematics with fractional numbers (that have decimal points), then you will probably want to use the `float` and `double` data types.
+Most mathematics is not integer based, but requires the use of fractional numbers. If you want to perform mathematics with fractional numbers (that have decimal points), then you will probably want to use the `float` and `double` data types.
 
 | EXPERIMENT | 115-floatingpoint |
 | - | - |
@@ -403,11 +403,11 @@ If you write this:
     printf("x = %f\n", x);
 ```
 
-you will get the result `nan`. This stands for "not a number".
+you will get the result `nan`. This stands for "not a number". There is no single definition for the result of 0.0/0.0. Another long story which I will refrain from telling :)
 
 > Mathematical Curiosity
 >
-> Did you know that infinity is indeed non a number? It is actually a *limit* (a mathematical concept). The rules for limits are not the same for numbers.
+> Did you know that infinity is indeed not a number? It is actually a *limit* (a mathematical concept). The rules for limits are not the same for numbers.
 >
 > If you have not done a level-3 mathematics course, then it is unlikely you would have been taught this. Don't worry, I don't plan to mention it again, but you might see this in your code
 
