@@ -430,7 +430,6 @@ int main()
 }
 ```
 
-
 The expected output is 	`10101100 00000000 00000000 00000000 00000000 00000000 00000000 00000000` (spaces added for clarity).
 
 | EXPERIMENT | 117-typecasting |
@@ -467,7 +466,7 @@ double y = p / q;
 printf("y = %f\n", y);
 ```
 
-We can correct this by typecasting the integers into doubles before the calculation is performed:
+Note the result is rounded because we used an integer divide. We can correct this by typecasting the integers into doubles before the calculation is performed:
 
 ```C++
 int p = 123;
@@ -475,21 +474,27 @@ int q = 2;
 double y = (double)x / (double)q;
 ```
 
-This ensures that a fractional divide is performed, rather than an integer.
+This ensures that a fractional divide is performed, rather than an integer. Now we see a full precision result.
+
+> You might wonder why we would choose integers over floating point numbers? 
+>
+> There are many answers, some of which include performance, storage and application. Some algorithms are inherently integer based, such as those used in compression and encryption. Your input and output data might be integer. Pixels in an image are an example of this. If you want to transform an image (e.g. blur, or colour enhance), you might use a mixture of integer and floating point arithmetic.
 
 ## The `&` operator
 
-Variables do two things:
+Variables do the following:
 
-* Reserve space in memory
-* Provide us with a name so we can make reference to the data stored in memory
+* Reserve space in memory at a chosen *location*
+* Store *values* in that memory location
+* Provide us with a meaningful name so we can make reference to it
 
 We need to make the distinction between two key concepts:
 
-* **address** - this is the *location* of the data in the computer memory. In C and C++, it is always an integer value. This is sometimes referred to as a **reference** in other languages
+* **address** - this is an integer value, and it represents the *location* of the data in the computer memory. In C and C++, it is always an integer value. 
+   * You sometimes hear the term **reference** in other languages. Hidden within this, there must always be an address, even if it is hidden.
  * **value** - this is the data itself. This is what is stored in the memory at a given address.
 
-Sometimes, we need to known the address of a variable. We can do this using the `&` operator. Watch the following video for an explanation:
+Sometimes, we need to know or provide the address of a variable. We can obtain this using the `&` operator. Watch the following video for an explanation:
 
 | TASK | 119-lookingatmemory |
 | - | - |
@@ -508,10 +513,10 @@ As a final task, let's look at another way to read information into the computer
 | -  | The number 21 |
 | - | The number 2.5 |
 | - | Three spaces followed by the number 100 |
-| - | The following: "123 Hello" |
-| - | The following: "Hello 123" |
+| - | 123 Hello |
+| - | Hello 123 |
 | 3. | Modify the code to read in an additional number and display it on the screen |
-| 4. | Now write some code to calculate the average of the two values entered, then display it on the screen |
+| 4. | Now write some code to calculate the average of the two values entered, then display the result on the screen |
 | | |
 
 Let's look at some of the specifics more closely. The important part of this lab is the following line:
@@ -520,10 +525,20 @@ Let's look at some of the specifics more closely. The important part of this lab
 int found = scanf_s("%d", &x);
 ```
 
-* The first parameter is the *format string*. This tells `scanf_s` what types of information to look for and convert to a numerical value.
-* The second parameter is where to save the result. For this, we give the function the **address**. This allows `scan_s` to overwrite x on our behalf.
+* The first parameter is the *format string*. Similar to `printf`, this tells `scanf_s` what types of information to look for and convert to a numerical value.
+* The second parameter is **where** to save the result. For this, we give the function the **address** of the variable. This allows `scan_s` to overwrite the variable `x`` on our behalf.
 
-This is sometimes called *passing by reference*
+This is sometimes called *passing by reference*.
+
+# Perspective
+If this is your first time programming, do not be surprised if you are struggling. You may notice that it takes you longer than others. This is absolutely fine.
+
+> Learning to program is a long game, and is sometimes compared to learning a spoken language. It *needs* time and a lot of practice. You might even say brain neurons need time to prune and connect, so give your brain time to assimilate, and be kind to yourself if you are struggling.
+
+It is quite normal to struggle. Get what you can from these labs. Getting lots of sleep helps. 
+
+Even by the end of the course, the expectation in a programming job would be that you are still a *junior developer*.
+
 
 # Stretch Tasks
 
