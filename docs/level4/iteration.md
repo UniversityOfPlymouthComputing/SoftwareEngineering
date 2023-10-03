@@ -92,6 +92,8 @@ Finished: i = -1
 | | Another way to think of it is the *condition to not exit* |
 | | A solution is provided |
 | 6. | Now [watch the follow debrief video](https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=6c895b7f-0e5b-4ac3-a35c-b09000e90883) |
+| |
+
 Remember we use the following *conditional operators* to build complex conditions.
 
 | Operator | Meaning | Type |
@@ -125,7 +127,7 @@ Breaking this down:
 
 We can actually take this further and re-write the expression in another form using something known as De-Morgan's Theorem. This allows us to remove the outer `!` operator, and might result in an expression that is more natural (matter of opinion).
 
-Start with the expression:
+Start with the expression we wish to transform:
 
 `!( (userEnteredCharacter == 'q') || (userEnteredCharacter == 'Q') )`
 
@@ -137,7 +139,7 @@ Start with the expression:
 
 `(userEnteredCharacter == 'q') && (userEnteredCharacter == 'Q')`
 
-3. Finally, invert the logic of the parameters:
+3 Finally, invert the logic of the parameters:
 
 `(userEnteredCharacter != 'q') && (userEnteredCharacter != 'Q')`
 
@@ -145,34 +147,49 @@ So the condition to repeat the loop reads as follows:
 
 > "if `userEnteredCharacter` is not a `q` **and** `userEnteredCharacter` is not a `Q`, then repeat"
 
+| Challenge |
+| - |
+| Change the code above to use this AND based logic. Run the code to check it works. |
+| |
+
 For a more formal treatment, see https://en.wikipedia.org/wiki/De_Morgan%27s_laws
 
 ## While loop
 
-| Task | Details |
-| :--- | :--- |
-| 1 | As in previous labs, create a new project called "Looping" or similar, delete the comments and replace the code within the function main() with the following: |
+Similar is the while-loop. This was also covered in the lecture.
+
+| TASK | 205-while-loop |
+| - | - |
+| 1 | Make project 205-while-loop the start up project |  
+| 2 | Build, set a breakpoint and step through the code to see what it does |
+| 3 | <a title="5 times">How many times does the loop repeat?</a> |
+| 4 | <a title="5">What is the final value of `i` when the code exits?</a> |
+| 5 | Change the initial value of the variable `i` to `6` and step through. <a title="The code in the while loop block is never run">What do you notice that is different to the do-while loop?</a> |
+
+Let's now look at it more closely:
 
 ```C++
-int i = 0;
-
-printf("Start while loop\n");
-
-while (i < 5)
+int main()
 {
-    printf("i = %d\n", i);
-    i++;        // same as i = i + 1 but more concise;
+    int i = 0;
+
+    puts("Start while loop");
+
+    while (i < 5)
+    {
+        printf("i = %d\n", i);
+        i++;        // same as i = i + 1 but more concise;
+    }
+
+    printf("Exiting with i=%d\n", i);
 }
 
 ```
 
-| Task | Details |
-| :--- | :--- |
-| 2    |  In the code above the 'condition' that controls wether the code within the block (inside the {} brackets) is (i < 5). The variable i is assigned the value of 0 before the loop and will be incremented by 1 each time the code in the block is run. How many times do you think the loop will run? Run the program and observe the results. Try changing the value of i before the loop and change the 'less than' operator to 'less than or equals' (<=), what difference does this make? In all there are 6 comparison operators you can try.|
+Here are some more conditional operators:
 
-Here is a list:
 | Operator | Name  |
-| :--- | :--- |
+| - | - |
 | ==   |Equal to |
 | !=   | Not equal         |
 | >    | Greater than          |
@@ -180,6 +197,12 @@ Here is a list:
 | >=   | Greater than or equal to |
 | <=   | Less than or equal to         |
 
+| TASK | 205-while-loop (continued) |
+| - | - |
+| 6 | Modify the code to count down from 10 to 0 is steps of 2 |
+| | A solution is provided |
+| 7 | Now [watch this de-brief video](https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=f25e602c-03e5-4b35-b6b4-b09000ef2ebc) |
+| |
 
 
 ## For loop
