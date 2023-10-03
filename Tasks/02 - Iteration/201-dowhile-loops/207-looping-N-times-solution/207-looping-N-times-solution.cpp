@@ -5,7 +5,6 @@ int main()
     //Counter variable
     int i;
 
-
     //For loop (pre-C99 standard)
     for (i = 0; i < 5; i++)
     {
@@ -51,6 +50,8 @@ int main()
         //Perform code tasks
         printf("i=%d\n", i);
     }
+
+    printf("i=%d\n", i);
 
     puts("Done");
 }

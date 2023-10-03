@@ -204,10 +204,18 @@ Here are some more conditional operators:
 | 7 | Now [watch this de-brief video](https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=f25e602c-03e5-4b35-b6b4-b09000ef2ebc) |
 | |
 
-
 ## For loop
 
-The final looping construct is the 'For loop' especially useful when you know how many times you want to loop through a block of code.
+The final looping construct is the 'for loop' especially useful when you know how many times you want to repeat a block of code.
+
+| TASK | 207-looping-N-times | 
+| - | - |
+| 1. | First, [watch this video](https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=20878d15-7172-4c28-a32d-b09000f4935f) |
+| 2. | Now make 207-looping-N-times the start up project |
+| 3. | Build the code, set a break point and step through |
+| 4. | Read the A-E tasks in the comments in the code attempt them all  |
+| - | Solutions are provided |
+| | |
 
 The 'for loop' takes this form:
 
@@ -224,24 +232,143 @@ for (statement1; statement2; statement3)
 | statement2 | Is the condition that must be true for the code block to execute |
 | statement3 | Executes every time *after* the code block is executed |
 
-| Task | Details |
-| :--- | :--- |
-|  5 |  Change the code within main() to the following:
+### C99 Standard Loops
+
+In the previous example, we used an existing variable as a loop index. Since the C99 version of the C language, a much better (and safer) alternative has been introduced.
+
+Pre-C99, we might write a loop as follows:
 
 ```C++
-printf("Start the for loop\n");
+int i;
 
+for (i = 0; i < 5; i++)
+{
+    printf("i = %d\n", i);
+}
+```
+
+Since C99, it is preferred if the variable is declared as part of the loop as follows:
+
+```C++
 for (int i = 0; i < 5; i++)
 {
     printf("i = %d\n", i);
 }
+```
 
-printf("All done looping\n");
+| TASK | 207-looping-N-times (continued) |
+| - | - |
+| 5 | [Watch this video](https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=b8f5d62a-2d92-4266-9218-b09001008d4e) to see how to use C99 loops and why |
+|  6 |  Change all the loops in the code to use this style (as shown in the video) |
+| - | - |
+
+
+## Break and Continue
+
+Sometimes there is a need for finer control over how loops execute, for this we have the statements `break` and `continue`. They can be used in do-while loops, while loops and for loops.
+
+> `break` is used to leave the current loop early. It is said to "break out" of the loop.
+> 
+> `continue` skips the remaining code in the code block, and re-evaluates whether to re-enter the loop
+
+To use this, we also meet the keyword `if` (which will be covered more formally in the next lab) 
+
+> STOP
+> 
+> I AM HERE - DO NOT WORK BEYOND THIS POINT
+> 
+> STOP
+
+
+
+| Task | Details |
+| :--- | :--- |
+|  1 | Replace the code within main() with the following:
+
+```C++
+int main()
+{
+    for (int i = 0; i <= 10; i++)   // potentially loop from 1 to 10  
+    {
+        char c = getchar(); //Read character
+        char _ = getchar(); //Read and discard newline
+        if (c == 'q')          
+        {
+            printf("\tUser stopped the loop early at %d\n", i);
+            break;                  // break out of the for loop
+        }
+        printf("Loop counter = %d\n", i);
+    }
+    puts("Done");
+}
+```
+| Task | Details |
+| :--- | :--- |
+|  12 | Run the program and observe the results, try changing the value of the variable stopHere. The last line of the code is commented out because it causes a compiler error - why? The task now is to be able to tell wether the loop exited because it had finished it's 10 loops or because it hit the break statement. See if you can amend the program such that the printf() statement at the end can tell how the loop exited. Hint - you need access to the loop variable after it has finished counting - variable scope?
+
+| Task | Details |
+| :--- | :--- |
+|  13 | The 'continue' statement allows us to control the loop execution in another way. Replace the code within main() with the following:
+
+```C==
+int missThis = 5;                                   // these variables could be set by another part of your application
+int andMissThis = 7;
+
+for (int i = 1; i <= 10; i++)                       // loop from 1 to 10  
+{
+    if (i == missThis || i == andMissThis)          // check loop counter (i) against the continue variables
+    {                                               // using the 'or' (||) operator. 
+    
+        printf("\tLoop continue statement\n");
+        continue;                                   // continue to the next iteration 
+    }
+    printf("Loop counter = %d\n", i);
+}
+// program execution from here when loop exits
+```
+| Task | Details |
+| :--- | :--- |
+|  14 | Run the program and observe the results, note that for the loop counter values 5 and 7 the printf() doesn't execute because the continue statement causes the loop to skip straight to the next iteration. The loop still does all 10 loops. Try changing the values of the two variables. Note the use of the 'logical or' operator in the if() statement.
+
+
+
+
+## Nested loops
+
+It is possible to put loop inside another - this is known as nested loops.
+
+| Task | Details |
+| :--- | :--- |
+|  9 | Here is a simple example of nested loops. Change the code within main() to the following:
+
+```C++
+// Outer loop 
+for (int i = 1; i <= 2; i++)        // Outer loop executes twice
+{
+    printf("Outer loop number %d\n", i);
+
+    // Inner loop
+    for (int j = 1; j <= 5; j++)    // Inner loop executes 5 times for each outer loop run so 10 time in total
+    {
+        printf("\tInner loop number %d\n", j);  // note the use of the tab (\t) option at the start to improve the layout
+    }
+}
 ```
 
 | Task | Details |
 | :--- | :--- |
-|  6 |  Run the program and observe the output hopefully it will be the same as for the original while loop. That is because the conditions are the same. The variable i is set to 0 at the start, the condition for looping is that i is less than 5 and every time through the loop i is incremented by 1. The advantage of the for loop is that all the details of how the loop is setup and controlled are in the same place and easy to understand. Again try changing the way the loop runs as you did for the while loop. The for loop is a very common construct and it is important that you understand how it works.
+|  10 | Run the code and observe the results, try changing the vaulues for the loop variable. Note we have set the initial values of i and j to 1, you can set them to whatever suits your application. Note also the use of the tab (\t) construct in the printf() function. This is the same as pressing the tab key.
+|  11 | This task is to use nested loops to output the classic 'times table'
+from early school days, the output should look like this:
+
+
+![times table](image.png)
+
+
+
+## Introduction to Arrays
+
+There are many reasons why we use for-loops
 
 | Task | Details |
 | :--- | :--- |
@@ -284,88 +411,3 @@ for (int i = 0; i <= 9; i++)        // There are 10 values in the array in posit
 | Task | Details |
 | :--- | :--- |
 |  8 | There is a bit more going on in this example but this time we have added comments in the code to explain help understanding. Comments are a good way to explain to others what the code does and equally when you come back to your code at a later date they will help you as well. Run the code and observe the results. The important lesson here is the way each element of the array is accessed using it's place. For example the first letter in the array name[] is accessed by the construct name[0]. We use a short 'if'  statement to determine when the for loops get to the end.
-
-## Nested loops
-
-It is possible to put loop inside another - this is known as nested loops.
-
-| Task | Details |
-| :--- | :--- |
-|  9 | Here is a simple example of nested loops. Change the code within main() to the following:
-
-```C++
-// Outer loop 
-for (int i = 1; i <= 2; i++)        // Outer loop executes twice
-{
-    printf("Outer loop number %d\n", i);
-
-    // Inner loop
-    for (int j = 1; j <= 5; j++)    // Inner loop executes 5 times for each outer loop run so 10 time in total
-    {
-        printf("\tInner loop number %d\n", j);  // note the use of the tab (\t) option at the start to improve the layout
-    }
-}
-```
-
-| Task | Details |
-| :--- | :--- |
-|  10 | Run the code and observe the results, try changing the vaulues for the loop variable. Note we have set the initial values of i and j to 1, you can set them to whatever suits your application. Note also the use of the tab (\t) construct in the printf() function. This is the same as pressing the tab key.
-|  11 | This task is to use nested loops to output the classic 'times table'
-from early school days, the output should look like this:
-
-
-![times table](image.png)
-
-
-## Break and Continue
-
-Sometimes there is a need for finer control over how loops execute, for this we have the statements 'break' and 'continue'. They can be used in 'for loops' and 'while loops'.
-
-| Task | Details |
-| :--- | :--- |
-|  11 | Replace the code within main() with the following:
-
-```C++
-int stopHere = 5;               // this variable could be set by another part of your application
-
-for (int i = 1; i <= 10; i++)   // potentially loop from 1 to 10  
-{
-    if (i == stopHere)          // check loop counter (i) against the stop variable
-    {
-        printf("\tLoop stopped at %d\n", stopHere);
-        break;                  // break out of the for loop
-    }
-    printf("Loop counter = %d\n", i);
-    // printf("Loop ended loop counter = %d\n", i);
-}
-// program execution from here when loop exits
-```
-| Task | Details |
-| :--- | :--- |
-|  12 | Run the program and observe the results, try changing the value of the variable stopHere. The last line of the code is commented out because it causes a compiler error - why? The task now is to be able to tell wether the loop exited because it had finished it's 10 loops or because it hit the break statement. See if you can amend the program such that the printf() statement at the end can tell how the loop exited. Hint - you need access to the loop variable after it has finished counting - variable scope?
-
-| Task | Details |
-| :--- | :--- |
-|  13 | The 'continue' statement allows us to control the loop execution in another way. Replace the code within main() with the following:
-
-```C==
-int missThis = 5;                                   // these variables could be set by another part of your application
-int andMissThis = 7;
-
-for (int i = 1; i <= 10; i++)                       // loop from 1 to 10  
-{
-    if (i == missThis || i == andMissThis)          // check loop counter (i) against the continue variables
-    {                                               // using the 'or' (||) operator. 
-    
-        printf("\tLoop continue statement\n");
-        continue;                                   // continue to the next iteration 
-    }
-    printf("Loop counter = %d\n", i);
-}
-// program execution from here when loop exits
-```
-| Task | Details |
-| :--- | :--- |
-|  14 | Run the program and observe the results, note that for the loop counter values 5 and 7 the printf() doesn't execute because the continue statement causes the loop to skip straight to the next iteration. The loop still does all 10 loops. Try changing the values of the two variables. Note the use of the 'logical or' operator in the if() statement.
-
-
