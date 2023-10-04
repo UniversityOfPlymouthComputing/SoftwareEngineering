@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="209-break-continue.cpp">
+    <ClCompile Include="209-break-continue-solution.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
