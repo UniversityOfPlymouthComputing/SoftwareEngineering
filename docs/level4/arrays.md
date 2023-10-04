@@ -1,4 +1,54 @@
-# Arrays
+# Arrays, String and Pointers
+
+IN PREPARATION
+
+## Introduction to Arrays
+
+START HERE
+
+| Task | Details |
+| :--- | :--- |
+|  7 | Now lets revisit the arrays from a previous lab and use the for loop to look at the individual elements. Change the code within main() to the following:
+
+```C++
+char name[6] = "Monty";                                     // an arrays of 5 chars that becomes a string
+int nums[10] = { 0, 11, 22, 33, 44, 55, 66, 77, 88, 99 };   // an array of 10 integers
+
+// The sizeof() function returns the number of bytes taken up by the array, to calculate the 
+// number of elements divide by the sizeof one element.
+printf("The number of elements in name and nums are %zd and %zd\n", sizeof(name)/sizeof(name[0]), sizeof(nums) / sizeof(nums[0]));
+
+printf("The letters in the string are\n");  // Remember it's a string so 5 chars plus the null
+for (int i = 0; i <= 4; i++)                // The positions of the chars is 0 to 4 (5 in total)
+{
+    printf("%c - ", name[i]);       //select each character in turn from the array name[]
+    if (i == 4)                     // after the last one print a new line
+    {
+        printf("\n");
+    }
+}
+
+int sum = 0;                        // summation of all the array elements
+float average = 0.0;                // Average of all the array elements
+
+printf("The numbers in the array are\n");
+for (int i = 0; i <= 9; i++)        // There are 10 values in the array in positions 0 to 9
+{
+    printf("%d - ", nums[i]);       //select each value in turn from the array nums[]
+    sum += nums[i];                 // same as sum = sum + nums[i] but more concise    
+    if (i == 9)                     // after the last one print a new line or two
+    {
+        printf("\nSum = %d Average = %f\n", sum, sum/10.0);     // calculate the average and print
+    }
+}
+
+```
+
+| Task | Details |
+| :--- | :--- |
+|  8 | There is a bit more going on in this example but this time we have added comments in the code to explain help understanding. Comments are a good way to explain to others what the code does and equally when you come back to your code at a later date they will help you as well. Run the code and observe the results. The important lesson here is the way each element of the array is accessed using it's place. For example the first letter in the array name[] is accessed by the construct name[0]. We use a short 'if'  statement to determine when the for loops get to the end.
+
+# Continued
 
 In a previous lab we used an array (of chars) to allow us to construct a string. Something like this:
 

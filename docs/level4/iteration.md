@@ -273,17 +273,16 @@ Sometimes there is a need for finer control over how loops execute, for this we 
 
 To use this, we also meet the keyword `if` (which will be covered more formally in the next lab) 
 
-> STOP
-> 
-> I AM HERE - DO NOT WORK BEYOND THIS POINT
-> 
-> STOP
-
-
 
 | Task | Details |
 | :--- | :--- |
-|  1 | Replace the code within main() with the following:
+| 1 | [Watch this video on `break` and `continue`](https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=c9d7c970-a925-49b5-9176-b091008ac106) |
+|  2 | Make 209-break-continue the start up project. Build and step through as shown in the video |
+| 3 | Modify the for-loop so that it loops forever until the user enters 'q' or 'Q'|
+| Hint | (i) Modify the condition to enter the loop (`i <= 10`) to always be `true`; (ii) modify the `if` statement |
+| | A solution is provided |
+| |
+
 
 ```C++
 int main()
@@ -302,112 +301,89 @@ int main()
     puts("Done");
 }
 ```
-| Task | Details |
-| :--- | :--- |
-|  12 | Run the program and observe the results, try changing the value of the variable stopHere. The last line of the code is commented out because it causes a compiler error - why? The task now is to be able to tell wether the loop exited because it had finished it's 10 loops or because it hit the break statement. See if you can amend the program such that the printf() statement at the end can tell how the loop exited. Hint - you need access to the loop variable after it has finished counting - variable scope?
-
-| Task | Details |
-| :--- | :--- |
-|  13 | The 'continue' statement allows us to control the loop execution in another way. Replace the code within main() with the following:
-
-```C==
-int missThis = 5;                                   // these variables could be set by another part of your application
-int andMissThis = 7;
-
-for (int i = 1; i <= 10; i++)                       // loop from 1 to 10  
-{
-    if (i == missThis || i == andMissThis)          // check loop counter (i) against the continue variables
-    {                                               // using the 'or' (||) operator. 
-    
-        printf("\tLoop continue statement\n");
-        continue;                                   // continue to the next iteration 
-    }
-    printf("Loop counter = %d\n", i);
-}
-// program execution from here when loop exits
-```
-| Task | Details |
-| :--- | :--- |
-|  14 | Run the program and observe the results, note that for the loop counter values 5 and 7 the printf() doesn't execute because the continue statement causes the loop to skip straight to the next iteration. The loop still does all 10 loops. Try changing the values of the two variables. Note the use of the 'logical or' operator in the if() statement.
-
-
+| Challenge | 
+| :--- |
+|  Amend the program such that the printf() statement at the end informs the user if the loop exited early or not. |
+| A solution is provided. Others solutions may work of course |
+| |
 
 
 ## Nested loops
 
-It is possible to put loop inside another - this is known as nested loops.
+It is possible to perform a loop inside others - this is known as nesting. To explain this, we will look at an example:
 
-| Task | Details |
+| Task | 211-nested-loops |
 | :--- | :--- |
-|  9 | Here is a simple example of nested loops. Change the code within main() to the following:
+| 1 | Make the project 211-nested-loops the startup project |
+| 2 | Set a  break point at the start of the code, and use the debugger to see how it works |
+| 3 | Now create your own console application. Copy the source code from 211-nested-loops into your main.cpp | 
+| 4 | In your project, add a further nested loop that increments a loop variable `k` from 1 to 3. Within this loop display values for `i`, `j` and `k` |
+| | The expected output is shown below |
+| | A solution is provided |
 
-```C++
-// Outer loop 
-for (int i = 1; i <= 2; i++)        // Outer loop executes twice
-{
-    printf("Outer loop number %d\n", i);
+Note the use of the tab (`\t`) construct in the `printf()` function. This is the equivalent as pressing the tab key in a text editor, and is used to help layout text data in files and terminals.
 
-    // Inner loop
-    for (int j = 1; j <= 5; j++)    // Inner loop executes 5 times for each outer loop run so 10 time in total
-    {
-        printf("\tInner loop number %d\n", j);  // note the use of the tab (\t) option at the start to improve the layout
-    }
-}
+
+```
+Outer loop number 1
+        Inner loop number 1
+                i,j,k
+                -----
+                1,1,1
+                1,1,2
+                1,1,3
+        Inner loop number 2
+                i,j,k
+                -----
+                1,2,1
+                1,2,2
+                1,2,3
+        Inner loop number 3
+                i,j,k
+                -----
+                1,3,1
+                1,3,2
+                1,3,3
+        Inner loop number 4
+                i,j,k
+                -----
+                1,4,1
+                1,4,2
+
+
 ```
 
+| Challenge |
+| - |
+| Add column headings so that it is clear which value is i,j and k |
+| See the expected output below. A solution is provided |
+
+```
+Outer loop number 1
+        Inner loop number 1
+                i,j,k
+                -----
+                1,1,1
+                1,1,2
+                1,1,3
+        Inner loop number 2
+                i,j,k
+                -----
+                1,2,1
+                1,2,2
+                1,2,3
+etc...
+```
+
+
 | Task | Details |
 | :--- | :--- |
-|  10 | Run the code and observe the results, try changing the vaulues for the loop variable. Note we have set the initial values of i and j to 1, you can set them to whatever suits your application. Note also the use of the tab (\t) construct in the printf() function. This is the same as pressing the tab key.
-|  11 | This task is to use nested loops to output the classic 'times table'
-from early school days, the output should look like this:
-
+|  4 | Modify the original task 211-nested-loops to output the classic 'times table' from early school days, the first two iterations of the output should look like this: |
+| | See the solution 211-timestables if stuck |
 
 ![times table](image.png)
 
 
+---
 
-## Introduction to Arrays
-
-There are many reasons why we use for-loops
-
-| Task | Details |
-| :--- | :--- |
-|  7 | Now lets revisit the arrays from a previous lab and use the for loop to look at the individual elements. Change the code within main() to the following:
-
-```C++
-char name[6] = "Monty";                                     // an arrays of 5 chars that becomes a string
-int nums[10] = { 0, 11, 22, 33, 44, 55, 66, 77, 88, 99 };   // an array of 10 integers
-
-// The sizeof() function returns the number of bytes taken up by the array, to calculate the 
-// number of elements divide by the sizeof one element.
-printf("The number of elements in name and nums are %zd and %zd\n", sizeof(name)/sizeof(name[0]), sizeof(nums) / sizeof(nums[0]));
-
-printf("The letters in the string are\n");  // Remember it's a string so 5 chars plus the null
-for (int i = 0; i <= 4; i++)                // The positions of the chars is 0 to 4 (5 in total)
-{
-    printf("%c - ", name[i]);       //select each character in turn from the array name[]
-    if (i == 4)                     // after the last one print a new line
-    {
-        printf("\n");
-    }
-}
-
-int sum = 0;                        // summation of all the array elements
-float average = 0.0;                // Average of all the array elements
-
-printf("The numbers in the array are\n");
-for (int i = 0; i <= 9; i++)        // There are 10 values in the array in positions 0 to 9
-{
-    printf("%d - ", nums[i]);       //select each value in turn from the array nums[]
-    sum += nums[i];                 // same as sum = sum + nums[i] but more concise    
-    if (i == 9)                     // after the last one print a new line or two
-    {
-        printf("\nSum = %d Average = %f\n", sum, sum/10.0);     // calculate the average and print
-    }
-}
-
-```
-
-| Task | Details |
-| :--- | :--- |
-|  8 | There is a bit more going on in this example but this time we have added comments in the code to explain help understanding. Comments are a good way to explain to others what the code does and equally when you come back to your code at a later date they will help you as well. Run the code and observe the results. The important lesson here is the way each element of the array is accessed using it's place. For example the first letter in the array name[] is accessed by the construct name[0]. We use a short 'if'  statement to determine when the for loops get to the end.
+[Back to contents](./README.md)
