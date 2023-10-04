@@ -1,5 +1,17 @@
 # Variables and Arithmetic
 
+**Note**
+
+Remember that when using these notes and example projects, you should be working with your own **fork** of this repository. [See this video if you are unsure how to do this](https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=7a58f201-2fc2-4aa5-8b77-b09100a29b9b)
+
+Each week, you should check for *upstream* changes made my the module tutor.
+
+* To update your personal fork, you should regularly check for **upstream** changes made by the module team. [Watch this video to see how](https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=98ab1b17-f86b-4a99-be7d-b091009e0d3e)
+
+* Whether in the lab or working from home, remember to commit and push your changes back to GitHub at the end of each work session.
+
+## Introduction
+
 This session, the objective as follows:
 
 * Store data in local and global variables
@@ -8,7 +20,7 @@ This session, the objective as follows:
 * Use the debugger to inspect and change variable values
 * Perform basic arithmetic
 
-# Perspective
+## Perspective
 If this is your first time programming, do not be surprised if you struggle with some of the content in this lab. You may notice that it takes you longer than others. This is absolutely fine.
 
 > Learning to program is a long game, and is sometimes compared to learning a spoken language. It *needs* time and a lot of practice. You might even say brain neurons need time to prune and connect, so give your brain time to assimilate, and be kind to yourself if you are struggling.

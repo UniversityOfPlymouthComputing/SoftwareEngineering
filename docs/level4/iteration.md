@@ -2,11 +2,13 @@
 
 **Note**
 
-Remember that when using these notes and example projects, you should be working with your own **fork** of this repository.
+Remember that when using these notes and example projects, you should be working with your own **fork** of this repository. [See this video if you are unsure how to do this](https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=7a58f201-2fc2-4aa5-8b77-b09100a29b9b)
 
 Each week, you should check for *upstream* changes made my the module tutor.
 
-* To update your personal fork, you should regularly check for upstream changes. [Watch this video to see how](https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=98ab1b17-f86b-4a99-be7d-b091009e0d3e)
+* To update your personal fork, you should regularly check for **upstream** changes made by the module team. [Watch this video to see how](https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=98ab1b17-f86b-4a99-be7d-b091009e0d3e)
+
+* Whether in the lab or working from home, remember to commit and push your changes back to GitHub at the end of each work session.
 
 ## Introduction
 
@@ -25,6 +27,15 @@ There are many uses for iteration and it is something that is common to almost e
 > Iteration in the C and C++ languages are easily compiled and optimised into efficient machine code, which is partly what makes them so efficient. Iteration is often a lot slower in interpreted languages such as Python and functional languages such as Haskell.
 
 The good news is that the language syntax (programming language grammar) is almost identical in C, C++, Java and C# (to name just some examples). Many languages have syntax that derives from C. They all tend to borrow ideas from each other.
+
+This session, the objective as follows:
+
+* Use a do-while loop to repeat a block of code until a specific condition is met
+* Use a while loop to repeat a block of code until a specific condition is met
+* Compare and contrast the do-while and while loops
+* Use a for-loop to repeat a block of code a specific number of times
+* Use the `if`, `continue` and `break` statements to change the flow of the code
+* Create nested loops and illustrate the visibility of loop variables
 
 ## Do-While loop
 
@@ -326,8 +337,11 @@ It is possible to perform a loop inside others - this is known as nesting. To ex
 | :--- | :--- |
 | 1 | Make the project 211-nested-loops the startup project |
 | 2 | Set a  break point at the start of the code, and use the debugger to see how it works |
-| 3 | Now create your own console application. Copy the source code from 211-nested-loops into your main.cpp | 
-| 4 | In your project, add a further nested loop that increments a loop variable `k` from 1 to 3. Within this loop display values for `i`, `j` and `k` |
+| 3 | Stop on line 13 (`printf("\tInner loop number %d\n", j)`). Now hover your mouse over the variable `i` to preview its value. Do the name for `j`. Note that both as *visible*. |
+| 4 | Now stop on line 8 (`printf("Outer loop number %d\n", i)`). Do the same. |
+| Question | <a title="j only exists inside the for loop in which it is declared. We say it is not in scope.">Why can you not observe the variable `j`?</a> | 
+| 5 | Now create your own console application. Copy the source code from 211-nested-loops into your main.cpp | 
+| 6 | In your project, add a further nested loop that increments a loop variable `k` from 1 to 3. Within this loop display values for `i`, `j` and `k` |
 | | The expected output is shown below |
 | | A solution is provided |
 
@@ -388,11 +402,86 @@ etc...
 
 | Task | Details |
 | :--- | :--- |
-|  4 | Modify the original task 211-nested-loops to output the classic 'times table' from early school days, the first two iterations of the output should look like this: |
+|  7 | Modify the original task 211-nested-loops to output the classic 'times table' from early school days, the first two iterations of the output should look like this: |
 | | See the solution 211-timestables if stuck |
 
 ![times table](image.png)
 
+## Note about visibility and scope 
+
+In the previous exercise, we observed how the inner loop variable `j` was only visible within the loop itself. This is a generally a good thing. However, what if you did need access to the *last known* value of `j`?
+
+You might be tempted to create a variable `j` as follows:
+
+```C++
+int j;
+for (int i = 1; i <= 2; i++) // Outer loop 
+{
+    printf("Outer loop number %d\n", i);
+    printf("Last known value of inner loop %d\n", j); //VERY BAD
+
+    // Inner loop uses variable j - BAD BAD BAD BAD BAD BAD
+    for (j = 1; j <= 5; j++)  
+    {
+        printf("\tInner loop number %d\n", j);  
+    }
+}
+```
+
+There is at least one error in this code!
+
+* The line `printf("Last known value of inner loop %d\n", j)` has referenced `j` **before it was initialised**. It will contain a random value on the first pass
+* The value of a loop variable is not guaranteed once the loop has exit. So it is possible that even on subsequent iterations, `j` will not contain the value you expect! Changes to the compiler settings might impact this
+
+> **Interesting Note**
+>
+> Furthermore, using a variable in this way might negatively impact on performance. If the compiler knows `j` is only visible within the inner loop, it might be able to further enhance the machine code to produce faster and more efficient code. This is process known as **optimisation**. Using a variable with wider scope, and making reference to it in this way, will add constraints to the compiler optimisation process, with the likely impact of lower performance.
+
+If you really need access to the last known value of j, you might consider adding an additional variable as follows:
+
+```C++
+int innerCount = 1;          // Initialise with the first known value      
+for (int i = 1; i <= 2; i++) // Outer loop 
+{
+    printf("Outer loop number %d\n", i);
+    printf("Last known value of inner loop %d\n", innerCount); //Better
+
+    // Inner loop declared private variable j 
+    for (int j = 1; j <= 5; j++)  
+    {
+        printf("\tInner loop number %d\n", j);  
+        innerCount++;
+    }
+}
+```
+
+> Advanced Point
+>
+> I still have concerns with this code. Let's say I wanted to start `j` at 2. I will then have to remember to initialise `innerCount` with 2 as well.
+>
+> The approach here is to store this information in ONE PLACE. 
+
+```C++
+//Probably in a header file or the top of the file
+#define FIRST_VALUE_OF_J 1
+
+...
+    int innerCount = FIRST_VALUE_OF_J;   // Initialise with the first known value      
+    for (int i = 1; i <= 2; i++) // Outer loop 
+    {
+        printf("Outer loop number %d\n", i);
+        printf("Last known value of inner loop %d\n", innerCount); //Better
+
+        // Inner loop declared private variable j 
+        for (int j = FIRST_VALUE_OF_J; j <= 5; j++)  
+        {
+            printf("\tInner loop number %d\n", j);  
+            innerCount++;
+        }
+    }
+```
+
+If you are new to programming, don't worry if the last few points were confusing. Learning to program safely and robustly is a long process. It is why senior developers in industry might be assigned the role to supervise junior developers, and provide feedback on their coding style.
 
 ---
 
