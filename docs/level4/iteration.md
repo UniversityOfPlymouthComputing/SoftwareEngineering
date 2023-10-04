@@ -1,5 +1,15 @@
 # Iteration - looping
 
+**Note**
+
+Remember that when using these notes and example projects, you should be working with your own **fork** of this repository.
+
+Each week, you should check for *upstream* changes made my the module tutor.
+
+* To update your personal fork, you should regularly check for upstream changes. [Watch this video to see how](https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=98ab1b17-f86b-4a99-be7d-b091009e0d3e)
+
+## Introduction
+
 Something a computer is very suited to it repetition. A number of terms are used for this, including:
 
 * Looping
