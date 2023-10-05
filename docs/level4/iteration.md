@@ -176,6 +176,8 @@ So the condition to repeat the loop now reads as follows:
 
 For a more formal treatment, see https://en.wikipedia.org/wiki/De_Morgan%27s_laws
 
+We observe that with the `do while` loop, the code block (between the braces `{}`) always runs **at least once**. The sibling of this is the `while loop`, where this is not the case. We will examine this now.
+
 ## While loop
 
 Similar is the while-loop. This was also covered in the lecture.
@@ -205,10 +207,22 @@ int main()
 
     printf("Exiting with i=%d\n", i);
 }
-
 ```
 
-Here are some more conditional operators:
+We observe that the conditional test is perform in advance of the code block:
+
+```C++
+    while (i < 5)
+    {
+```
+
+as opposed to the end:
+
+```C++
+    } while (i < 5);
+```
+
+We used the less than (binary) conditional operator in this example, but there are others. Here are some more conditional operators:
 
 | Operator | Name  |
 | - | - |
@@ -228,7 +242,7 @@ Here are some more conditional operators:
 
 ## For loop
 
-The final looping construct is the 'for loop' especially useful when you know how many times you want to repeat a block of code.
+The final looping construct is the 'for loop', which is a compact and (marginally) safer form of the while loop. It is especially useful when you want to repeat a block of code a number of times.
 
 | TASK | 207-looping-N-times | 
 | - | - |
@@ -278,22 +292,23 @@ for (int i = 0; i < 5; i++)
 }
 ```
 
+> It might be of interest that the C and C++ languages are constantly being updated, while maintaining backward compatibility where possible.
+
 | TASK | 207-looping-N-times (continued) |
 | - | - |
 | 5 | [Watch this video](https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=b8f5d62a-2d92-4266-9218-b09001008d4e) to see how to use C99 loops and why |
 |  6 |  Change all the loops in the code to use this style (as shown in the video) |
-| - | - |
-
+|  |
 
 ## Break and Continue
 
 Sometimes there is a need for finer control over how loops execute, for this we have the statements `break` and `continue`. They can be used in do-while loops, while loops and for loops.
 
-> `break` is used to leave the current loop early. It is said to "break out" of the loop.
+> `break` is used to exit the current loop early. It is said to "break out" of the loop.
 > 
-> `continue` skips the remaining code in the code block, and re-evaluates whether to re-enter the loop
+> `continue` skips the remaining code in the code block, and re-evaluates whether to re-enter the loop.
 
-To use this, we also meet the keyword `if` (which will be covered more formally in the next lab) 
+To use this, we also meet the keyword `if` (which will be covered more formally in the next lab).
 
 
 | Task | Details |
@@ -302,9 +317,22 @@ To use this, we also meet the keyword `if` (which will be covered more formally 
 |  2 | Make 209-break-continue the start up project. Build and step through as shown in the video |
 | 3 | Modify the for-loop so that it loops forever until the user enters 'q' or 'Q'|
 | Hint | (i) Modify the condition to enter the loop (`i <= 10`) to always be `true`; (ii) modify the `if` statement |
-| | A solution is provided |
+| | A solution is provided. Note there are many possible variants of this solution |
 | |
 
+> **Key Point**
+>
+> In many languages, including C and C++, whitespace or tab character have little or no meaning.
+>
+> However, correct indentation is often considered good practice. Some organisations will insist on it.
+>
+> One simple rule is as follows:
+>
+> * Each `{` or `}` should be on a separate line
+>    * When you use `{`, the following lines should be indented
+>    * When you use the matching `}`, you should move back one level of indentation. 
+
+The example code here uses three levels of indentation. This provides important visual clues when following the flow of the code.
 
 ```C++
 int main()
@@ -322,17 +350,17 @@ int main()
     }
     puts("Done");
 }
+
 ```
 | Challenge | 
 | :--- |
-|  Amend the program such that the printf() statement at the end informs the user if the loop exited early or not. |
+|  Amend the program such that the `printf()` statement at the end informs the user if the loop exited early or not. |
 | A solution is provided. Others solutions may work of course |
 | |
 
-
 ## Nested loops
 
-It is possible to perform a loop inside others - this is known as nesting. To explain this, we will look at an example:
+It is possible to perform a loop inside others - this is known as **nesting**. To explain this, we will look at an example:
 
 | Task | 211-nested-loops |
 | :--- | :--- |
@@ -352,30 +380,21 @@ Note the use of the tab (`\t`) construct in the `printf()` function. This is the
 ```
 Outer loop number 1
         Inner loop number 1
-                i,j,k
-                -----
                 1,1,1
                 1,1,2
                 1,1,3
         Inner loop number 2
-                i,j,k
-                -----
                 1,2,1
                 1,2,2
                 1,2,3
         Inner loop number 3
-                i,j,k
-                -----
                 1,3,1
                 1,3,2
                 1,3,3
         Inner loop number 4
-                i,j,k
-                -----
                 1,4,1
                 1,4,2
-
-
+etc..
 ```
 
 | Challenge |
@@ -399,7 +418,6 @@ Outer loop number 1
                 1,2,3
 etc...
 ```
-
 
 | Task | Details |
 | :--- | :--- |
@@ -434,6 +452,8 @@ There is at least one error in this code!
 * The line `printf("Last known value of inner loop %d\n", j)` has referenced `j` **before it was initialised**. It will contain a random value on the first pass
 * The value of a loop variable is not guaranteed once the loop has exit. So it is possible that even on subsequent iterations, `j` will not contain the value you expect! Changes to the compiler settings might impact this
 
+Again we see how indentation helps use understand the scope of variables. Scope works "inside to out" - variables at a lower level of indentation are visible; variables at a deeper level of nesting are not.
+
 > **Interesting Note**
 >
 > Furthermore, using a variable in this way might negatively impact on performance. If the compiler knows `j` is only visible within the inner loop, it might be able to further enhance the machine code to produce faster and more efficient code. This is process known as **optimisation**. Using a variable with wider scope, and making reference to it in this way, will add constraints to the compiler optimisation process, with the likely impact of lower performance.
@@ -456,7 +476,7 @@ for (int i = 1; i <= 2; i++) // Outer loop
 }
 ```
 
-> Advanced Point
+> **Advanced Point**
 >
 > I still have concerns with this code. Let's say I wanted to start `j` at 2. I will then have to remember to initialise `innerCount` with 2 as well.
 >
