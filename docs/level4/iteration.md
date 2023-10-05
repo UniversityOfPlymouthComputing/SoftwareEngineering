@@ -16,7 +16,7 @@ Something a computer is very suited to it repetition. A number of terms are used
 
 * Looping
 * Iteration
-* Recursing
+* Recursion
 
 There are many uses for iteration and it is something that is common to almost every computer language.
 
@@ -28,13 +28,13 @@ There are many uses for iteration and it is something that is common to almost e
 
 The good news is that the language syntax (programming language grammar) is almost identical in C, C++, Java and C# (to name just some examples). Many languages have syntax that derives from C. They all tend to borrow ideas from each other.
 
-This session, the objective as follows:
+For this session, the objectives are as follows:
 
 * Use a do-while loop to repeat a block of code until a specific condition is met
 * Use a while loop to repeat a block of code until a specific condition is met
 * Compare and contrast the do-while and while loops
 * Use a for-loop to repeat a block of code a specific number of times
-* Use the `if`, `continue` and `break` statements to change the flow of the code
+* Use the `if`, `continue` and `break` statements to change the flow of iterating code
 * Create nested loops and illustrate the visibility of loop variables
 
 ## Do-While loop
@@ -84,10 +84,7 @@ int main()
 | Challenge |
 | - |
 | Modify the code to count from 5 down to zero |
-| A solution is provided |
-| |
-
-The output should appear as follows:
+| The output should appear as follows: |
 
 ```
 Start while loop
@@ -100,18 +97,20 @@ i = 0
 Finished: i = -1
 ```
 
+A solution is provided.
+
 | TASK | 203-dowhile-getchar |
 | - | - |
 | 1. | Make 203-dowhile-getchar the start up project. Build and run. |
 | - | In the terminal, type a single key and then press the return key. Note the output |
 | 2. | New press the `q` key and press return, and the program should exit |
-| 3. | Uncomment line 17 and repeat |
+| 3. | Uncomment the line that reads `//printf("You also pressed return (ASCII %d)\n", returnKey)` and repeat |
 | - | <a title="Decimal 10">What is the ASCII code for the return key?</a> |
 | 4. | Now [watch the following video](https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=a5816fe7-92a1-4db8-858e-b09000e7486d) to ensure you understand this fully |
 | 5. | Can you modify the code so that the user can press `q` or `Q` to exit? |
 | Hint | A clue is to rephrase the question in terms of the *condition to repeat the code*. Repeat the code when the user input is not a `q` **and** not a `Q`. |
 | | Another way to think of it is the *condition to not exit* |
-| | A solution is provided |
+| | Those new to programming might need some time to solve this. That is to be expected. A solution is also provided |
 | 6. | Now [watch the follow debrief video](https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=6c895b7f-0e5b-4ac3-a35c-b09000e90883) |
 | |
 
@@ -146,27 +145,29 @@ Breaking this down:
 
 ### De-Morgan's Theorem
 
-We can actually take this further and re-write the expression in another form using something known as De-Morgan's Theorem. This allows us to remove the outer `!` operator, and might result in an expression that is more natural (matter of opinion).
+We can actually take this further and re-write the expression in another form using something known as De-Morgan's Theorem. This allows us to remove the outer `!` operator, and might result in an expression that is more natural (matter of opinion and case dependent of course).
 
-Start with the expression we wish to transform:
+Start with the expression we wish to transform. This will be a *binary* operator with two parameters:
 
 `!( (userEnteredCharacter == 'q') || (userEnteredCharacter == 'Q') )`
 
-1 Invert the whole expression by removing the NOT (`!`)
+Now apply to the following **three** steps to transform this to a logically equivalent expression:
+
+1 Invert the whole expression (by adding or removing the NOT operator `!`)
 
 `(userEnteredCharacter == 'q') || (userEnteredCharacter == 'Q')`
 
-2 If the logical operator is an AND, make it an OR. If the operator is an OR, make it an AND.
+2 If the logical operator is an AND, make it an OR. If the operator is an OR, make it an AND. In this case, we transform the OR to AND:
 
 `(userEnteredCharacter == 'q') && (userEnteredCharacter == 'Q')`
 
-3 Finally, invert the logic of the parameters:
+3 Finally, invert the logic of the parameters. In this case, from `==` to `!=`:
 
 `(userEnteredCharacter != 'q') && (userEnteredCharacter != 'Q')`
 
-So the condition to repeat the loop reads as follows:
+So the condition to repeat the loop now reads as follows:
 
-> "if `userEnteredCharacter` is not a `q` **and** `userEnteredCharacter` is not a `Q`, then repeat"
+> "if `userEnteredCharacter` is not a `q` **and** `userEnteredCharacter` is not a `Q`, (then repeat)"
 
 | Challenge |
 | - |
