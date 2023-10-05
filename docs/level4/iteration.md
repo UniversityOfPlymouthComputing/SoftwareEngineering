@@ -504,6 +504,14 @@ for (int i = 1; i <= 2; i++) // Outer loop
 
 If you are new to programming, don't worry if the last few points were confusing. Learning to program safely and robustly is a long process. It is why senior developers in industry might be assigned the role to supervise junior developers, and provide feedback on their coding style.
 
+## Further Reading
+
+You are advised to practise writing loops and look at more examples. A good tutorial can be found on the W3Schools website
+
+https://www.w3schools.com/cpp/default.asp
+
+There are sections on for loops, while loops and conditions.
+
 ---
 
 [Back to contents](./README.md)
