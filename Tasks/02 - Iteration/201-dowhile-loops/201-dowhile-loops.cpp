@@ -10,7 +10,7 @@ int main()
     {
         printf("i = %d\n", i);
         i = i + 1;              // Alternatively, write i++;
-    } while (i < 5);            //Repeat if condition is met
+    } while (i < 6);            //Repeat if condition is met
 
     printf("Finished: i = %d\n", i);
 }

@@ -13,7 +13,7 @@ int main()
         userEnteredCharacter = getchar();   //ASCII character
         returnKey = getchar();              //Return key
         printf("You typed %c\n", userEnteredCharacter);
-        //printf("You also pressed return (ASCII %d)\n", returnKey);    //Uncomment this
+        printf("You also pressed return (ASCII %d)\n", returnKey);    //Uncomment this
 
     } while (userEnteredCharacter != 'q');            //Repeat if condition is met - note the != operator
 

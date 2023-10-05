@@ -6,7 +6,7 @@ int main()
 
     puts("Start while loop");
 
-    while (i < 5)
+    while (i < 6)
     {
         printf("i = %d\n", i);
         i++;        // same as i = i + 1 but more concise;
