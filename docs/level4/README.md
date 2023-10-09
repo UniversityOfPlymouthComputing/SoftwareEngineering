@@ -21,10 +21,10 @@ C++ can be thought of as a super-set of the C language. We will start with C, an
 | - | - | - |
 | 1. | [Introduction](/docs/level4/Introduction.md) | Getting Setup: Using the development tools, including the build tools, version control and debugger; |
 |  | [Variables and arithmetic](/docs/level4/variables_and_arithmetic.md) | Using the development tools to use variables to store and manipulate numerical values  | 
-| 2. | Control Flow  | Conditions and Comparisons using if-else if-else |
+| 2. | [Iteration](/docs/level4/iteration.md) | while loops, do-while loops |
+|  |  | for loops, break and continue  |
+| 3. | Flow Control  | Conditions and Comparisons using if-else if-else |
 |   |   | switch-case |
-| 3. | Iteration | while and do-while loops |
-|  |  | for loops and goto |
 | 4. | Functions | Syntax, factoring code |
 |  |  | Splitting code across modules |
 | | | Variable Scope |
