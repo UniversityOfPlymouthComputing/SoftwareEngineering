@@ -55,25 +55,24 @@ Let's now look at the simple `if` statement.
 | Question | <a title="The while loop does not consider the upper limit. This is a logical error">101 is an erroneous value. Why is it not handled correctly?</a> |
 | 5 | Improve the code so that it keeps asking for user input until the value is in range. |
 | 6 | Add an additional `if` statement so that when a zero is entered, "Tank is empty" is also displayed on the screen |
+| 7 | Now we are going to introduce a **common error** to illustrate a point. Change `if (level == high)` to `if (level = high) ` |
+| - | Note the warning in Visual Studio |
+| - | Run the code and enter a level of zero |
 | |  A solution is provided |
 | |
 
-* The `do-while` loop is performing user-validation
+Key Points:
+
+* The `do-while` loop is performing some basic *user-validation*
+* The keyboard was read with `cin`, which is commonly used in C++ (not part of C)
+* Be careful when checking for equality. Use the `==` operator (and be careful not to use the `=` operator!. Never ignore warnings that apply to the code you write.)
+
+
+## `if-else` statements
+
+In the [previous task](#if-statement), we saw the following lines of code:
 
 ```C++
-    //Some constants 
-    const int high = 100, low = 10;
-    
-    // start filling the tank 
-    int level = 5;
-
-    //Read the keyboad to get the level
-    //Repeat until a valid value has been added
-    do {
-        cout << "Please enter a level (between 0 and 100)" << endl;
-        cin >> level;
-    } while (level < 0);
-
     if (level <= low)                       // check the level
     {
         cout << "Tank needs filling" << endl;
@@ -83,35 +82,112 @@ Let's now look at the simple `if` statement.
     {
         cout << "Tank has sufficient fuel for now" << endl;
     }
-
-    if (level == high)                       // monitor the level
-    {
-        cout << "Tank is full" << endl;
-    }
-
 ```
 
-| Task | Details |
-| :--- | :--- |
-|  2 | Run the program and observe the results, try changing the values and use the other comparison operators until you understand how they all work.
-
-| Task | Details |
-| :--- | :--- |
-|  3 | Now lets explore some other ways to use if and else. Replace the code within main() with the following:
+The two outputs are **mutually exclusive**. Both cannot be true at the same time. We can consolidate this to something simpler by using `if-else` as follows:
 
 ```C++
-int high = 100, level = 25, low = 10;
-
-if (level == high)                          // This is the condition
-{
-    printf("The tank is full\n\n");         // If the condition is true 
-}
-else
-{
-    printf("The tank needs a top up\n\n");  // If the condition is false
-}
-
+    if (level <= low)                       // check the level
+    {
+        cout << "Tank needs filling" << endl;
+    }
+    else
+    {
+        cout << "Tank has sufficient fuel for now" << endl;
+    }
 ```
+
+Therefore, by logical inference, the second output string will be displayed if `level > low`.
+
+| Task | 303-if-else |
+| :--- | :--- |
+|  1 | Make 303-if-else the start up project |
+| 2 | Add an else clause to every if statement in order to perform the following |
+| - | A solution is provided |
+
+* When the tank is not empty, it should additionally display "The tank is not empty"
+* When the tank is not full, it should additionally display "The tank is not full"
+
+> **A note about layout**
+>
+> In the solution, two layout styles were used for the `if-else` statement. Both are acceptable.
+>
+> It is important to remember that you need to be able to clearly identify which code block belongs to which conditional statement. Although indentation is entirely aesthetic, it can be useful for this purpose. 
+
+The compact for is as follows:
+
+```C++
+    if (level == high) {
+        cout << "Tank is full" << endl;
+    } else {
+        cout << "Tank is not full" << endl;
+    }
+```
+
+It is still easy to establish which code runs under the two different conditions, so as this takes less space on screen, this is actually considered favorably by some. 
+
+## Nested `if-else`
+
+You are not limited to just one level of conditional statement. Conditions can be nested.
+
+> Great care needs to be exercised with this as the code can quickly become hard to write and debug
+
+| Task | 305-nested-if-statements |
+| - | - |
+| 1. | Make 305-nested-if-statements the start up project |
+| 2. | Run the code and try the values 0, 9, 11 and 100 |
+| 3. | Step through the code to see how the nested if-statement is used to make the low-fuel condition more informative |
+|  | Also note how the *end of line* constant `endl` is used to append sentences |
+| 4. | Now add an additional `if` within  the `else` block (where `level>low`), indicating to the user if there is an option to top up the fuel (but only if the tank is not full) |
+| - | A solution is provided |
+
+## Mutually exclusive conditions using `if-else if-else`
+
+I the previous examples, we used an `if-else` to separate the code into two mutually exclusive paths.
+
+```C++
+if (condition1) {
+  //Code path A
+} else {
+  //Code path B
+}
+```
+
+> We say this partitions the decision space into two regions with a hard threshold.
+>
+> There are other AI based techniques that try to model "softer decision making", such as "Fuzzy Logic", but this is far beyond the scope of this module. 
+
+We can use nesting to further partition the decision paths:
+
+```C++
+if (condition) {
+  //Code path A
+  if (conditionA) {
+    //Code path A1
+  } else {
+    //Code path A2
+  }
+} else {
+  //Code path B
+  if (conditionB) {
+    //Code path B1
+  } else {
+    //Code path B2
+  }
+}
+```
+
+In this illustration above, we now have four mutually exclusive paths through the code {A1,A2,B1,B2}.
+
+<figure>
+<img src="./img/nested-if-else.jpg" width="500px">
+<figcaption>Showing 4 mutually exclusive paths through the code</figcaption>
+</figure>
+
+This is fine, but can soon become unwieldy. The indentation alone can begin to build what looks like a pyramid of code!
+
+
+
 
 | Task | Details |
 | :--- | :--- |
