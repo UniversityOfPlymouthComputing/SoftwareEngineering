@@ -1,20 +1,61 @@
-// 309-switch-case-solution.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
 
-int main()
-{
-    std::cout << "Hello World!\n";
+using namespace std;
+
+// Some "mocking" functions to help us test our logic
+void redirect(int number) {
+    cout << "Phone redirects to " << number << endl;
+}
+void hangup() {
+    cout << "Bye" << endl;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+// Main code
+int main()
+{
+    // start filling the tank 
+    int selection = 0;
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+    // Read the keyboad to get the option
+    // Repeat until a valid value has been added
+    do {
+        cout << "Please enter one of the following options:" << endl;
+        cout << "0 - Opening Hours" << endl;
+        cout << "1 - Help with online shopping" << endl;
+        cout << "2 - In-store enquirey" << endl;
+        cout << "3 - Customer Service Desk" << endl;
+        cout << "4 - All other options" << endl;
+        cin >> selection;
+    } while ((selection < 0) || (selection > 4)); // Repeat until a valid number is entered
+
+    // Mutuallly Exclusive Decision Pathway
+    switch (selection)
+    {
+    case 0:
+
+    }
+
+    if (selection == 0)
+    {
+        cout << "9 to 5, Monday to Saturday. 10 to 4 on Sundays and Bank Holidays" << endl;
+    }
+    else if (selection == 1)
+    {
+        cout << "Redirecting you now" << endl;
+        redirect(100);
+    }
+    else if (selection == 2)
+    {
+        cout << "Sorry - you will need to come to the store for that." << endl;
+        hangup();
+    }
+    else if ((selection == 3) || (selection == 4)) {
+        cout << "Redirecting you now" << endl;
+        redirect(220);
+    }
+    else
+    {
+        // Defensive coding! Catch the unexpected - in theory, this code cannot be reached
+        cerr << "Error - invalided variable" << endl;
+    }
+}
