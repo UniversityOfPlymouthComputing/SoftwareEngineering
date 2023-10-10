@@ -1,10 +1,8 @@
 # Flow Control
 
-We need a way to control the 'flow of execution' of our programs. 
+We need a way to control the 'flow of execution' of our programs. We have seen this performed in the `while` and `do-while` loops. Flow control is not limited to loops however.
 
-## If .. else
-
-Deciding how to control the program flow is based on a 'condition' being true. A few examples using the comparison operators:
+Deciding how to control the program flow is based on a *condition* being true. A few examples using the comparison operators:
 
 | Condition | Value |
 | :--- | :--- |
@@ -15,44 +13,81 @@ Deciding how to control the program flow is based on a 'condition' being true. A
 | a == b | true if a is equal to b    |
 | a != b | true if a is not equal to b    |
 
-The if() statement is written like this:
+The `if()` statement is written like this:
 
 ```C++
-if (condition is true)
+if (<condition>)
 {
-  // execute these statements
+  // execute the statements in this code block if <condition> is non-zero (true)
 }
 ```
 
-| Task | Details |
-| :--- | :--- |
-|  1 | As in previous labs - create a new project, call it 'flowcontrol' or similar and make sure you set it as the Startup Project. Delete the comments and replace the code within main() with the following: 
+To enter the code block, the condition in the parenthesis must resolve to `true` (non-zero). If not true, the block is simply skipped. 
+
+### Some C++ Input and Output
+
+We have already seen how C++ has an alternative method to **write** to the terminal, using `cout`
 
 ```C++
-int high = 100, level = 25, low = 10;
+   cout << "Hello World";
+```
 
-// start filling the tank 
+We can also **read** the keyboard input as follows:
 
-level = 5;
+```C++
+   int someNumber;
+   cin >> someNumber; //Blocks and waits for keyboard input, then attempts to convert to an integer
+```
 
-if (level <= low)                       // check the level
-{
-    printf("Tank needs filling\n\n");
-}
+As we move towards adopting more of the C++ language, we will start using these more often.
 
-level = 25;
+## `if` statement
+Let's now look at the simple `if` statement.
 
-if (level > low)                       // monitor the level
-{
-    printf("That's better\n\n");
-}
+| Task | 301-if-statement |
+| :--- | :--- |
+|  1 | Set 301-if-statement as the Startup Project. |
+| - | Run the code, then enter a value between 0 and 100 |
+| 2 | Run again, this time enter a value of -10.  |
+| Question | <a title="The while loop will keep repeating as long as the value is negative">What happens and why?</a> |
+| 3 | Run again, this time enter a value of 100 |
+| 4 | Run one more time, now enter a value of 101 |
+| Question | <a title="The while loop does not consider the upper limit. This is a logical error">101 is an erroneous value. Why is it not handled correctly?</a> |
+| 5 | Improve the code so that it keeps asking for user input until the value is in range. |
+| 6 | Add an additional `if` statement so that when a zero is entered, "Tank is empty" is also displayed on the screen |
+| |  A solution is provided |
+| |
 
-level = 100;
+* The `do-while` loop is performing user-validation
 
-if (level == high)                       // monitor the level
-{
-    printf("Tank is full\n");
-}
+```C++
+    //Some constants 
+    const int high = 100, low = 10;
+    
+    // start filling the tank 
+    int level = 5;
+
+    //Read the keyboad to get the level
+    //Repeat until a valid value has been added
+    do {
+        cout << "Please enter a level (between 0 and 100)" << endl;
+        cin >> level;
+    } while (level < 0);
+
+    if (level <= low)                       // check the level
+    {
+        cout << "Tank needs filling" << endl;
+    }
+
+    if (level > low)                       // monitor the level
+    {
+        cout << "Tank has sufficient fuel for now" << endl;
+    }
+
+    if (level == high)                       // monitor the level
+    {
+        cout << "Tank is full" << endl;
+    }
 
 ```
 
