@@ -141,7 +141,7 @@ You are not limited to just one level of conditional statement. Conditions can b
 | 4. | Now add an additional `if` within  the `else` block (where `level>low`), indicating to the user if there is an option to top up the fuel (but only if the tank is not full) |
 | - | A solution is provided |
 
-## Mutually exclusive conditions using `if-else if-else`
+## Mutually exclusive conditions using `else if`
 
 I the previous examples, we used an `if-else` to separate the code into two mutually exclusive paths.
 
@@ -153,7 +153,7 @@ if (condition1) {
 }
 ```
 
-> We say this partitions the decision space into two regions with a hard threshold.
+> We can say this **partitions** the decision space into two regions (with a hard threshold).
 >
 > There are other AI based techniques that try to model "softer decision making", such as "Fuzzy Logic", but this is far beyond the scope of this module. 
 
@@ -177,70 +177,80 @@ if (condition) {
 }
 ```
 
-In this illustration above, we now have four mutually exclusive paths through the code {A1,A2,B1,B2}.
+In the illustration above, we now have four mutually exclusive paths through the code {A1,A2,B1,B2}. This is depicted by the figure below:
 
 <figure>
 <img src="./img/nested-if-else.jpg" width="500px">
 <figcaption>Showing 4 mutually exclusive paths through the code</figcaption>
 </figure>
 
-This is fine, but can soon become unwieldy. The indentation alone can begin to build what looks like a pyramid of code!
+Although logically correct, *nesting can soon become unwieldy*. The indentation alone can begin to resemble a pyramid of code!
 
+> As a general guideline, it is often said you should avoid more than 3 levels of nesting
 
-
-
-| Task | Details |
-| :--- | :--- |
-|  4 | Run the program and observe the results, change the value of the variable 'level' to demonstrate the condition both true and false. Using the 'else' statement adds the option to take action when the condition is false. The final construct is the 'else if' which allows for more than two options. The syntax for the 'else - if' statement is like this:
+For mutually exclusive paths, it is usually clearer to use the `if else-if else` structure. 
 
 ```C++
 if (condition1)
 {
-  // execute this code if condition1 is true
+  // Path 1
 }
 else if (condition2)
 {
-  // execute this code if condition1 is false and condition2 is true
+  // Path 2
 }
-else
+else if (condition 3)
 {
-  // execute this code if condition1 is false and condition2 is false
+  // Path 3
+}
+else 
+{
+  // Path 4
 }
 ```
 
-Note you can have more than one else if but it can soon get hard to read
+A flow-chart depicting this is shown below:
 
-| Task | Details |
-| :--- | :--- |
-|  5 |Replace the code within main() with the following:
+<figure>
+<img src="./img/if-else-if.jpg" width="600px">
+<figcaption>Showing 4 mutually exclusive paths through the code</figcaption>
+</figure>
 
-```C++
-int time = 22;
 
-if (time < 10)                          // This is the condition
-{
-    printf("It is too early\n\n");         // If the condition is true 
-}
-else if (time < 18)
-{
-    printf("It is still daytime\n\n");  // If the condition is false
-}
-else
-{
-    printf("It is late\n");
-}
-```
+| Task | 307-if-elseif-else |
+| - | - |
+| 1. | Make 307-if-elseif-else the start up project |
+| 2. | Build and run. Try values 0, 10, 11, 99 and 100 |
+|  | Set a break-point and use the debugger to follow the logic of the code if you are unsure |  
 
-| Task | Details |
-| :--- | :--- |
-|  6 | Run the program and change the vale of the variable 'time' to see how the else - if construct works. Whist the example above works and can be extended to more complex decisions there is a better way....
+The logic for the code so far is somewhat unhelpful. It is suggested that the range needs to be broken into more *fine-grained partitions* to the driver can make a better assessment of when to stop at a fuel station.
+
+Consider the following more useful decision partitions:
+
+| level | Output |
+| - | - |
+| 0 <= level <= 5 | Dangerously Low |
+| 5 < level <= 30 | Low |
+| 30 < level <= 70 | Medium |
+| 70 < level <= 95 | High |
+| 95 < level <= 100 | Full |
+
+| Task | 307-if-elseif-else (continued) |
+| - | - |
+| 3. | Modify the code to produce the output for the ranges shown in the table above.  |
+| | A solution is provided |
+| |
+
+
 
 ## Switch statement
 
-The switch statement is a much better way (than else - if) to select one of many code blocks to executed. The syntax is as below:
+The switch statement is similar to `if - else if - else`. Although more limited (at least in C and C++), it is a useful alternative and performant.
+
+In C and C++, switch-case statements are limited to testing for equality with type `int` and `char`. However, this is a common use-case.
 
 ```C++
-switch (expression)
+switch (expression) //Expression is an integer or char variable
 {
   case a:
     // code block to execute if expression is equal to a
@@ -254,35 +264,14 @@ switch (expression)
   default:
     // code block to execute if expression none of the above
 }
-
 ```
 
-| Task | Details |
+| Task | 309-switch-case |
 | :--- | :--- |
-|  7 | Replace the code within main() with the following:
+| 1 | Make 309-switch-case the start up project |
+| 2 | Run and test the code. Try both valid and invalid options |
+| 3 | Replace the `if-else if-else`  with a `switch-case` |
+| - | A solution is provided |
+| |
 
-```C++
- switch (option)
- {
- case 'a':
-     // code block to execute if 'option' is equal to a
-     printf("Option is a\n");
-     break;
- case 'b':
- case 'c':
-     // code block to execute if 'option' is equal to b or c
-     printf("Option is b or c\n");
-     break;
- case 'd':
-     // code block to execute if 'option' is equal to d
-     printf("Option is d\n");
-     break;
- default:
-     // code block to execute if 'option' is none of the above
-     printf("Option is unknown\n");
- }
-```
 
-| Task | Details |
-| :--- | :--- |
-|  8 | Run the program, change the value of variable 'option' and see what happens. First thing to note is the presence of the break statement after each option (or group of options), missing the break statement is a common mistake. Also note (as in the case of b and c above) that you can have more than one option grouped together executing the same code block. Finally notice the default option at the end, this has it's own code block which executes if no option is correct.
