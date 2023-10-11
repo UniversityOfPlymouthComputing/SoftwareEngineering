@@ -179,72 +179,255 @@ float mean = (float)sum / (float)N;
 | Now Remove the type casts so that it reads `float mean = sum / N;` and rerun, again noting the result. |
 | <a title="An integer division was performed, with the result being rounded before being copied into the variable mean">Why are the values different?</a>  |
 
+## Strings
+Strings are one of the most important and commonly used data structures in software engineering. Much of the data that is transferred over the Internet, including email and World Wide Web (WWW) use string data and a common interchange format. Much of the data we collect is encoding in string format. They are incredibly important, and deserve a special study.
 
+Strings are used for so many different purposes in computing, and that includes any type of computer system. Examples include:
 
+* Data from an electronic module (e.g. GPRS, Accelerometer or GPS)
+* World Wide Web (WWWW) traffic
+* Data encoded for transmission between different computers
+* Display output or keyboard input
 
+More examples do exist. You might wonder why we go to the effort to convert numbers into strings. Consider the hex value 0x12345678 stored in an integer variable. This 32-bit number is 4 bytes long.
 
-printf("The letters in the string are\n");  // Remember it's a string so 5 chars plus the null
-for (int i = 0; i <= 4; i++)                // The positions of the chars is 0 to 4 (5 in total)
-{
-    printf("%c - ", name[i]);       //select each character in turn from the array name[]
-    if (i == 4)                     // after the last one print a new line
-    {
-        printf("\n");
-    }
+As we have seen, memory is organised into bytes (8-bit values), so in which order are the bytes to be stored in memory?
+
+> **It depends on the compiler and CPU design**, so it varies!
+>
+> How data is organised in memory is known as "endianness"
+
+Now consider what might happen if we send such a 32-bit integer number from one machine to another (via a network, serial interface or storage device). 
+
+> If you don't know the byte order of the recipient machine, there is a real risk the data will be corrupted.
+>
+> An integer for an x86 PC has a different format to an Arm based device (such as a Raspberry Pi) 
+
+Software that receives data from another source cannot guarantee what sort of computer created it. Equally, if you are generating data for another recipient computer to process, you may not know its type (either now or in the future!)
+
+One popular solution is for the producer to to "marshall" the data into a common string format. The receiving end will then convert it back into it's native integer format (known as unmarshalling).
+
+This is much safer as the recipient can convert strings into numbers using it's own (known) byte alignment. However, it comes with an overhead cost. Consider an example: 
+
+* The HEX value 1234ABCD, which as a decimal is 4 bytes.
+* Written as a human-readable string would be "1234ABCD" which is 9 ASCII characters (including the zero on the end).
+
+So the string representation is 9 bytes instead of 4 in binary format. There is also the computational cost of converting from binary number to string and back again. However, it is so much safer and simpler that it commonly used.
+
+In C, strings are simply an array of data stored in a simple format. The are simple and easy to understand, but also require great care to avoid introducing security vulnerabilities.
+
+In C++, we have much more powerful (and safer) support for strings and similar to other languages and frameworks such as C#.NET and Java. We will start with looking at C strings, but for this module, but you will be encouraged to use C++ strings going forward. 
+
+## C Strings
+
+In C, strings are simply arrays of characters that typically form sentences or other human readable information. In the C programming language, the string is backed by an array of type `char` (8-bit characters).
+
+> * The C-string is an array of characters with a zero on the end
+> * The all-important end-of-string character is 0 (which we can write as "\0") 
+> * It is not uncommon for the array is to be larger than the string length
+
+Constant strings are defined as arrays. For the unitialised string, we could write the following:
+
+```C++
+char moduleName[16]; //Holds up to 15 characters + 0 terminator
+```
+
+An initialised string can be defined as follows:
+
+```C++
+char moduleName[] = "COMP1000"; //9 characters long (NOT 8!!!)
+```
+
+This is equivalent to:
+
+```C++
+char moduleName[] = {'C','O','M','P','1','0','0','0', 0}; //9 characters long
+```
+
+We can display a string in C or C++ as follows:
+
+```C++
+//C standard library version
+printf("The module code is %s\n", moduleName);
+
+//C++ standard library version
+cout << "The module code is " << moduleName << endl;
+```
+
+**Both** of these methods **rely** on the terminating `0` to know when the string ends.
+
+> An uninitialized  string is actually **dangerous**. It's content is random and it may not contain a zero! This would cause both `printf` and `cout` to run off the end of the array and into the memory of other variables or random values.
+
+| TASK | 403-c-strings |
+| - | - |
+| 1 | [Watch this video](https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=06de658e-51e4-42df-9fa7-b09800fc1db3) |
+| 2 | Make the project 403-c-strings the start up project |
+| 3 | Step through the code, reading the comments and the code output |
+
+## C++ Strings
+
+As we say in the previous section, C strings are very low level, and with that comes risk. C++ has an additional data type `string`. Backed by an array, this data type is much easier and safer to use.
+
+| TASK | 405-c++strings |
+| - | - |
+| 1. | Make 405-c++strings the start up project |
+| 2. | Step through the code, reading the comments and observing the output |
+| 3. | Do you notice how much easier C++ strings are? No mention of terminating zeros |
+
+> How come this is so much easier, and why could this not be done in C?
+>
+> Key to this is that C++ is an **Object Orientated** language. We will talk a lot about this in forthcoming sections, but for now, let's experience the benefits. 
+
+**Key Points:**
+
+Creating a string is really simple. An initialised string can be created as follows:
+
+```C++
+string moduleName = "Comp1000";
+```
+
+An uninitialised string has zero length and inherently safe.  Unlike C strings, they can be extended later
+
+```C++
+string moduleName;
+moduleName = "Comp1000";
+```
+
+You still have read/write access to the individual character in a string using the same operators `[]`.
+
+```C++
+int L = (int)moduleName.length();
+for (int n = 0; n < L; n++) {       //Note I am using L
+    cout << moduleName[n] << " ";
 }
-
-
-
-| Task | Details |
-| :--- | :--- |
-|  8 | There is a bit more going on in this example but this time we have added comments in the code to explain help understanding. Comments are a good way to explain to others what the code does and equally when you come back to your code at a later date they will help you as well. Run the code and observe the results. The important lesson here is the way each element of the array is accessed using it's place. For example the first letter in the array name[] is accessed by the construct name[0]. We use a short 'if'  statement to determine when the for loops get to the end.
-
-
-
-
-
-int nums[10] = {0, 11, 22, 33, 44, 55, 66, 77, 88, 99};
-
-Creates an array of 10 integers. There is not null character at the end - that is only for strings.
-
-Now lets manipulate these two arrays.
-
-| Task | Details |
-| :--- | :--- |
-| 1 | As in previous labs, create a new project called "Arrays" or similar, delete the comments and replace the code within the function main() with the following:
-
-```C++
-char name[6] = "Monty";
-int nums[10] = {0, 11, 22, 33, 44, 55, 66, 77, 88, 99};
-
-printf("The first letter in the array name[] is %c the last is %c\n", name[0], name[5]);
-printf("The Second number in the array nums[] is %d the one from the last is %d\n", nums[1], nums[8]);
-
 ```
 
-| Task | Details |
-| :--- | :--- |
-| 2 | Run the program and observe the results. The important thing here is that arrays in C/C++ are numbered from 0 and the last character in the array name[](because it's a string) is a null (\0). The expression name[0] means the first character in the array name[]. The expression nums[1] gives the second value in the array nums[]. Try changing the values within the square brackets to confirm this. The C/C++ languages will not stop you accessing values outside the arrays - try accessing nums[10] to see what happens. Accessing an array outside it's bounds is a common error and can cause serious problems with your program.
+> Advanced point - `moduleName` behaves as a value type (like int, char, short etc..)
+>
+> It is designed to not behave as a reference type or pointer. The internal pointer is mostly hidden away
 
-| Task | Details |
-| :--- | :--- |
-| 3 | In a similar way we can change the contents of the array. Add the following lines to your program:
+Copying a string is also simple:
 
 ```C++
-name[1] = 'i';
-nums[3] = 3333;
+string anotherModule;       //Create another string
+anotherModule = moduleName; //It's that easy!
+```
+This performs an element by element copy for you, and there are no concerns about string length or zero terminators.
 
-printf("Name is now %s\n", name);
-printf("The 4th number in the array nums[] is %d\n", nums[3]);
+String comparisons are also simple and use the familiar `==` operator (again, similar to your built in value types)
+
+```C++
+if (moduleName == anotherModule) {
+    cout << "moduleName and anotherModule have the same content!" << endl;
+}
 ```
 
-| Task | Details |
-| :--- | :--- |
-| 4 |  Run the program and observe the results. Try changing other elements in the arrays. Remember, array elements are numbered from zero and it's your responsibility to only reference elements inside the arrays - otherwise very bad things will happen and curry will never taste the same again!|
+Appending strings uses the `+` operator. An example is here:
+
+```C++
+    string header;                   
+    header = moduleName + " " + institutionName;
+```
+
+Searching strings is also possible. A basic example is here:
+
+```C++
+size_t loc = header.find("of");
+```
+
+We can then extract sub-strings easily:
+
+```C++
+string firstHalf = header.substr(0, loc);
+string secondHalf = header.substr(loc);
+
+cout << "First part is " << firstHalf << endl;
+cout << "Second part is " << secondHalf << endl;
+```
+
+The results look as follows:
+
+```
+First part is comp1000 University
+Second part is of Plymouth
+```
+
+For marshalling numbers into strings, you can use the build in conversion functions. For example:
+
+```C++
+string strYear = "0000";
+unsigned int year = 2023;
+strYear = to_string(year);
+```
+
+To unmarhsall back to a native integer type, there is a function for that (as well as other types):
+
+```C++
+int parsedYear = stoi(strYear);
+```
+
+### So where is the array?
+It's not as hidden as you might think. We can access the pointer, but it insists you use a `const char*` type to stop accidental modification (there are ways to break this, but why would you?).
+
+```C++
+const char* str = strYear.c_str();
+```
+
+There is much more you can do with C++ strings, and this is just an introduction. A good reference is [W3 Schools](https://www.w3schools.com/cpp/cpp_strings.asp).
+
+| Challenge 1 | Web Scraping |
+| - | - |
+| 1. | Make 405-c++ strings challenge the start up project |
+| 2. | Complete the first task |
+| -  | The string `input` is a very basic web page. One of the "attributes" is a title, which is set to "42".
+| - | Write some code to extract the numerical value from the `input` string |
+| | |
+
+| Challenge 2 | Word Count |
+| - | - |
+| 3. | The user is prompted to type in a sentence. |
+| - | Modify this code to count the number of times the word `the` is included |
+| | |
 
 
-In a previous lab we used an array (of chars) to allow us to construct a string. Something like this:
+## Header Files and Namespaces
+We've not talked much about header files, except to say that when you uses `#include <filename>`, you essentially paste the copy of the file (name <filename>) into your code.
 
-char name[6] = "Monty";
+So first, note the following two lines:
 
-Here we have created an array of 6 chars which has been initialised with the name 'Monty' plus the null character which the compiler adds.
+```C++
+#include <iostream>
+using namespace std;
+```
+
+The header file for all the C++ standard input / output is `iostream`. 
+
+Without the second line, we would have to prefix every `cout`, `cin` and `endl` with the prefix `std::`
+
+> This prefix is known as a `namespace` and is a prefix designed to avoid *name collisions*.
+>
+> If we know which prefix to use, we can have it automatically added with the `using` directive
+
+
+# DO NOT GO PAST THIS POINT
+
+## C String Challenge
+
+There is a clever function in the C standard library called `strtok`. This is used to read parts of string separated by a _delimiter_, such as a comma or space.
+
+> You can read about it here: https://linux.die.net/man/3/strtok_r
+
+Task-159 has some starter code which takes a string, with instructions separated by commas.
+
+* Build and step through Task-160 to see what it does
+
+Using string functions described about, you should do the following:
+
+Use each string to switch on a specific LED
+
+When you find a _wait_ string, do the following:
+
+* wait for 1s,
+* then turn OFF all LEDs 
+
+Use `strcmp` as part of your solution.
