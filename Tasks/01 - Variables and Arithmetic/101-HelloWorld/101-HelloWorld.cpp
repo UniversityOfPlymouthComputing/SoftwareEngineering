@@ -6,7 +6,10 @@
 
 //This is the entry point to our code - known as the "main function" - we will meet functions later
 int main()
+
 {
+
+  
     //Write Hello World to the terminal with puts  ("put string")
     puts("Hello World");
 
@@ -18,6 +21,10 @@ int main()
         ***********
         
     */ 
+
+    printf("***********\n");
+    printf("Hello World\n");
+    printf("***********\n");
 }
 
 
