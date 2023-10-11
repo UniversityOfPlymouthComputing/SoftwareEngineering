@@ -86,17 +86,102 @@ You can see in the figure above that arrays are really split into two parts: the
 
 ## Creating, reading and writing arrays
 
-| Task | Details |
-| :--- | :--- |
-|  7 | Now lets revisit the arrays from a previous lab and use the for loop to look at the individual elements. Change the code within main() to the following:
+Now lets look at how we can create arrays and use a for-loop to both read and write elements.
+
+We will create the following array:
 
 ```C++
-char name[6] = "Monty";                                     // an arrays of 5 chars that becomes a string
-int nums[10] = { 0, 11, 22, 33, 44, 55, 66, 77, 88, 99 };   // an array of 10 integers
+int nums[10]; // an array of 10 integers
+```
 
-// The sizeof() function returns the number of bytes taken up by the array, to calculate the 
-// number of elements divide by the sizeof one element.
-printf("The number of elements in name and nums are %zd and %zd\n", sizeof(name)/sizeof(name[0]), sizeof(nums) / sizeof(nums[0]));
+To make this more interesting, we will also **initialise** the data with some data as follows:
+
+```C++
+int nums[] = { 0, 11, 22, 33, 44, 55, 66, 77, 88, 99, 111 };   
+```
+
+| Task | 401-static-arrays |
+| - | - |
+| 1. | Open the solution `Arrays Strings and Pointers.sln` in Visual Studio|
+| 2. | Make `401-static-arrays`` the start up project |
+| 3. | Read through the code and all the comments. Run the code to see if the output is what you expected |
+| 4. | Now complete the challenge: complete the code to calculate the sum of all elements in the array. A solution is provided |
+| | |
+
+**Notes:**
+
+* The array was declared and initialised in one line:
+
+```C++
+int nums[] = { 0, 11, 22, 33, 44, 55, 66, 77, 88, 99, 111 };
+```
+
+The length of the array was *interred* by the compiler. We could equally have written the size explicitely:
+
+```C++
+int nums[11] = { 0, 11, 22, 33, 44, 55, 66, 77, 88, 99, 111 };
+```
+
+* We saw how the `sizeof()` function is used to return the number of bytes taken up by the *array data*. 
+   * This is possible because the array sized it fixed at compile time and cannot change.
+   * A commonly overlooked fact is that the total memory cost of this array is this value + the space needed for the array pointer itself. You never know, this might come up in an interview :)
+
+* We used `sizeof` to calculate the number of elements in the array as follows:
+
+```C++
+int N = sizeof(nums) / sizeof(int);
+```
+ * The *array variable* `nums` is just an integer that holds the address of the *array data*. We can see the value stored in the array variable by treating it just like any other integer:
+
+ ```C++
+ cout << "The start address of the array nums is " << nums << " (hex)" << endl;
+ ```
+
+* We use the `[]` operator to *de-reference* the array data for both reading and writing the *array data*:
+
+```C++
+    for (unsigned int n = 0; n < N; n++) {
+        int newValue = nums[n] + 1; //Read (by de-referencing) and add one    
+        nums[n] = newValue; //Write into the array (again, using de-referencing)
+    }
+```
+
+### Solution
+
+It is probably useful to look at the solution, as there are some important details to point out:
+
+When the sum of all elements is calculated, there is potential for numerical overflow. The final result was held in a 64 bit integer variable of type `int64_t`
+
+```C++
+    int64_t sum = 0L;
+    for (unsigned int n = 0; n < N; n++) {
+        sum += (long)nums[n];
+    }
+    cout << "Sum = " << sum << endl;
+```
+
+| Experiment |
+| - |
+| In visual studio, hover the mouse where it says `int64_t` |
+| <a title="long long">What data type is `int64_t`?</a>  |
+
+
+When calculating the mean, we also have to be careful. This involves dividing the sum by `N`, which results in a fractional result. Therefore, we **must** ensure that fractional arithmetic is performed. This is done by **type casting**:
+
+```C++
+float mean = (float)sum / (float)N;
+```
+
+| Experiment |
+| - |
+| Make 401-static-arrays-solution the start up project |
+| Run the code, and make a note of the current mean value |
+| Now Remove the type casts so that it reads `float mean = sum / N;` and rerun, again noting the result. |
+| <a title="An integer division was performed, with the result being rounded before being copied into the variable mean">Why are the values different?</a>  |
+
+
+
+
 
 printf("The letters in the string are\n");  // Remember it's a string so 5 chars plus the null
 for (int i = 0; i <= 4; i++)                // The positions of the chars is 0 to 4 (5 in total)
@@ -108,35 +193,15 @@ for (int i = 0; i <= 4; i++)                // The positions of the chars is 0 t
     }
 }
 
-int sum = 0;                        // summation of all the array elements
-float average = 0.0;                // Average of all the array elements
 
-printf("The numbers in the array are\n");
-for (int i = 0; i <= 9; i++)        // There are 10 values in the array in positions 0 to 9
-{
-    printf("%d - ", nums[i]);       //select each value in turn from the array nums[]
-    sum += nums[i];                 // same as sum = sum + nums[i] but more concise    
-    if (i == 9)                     // after the last one print a new line or two
-    {
-        printf("\nSum = %d Average = %f\n", sum, sum/10.0);     // calculate the average and print
-    }
-}
-
-```
 
 | Task | Details |
 | :--- | :--- |
 |  8 | There is a bit more going on in this example but this time we have added comments in the code to explain help understanding. Comments are a good way to explain to others what the code does and equally when you come back to your code at a later date they will help you as well. Run the code and observe the results. The important lesson here is the way each element of the array is accessed using it's place. For example the first letter in the array name[] is accessed by the construct name[0]. We use a short 'if'  statement to determine when the for loops get to the end.
 
-# Continued
 
-In a previous lab we used an array (of chars) to allow us to construct a string. Something like this:
 
-char name[6] = "Monty";
 
-Here we have created an array of 6 chars which has been initialised with the name 'Monty' plus the null character which the compiler adds.
-
-Equally this statement:
 
 int nums[10] = {0, 11, 22, 33, 44, 55, 66, 77, 88, 99};
 
@@ -176,3 +241,10 @@ printf("The 4th number in the array nums[] is %d\n", nums[3]);
 | Task | Details |
 | :--- | :--- |
 | 4 |  Run the program and observe the results. Try changing other elements in the arrays. Remember, array elements are numbered from zero and it's your responsibility to only reference elements inside the arrays - otherwise very bad things will happen and curry will never taste the same again!|
+
+
+In a previous lab we used an array (of chars) to allow us to construct a string. Something like this:
+
+char name[6] = "Monty";
+
+Here we have created an array of 6 chars which has been initialised with the name 'Monty' plus the null character which the compiler adds.
