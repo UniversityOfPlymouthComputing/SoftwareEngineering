@@ -84,7 +84,7 @@ You can see in the figure above that arrays are really split into two parts: the
 
 > We say the array variable `dat` **points** to the block of array data, which is why it is also known as a **pointer** type.
 
-
+## Creating, reading and writing arrays
 
 | Task | Details |
 | :--- | :--- |
