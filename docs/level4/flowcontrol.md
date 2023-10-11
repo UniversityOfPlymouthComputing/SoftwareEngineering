@@ -249,22 +249,53 @@ The switch statement is similar to `if - else if - else`. Although more limited 
 
 In C and C++, switch-case statements are limited to testing for equality with type `int` and `char`. However, this is a common use-case.
 
+For example:
+
 ```C++
-switch (expression) //Expression is an integer or char variable
+int mySelection;
+cin >> mySelection;
+
+if (mySelection == 0) 
 {
-  case a:
-    // code block to execute if expression is equal to a
-    break;
-  case b: c:
-    // code block to execute if expression is equal to b or c
-    break;
-  case d:
-    // code block to execute if expression is equal to d
-    break;
-  default:
-    // code block to execute if expression none of the above
+    // code block to execute if mySelection is equal to 0
+} 
+else if ( (mySelection == 2) || (mySelection == 3) )
+{
+    // code block to execute if mySelection is equal to 2 or 3
+}
+else if (mySelection == 10) 
+{
+    // code block to execute if mySelection is equal to 10
+} 
+else
+{
+    // code block to execute if mySelection is equal to any other value
 }
 ```
+
+The equivalent using a `switch-case` statement would be:
+
+```C++
+int mySelection;
+cin >> mySelection;
+
+switch (mySelection) //Expression is an integer or char variable
+{
+  case 0:
+    // code block to execute if mySelection is equal to 0
+    break;
+  case 2: 3:
+    // code block to execute if mySelection is equal to 2 or 3
+    break;
+  case 10:
+    // code block to execute if mySelection is equal to 10
+    break;
+  default:
+    // code block to execute if mySelection none of the above
+}
+```
+
+Note the `break` keyword is **required** to avoid falling through into the next case.
 
 | Task | 309-switch-case |
 | :--- | :--- |
@@ -273,5 +304,6 @@ switch (expression) //Expression is an integer or char variable
 | 3 | Replace the `if-else if-else`  with a `switch-case` |
 | - | A solution is provided |
 | |
+
 
 
