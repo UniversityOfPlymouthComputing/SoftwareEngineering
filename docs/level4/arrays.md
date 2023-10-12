@@ -447,6 +447,10 @@ Without the second line, we would have to prefix every `cout`, `cin` and `endl` 
 
 # DO NOT GO PAST THIS POINT
 
+[Back to Table of Contents](./README.md)
+
+<img src="/img/wip.png" width="300px">
+
 ## C String Challenge
 
 There is a clever function in the C standard library called `strtok`. This is used to read parts of string separated by a _delimiter_, such as a comma or space.
