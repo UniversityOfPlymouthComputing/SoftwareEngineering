@@ -25,8 +25,7 @@ C++ can be thought of as a super-set of the C language. We will start with C, an
 |  |  | for loops, break and continue  |
 | 3. | [Flow Control](/docs/level4/flowcontrol.md)  | Conditions and Comparisons using if-else if-else |
 |   |   | switch-case |
-| 4. |  [Arrays](/docs/level4/arrays.md) | Statically allocated arrays |
-|    |  [Strings](/docs/level4/strings.md) | C strings, C++ strings |
+| 4. |  [Arrays, Strings and Pointers](/docs/level4/arrays.md) | Statically allocated arrays |
 | 5. | Functions | Syntax, factoring code |
 |  |  | Splitting code across modules |
 | | | Variable Scope |
