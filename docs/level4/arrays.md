@@ -19,14 +19,14 @@ In practice, computers often have multiple memory devices that together form the
 Within memory, two types of information are stored:
 
 * program code
-* data (variables)
+* data (variables and constants)
 
 
 Program code and constants are usually stored in a memory area that is protected as read-only. 
 
 > In some computers, such as the RP2040, this may be in "flash memory". Many devices, including modern PC architecture, have hardware mechanisms to protect program code from being overwritten.
 
-For this section, we will focus on memory used to store our program **data**, which are usually considered **variables**. This can be anything from a simple character (`char`) to a complex image. So far, we have looked at the built-in data types (`char, short, int, long, float, double`) and their variants. Each of these occupies a fixed size region of computer memory. For example:
+For this section, we will focus on memory used to store our **data**, which are usually to be **variables**. This can be anything from a simple character (`char`) to a complex image. So far, we have looked at the built-in data types (`char, short, int, long, float, double`) and their variants. Each of these occupies a fixed size region of computer memory. For example:
 
 ```C++
 int x;
@@ -45,7 +45,7 @@ What if we want to store larger and more bespoke types of information, such as t
 
 ## Introduction to Arrays
 
-An array is list of `N` data values, where `N>0`. It is stored as a reserved block of memory. You would create a *statically allocated* array of `N` values as follows:
+An array is list of `N` data values, where `N>1`. It is stored as a reserved block of memory. You would create a *statically allocated* array of `N` values as follows:
 
 ```C++
 <data type> array_name[N];
@@ -60,8 +60,8 @@ int dat[20];
 In this example, we can say the following:
 
 * The array `dat` represents a block of writable memory with start address `dat`.
-* The array has space for 20 integers. This consumes `20*sizeof(int)` = 80 bytes.
-* Each element of `dat` is a single integer
+* The array block has space for 20 integers. This consumes `20*sizeof(int)` = 80 bytes.
+* Each element of `dat` is a single integer (you could use other types)
 
 You can write to any element in the array by **de-referencing** the array with the `[]` operator. For example:
 
@@ -70,7 +70,7 @@ dat[3] = 10;    //Write value 10 in the element 3 of the array
 int p = dat[0]; //Read element 0 of the array, and copy the value into variable p
 ```
 
-We say the array `dat` is a **reference type**. The variable `dat` (without any dereferencing) represents the **start address** of the array, which itself is also an integer value. In C/C++ terms, this is known as a **pointer**
+We say the array variable `dat` is a **reference type**. The variable `dat` (without any dereferencing) holds the **start address** of the array, which itself is also an integer value. In C/C++ terms, this is known as a **pointer**
 
 <figure>
 <img src="./img/organisation_of_arrays.jpg" width="600px">
@@ -79,10 +79,12 @@ We say the array `dat` is a **reference type**. The variable `dat` (without any 
 
 You can see in the figure above that arrays are really split into two parts: the array variable and the data itself. 
 
-* The array data is a reserved block of memory where the data will be stored.
-* The array variable `dat` is actually just an integer that holds an address of that memory so it can be found.  
+* The array data is a reserved block of memory where the list of N data values will be stored.
+* The array variable `dat` is just an integer that holds an address of that memory (so it can be found).  
 
 > We say the array variable `dat` **points** to the block of array data, which is why it is also known as a **pointer** type.
+>
+> The type of the array variable is `int*`. The `*` indicates it is a pointer; the `int` tells the compiler about the type of data it points to.
 
 ## Creating, reading and writing arrays
 
@@ -137,7 +139,7 @@ int N = sizeof(nums) / sizeof(int);
  cout << "The start address of the array nums is " << nums << " (hex)" << endl;
  ```
 
-* We use the `[]` operator to *de-reference* the array data for both reading and writing the *array data*:
+* We use the `[]` operator to *de-reference* the *array variable* for both reading and writing the *array data*:
 
 ```C++
     for (unsigned int n = 0; n < N; n++) {
@@ -145,6 +147,14 @@ int N = sizeof(nums) / sizeof(int);
         nums[n] = newValue; //Write into the array (again, using de-referencing)
     }
 ```
+
+> The term de-referencing is sometimes confusing and you may be wondering where it comes from. 
+>
+> Consider the array variable `nums` used in the example above. When you read using `nums[n]`, then (logically speaking) the computer will (i) read the base address stored in `nums`; (ii) calculate the offset address (add `n*sizeof(int)`); (iii) read/write the data *value* at that address.
+>
+> So we start with a *reference* (another word for address), and look up a *value* in memory. This is the process of de-referencing. 
+>
+> Many computing languages *hide* pointers from the developer. Instead they often employ *reference types*, which ultimately encapsulate (and hide) a pointer.
 
 ### Solution
 
@@ -160,32 +170,58 @@ When the sum of all elements is calculated, there is potential for numerical ove
     cout << "Sum = " << sum << endl;
 ```
 
+Note the alias data-type `int64_t`.
+
 | Experiment |
 | - |
 | In visual studio, hover the mouse where it says `int64_t` |
 | <a title="long long">What data type is `int64_t`?</a>  |
 
-
-When calculating the mean, we also have to be careful. This involves dividing the sum by `N`, which results in a fractional result. Therefore, we **must** ensure that fractional arithmetic is performed. This is done by **type casting**:
+When calculating the mean, we also have to be careful. This involves dividing the sum by `N`, which is expected to result in a fractional value. Therefore, we **must** ensure that fractional arithmetic is performed. This is done by **type casting**:
 
 ```C++
-float mean = (float)sum / (float)N;
+float mean = (float)sum / (float)N; //Force a floating point divide
 ```
 
 | Experiment |
 | - |
 | Make 401-static-arrays-solution the start up project |
 | Run the code, and make a note of the current mean value |
-| Now Remove the type casts so that it reads `float mean = sum / N;` and rerun, again noting the result. |
+| Now Remove the type casts so that it reads `float mean = sum / N;` and run again, noting the result. |
 | <a title="An integer division was performed, with the result being rounded before being copied into the variable mean">Why are the values different?</a>  |
 
+## Explicit Data Types
+
+You will have noted the data type `int64_t`. If you look close enough, you will discover it is an alias for type `long long`. This is because `long long` happens to be a 64-bit integer on *this particular compiler*.
+
+Unfortunately, neither C or C++ define the size (in bytes) of the built-in data types. This is a legacy problem which is unlikely to ever change. **Never assume the size of the built in data types**.
+
+Take a closer look, and you would likely to find this in the Microsoft C++ header files:
+
+`#define int64_t long long`
+
+A more complete list is provided below:
+
+| Type | Description |
+| - | - |
+| `int8_t` | 8-bit integer |
+| `uint8_t` | 8-bit unsigned integer |
+| `int16_t` | 16-bit integer |
+| `uint16_t` | 16-bit unsigned  integer |
+| `int32_t` | 32-bit integer |
+| `uint32_t` | 32-bit unsigned integer |
+| `int64_t` | 64-bit integer |
+| `uint64_t` | 64-bit unsigned integer |
+
+All modern compilers provide these definitions.
+
 ## Strings
-Strings are one of the most important and commonly used data structures in software engineering. Much of the data that is transferred over the Internet, including email and World Wide Web (WWW) use string data and a common interchange format. Much of the data we collect is encoding in string format. They are incredibly important, and deserve a special study.
+Strings are one of the most important and commonly used data structures in software engineering. Much of the data that is transferred over the Internet. Applications such as email and the World Wide Web (WWW) use string data as a common interchange format. Much of the data we collect is encoded in string format. Strings are incredibly important, and deserve a special study.
 
 Strings are used for so many different purposes in computing, and that includes any type of computer system. Examples include:
 
-* Data from an electronic module (e.g. GPRS, Accelerometer or GPS)
-* World Wide Web (WWWW) traffic
+* Data from an electronic module (e.g. temperature sensor, accelerometer or GPS)
+* World Wide Web (WWWW) traffic (such as HTML, XML and JSON)
 * Data encoded for transmission between different computers
 * Display output or keyboard input
 
@@ -197,15 +233,15 @@ As we have seen, memory is organised into bytes (8-bit values), so in which orde
 >
 > How data is organised in memory is known as "endianness"
 
-Now consider what might happen if we send such a 32-bit integer number from one machine to another (via a network, serial interface or storage device). 
+Now consider what might happen if we send a 32-bit integer number from one machine to another (via a network, serial interface or storage device). 
 
-> If you don't know the byte order of the recipient machine, there is a real risk the data will be corrupted.
+> If you don't know the byte order of the recipient machine, there is a real risk the received data values will be incorrectly restored (and hence become corrupted).
 >
-> An integer for an x86 PC has a different format to an Arm based device (such as a Raspberry Pi) 
+> This is a real world problem - An integer for an x86 PC has a different format to an Arm based device (such as a Raspberry Pi) 
 
 Software that receives data from another source cannot guarantee what sort of computer created it. Equally, if you are generating data for another recipient computer to process, you may not know its type (either now or in the future!)
 
-One popular solution is for the producer to to "marshall" the data into a common string format. The receiving end will then convert it back into it's native integer format (known as unmarshalling).
+One popular solution is for the originator to to "marshall" the data into a common string format. The receiving end will then convert it back into it's native integer format (known as unmarshalling).
 
 This is much safer as the recipient can convert strings into numbers using it's own (known) byte alignment. However, it comes with an overhead cost. Consider an example: 
 
@@ -224,7 +260,7 @@ In C, strings are simply arrays of characters that typically form sentences or o
 
 > * The C-string is an array of characters with a zero on the end
 > * The all-important end-of-string character is 0 (which we can write as "\0") 
-> * It is not uncommon for the array is to be larger than the string length
+> * It is not uncommon for the array to be larger than the string length
 
 Constant strings are defined as arrays. For the unitialised string, we could write the following:
 
@@ -238,7 +274,7 @@ An initialised string can be defined as follows:
 char moduleName[] = "COMP1000"; //9 characters long (NOT 8!!!)
 ```
 
-This is equivalent to:
+The compiler can infer the size of this string. This is equivalent to:
 
 ```C++
 char moduleName[] = {'C','O','M','P','1','0','0','0', 0}; //9 characters long
@@ -266,21 +302,21 @@ cout << "The module code is " << moduleName << endl;
 
 ## C++ Strings
 
-As we say in the previous section, C strings are very low level, and with that comes risk. C++ has an additional data type `string`. Backed by an array, this data type is much easier and safer to use.
+As we say in the previous section, C strings are very low level, and with that comes risk. C++ has an additional data type `string`. Backed by an array, this data type is *much* easier and safer to use.
 
 | TASK | 405-c++strings |
 | - | - |
 | 1. | Make 405-c++strings the start up project |
 | 2. | Step through the code, reading the comments and observing the output |
-| 3. | Do you notice how much easier C++ strings are? No mention of terminating zeros |
+| 3. | Do you notice how much easier C++ strings are? There is no mention of terminating zeros either! |
 
 > How come this is so much easier, and why could this not be done in C?
 >
-> Key to this is that C++ is an **Object Orientated** language. We will talk a lot about this in forthcoming sections, but for now, let's experience the benefits. 
+> Key to this is that C++ is an **Object Orientated** language. This allows the complexity to be hidden, making the developers job easier and safer. We will talk a lot about this in forthcoming sections, but for now, let's just experience the benefits. 
 
 **Key Points:**
 
-Creating a string is really simple. An initialised string can be created as follows:
+Creating a C++ string is really simple. An initialised string can be created as follows:
 
 ```C++
 string moduleName = "Comp1000";
@@ -297,14 +333,10 @@ You still have read/write access to the individual character in a string using t
 
 ```C++
 int L = (int)moduleName.length();
-for (int n = 0; n < L; n++) {       //Note I am using L
+for (int n = 0; n < L; n++) {     
     cout << moduleName[n] << " ";
 }
 ```
-
-> Advanced point - `moduleName` behaves as a value type (like int, char, short etc..)
->
-> It is designed to not behave as a reference type or pointer. The internal pointer is mostly hidden away
 
 Copying a string is also simple:
 
@@ -312,7 +344,7 @@ Copying a string is also simple:
 string anotherModule;       //Create another string
 anotherModule = moduleName; //It's that easy!
 ```
-This performs an element by element copy for you, and there are no concerns about string length or zero terminators.
+This performs an element by element copy for you, and there are no concerns about string length or zero terminators. With `string`, the `=` operator behaves as a value type.
 
 String comparisons are also simple and use the familiar `==` operator (again, similar to your built in value types)
 
@@ -321,6 +353,10 @@ if (moduleName == anotherModule) {
     cout << "moduleName and anotherModule have the same content!" << endl;
 }
 ```
+
+> Advanced point - in the above two examples, `moduleName` behaves as a value type (like int, char, short etc..)
+>
+> It is designed to not behave as a reference type or pointer. The internal pointer is mostly hidden away
 
 Appending strings uses the `+` operator. An example is here:
 
@@ -338,8 +374,8 @@ size_t loc = header.find("of");
 We can then extract sub-strings easily:
 
 ```C++
-string firstHalf = header.substr(0, loc);
-string secondHalf = header.substr(loc);
+string firstHalf = header.substr(0, loc); //From 0..loc-1
+string secondHalf = header.substr(loc);   //From loc to the end
 
 cout << "First part is " << firstHalf << endl;
 cout << "Second part is " << secondHalf << endl;
@@ -378,16 +414,23 @@ There is much more you can do with C++ strings, and this is just an introduction
 | Challenge 1 | Web Scraping |
 | - | - |
 | 1. | Make 405-c++ strings challenge the start up project |
-| 2. | Complete the first task |
+| - | Complete the first task |
 | -  | The string `input` is a very basic web page. One of the "attributes" is a title, which is set to "42".
 | - | Write some code to extract the numerical value from the `input` string |
 | | |
 
 | Challenge 2 | Word Count |
 | - | - |
-| 3. | The user is prompted to type in a sentence. |
+| - | The user is prompted to type in a sentence. |
 | - | Modify this code to count the number of times the word `the` is included |
 | | |
+
+
+| Challenge 3 | Reversing the elements of an array |
+| - | - |
+|  | Starting with an array of integers, can you write some code to reverse their order? |
+| (a) | For the first version, you can use a second array to hold the result |
+| (b) | For the second version, try and perform this using a single array (known as in-place modification) |
 
 
 ## Header Files and Namespaces
@@ -411,6 +454,10 @@ Without the second line, we would have to prefix every `cout`, `cin` and `endl` 
 
 # DO NOT GO PAST THIS POINT
 
+[Back to Table of Contents](./README.md)
+
+<img src="/img/wip.png" width="300px">
+
 ## C String Challenge
 
 There is a clever function in the C standard library called `strtok`. This is used to read parts of string separated by a _delimiter_, such as a comma or space.
@@ -431,3 +478,10 @@ When you find a _wait_ string, do the following:
 * then turn OFF all LEDs 
 
 Use `strcmp` as part of your solution.
+
+
+Now proceed to the next lab (see table of contents).
+
+---
+
+[Back to Table of Contents](./README.md)
