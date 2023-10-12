@@ -23,13 +23,12 @@ C++ can be thought of as a super-set of the C language. We will start with C, an
 |  | [Variables and arithmetic](/docs/level4/variables_and_arithmetic.md) | Using the development tools to use variables to store and manipulate numerical values  | 
 | 2. | [Iteration](/docs/level4/iteration.md) | while loops, do-while loops |
 |  |  | for loops, break and continue  |
-| 3. | Flow Control  | Conditions and Comparisons using if-else if-else |
+| 3. | [Flow Control](/docs/level4/flowcontrol.md)  | Conditions and Comparisons using if-else if-else |
 |   |   | switch-case |
-| 4. | Functions | Syntax, factoring code |
+| 4. |  [Arrays, Strings and Pointers](/docs/level4/arrays.md) | Statically allocated arrays, C strings and C++ strings. |
+| 5. | Functions | Syntax, factoring code |
 |  |  | Splitting code across modules |
 | | | Variable Scope |
-| 5 |  Arrays, strings and pointers | C arrays; C strings, C++ strings |
-| | | Pointer fundamentals |
 | 6 | User and File IO | Terminals and File IO in C and C++ |
 | 7 | Structures and C++ Classes | structures, simple classes, encapsulation, objects, statics |
 | 8 | Object Orientated Programming (OOP) | Inheritance, composition, overloading, overriding |
