@@ -20,6 +20,7 @@ int main()
     puts("Tavizee");
 
     printf("Kuzatjike\n");
+    printf("finished\n");
     /*
         TASK: Add two more lines of code to the above so that the output reads as follows:
 
