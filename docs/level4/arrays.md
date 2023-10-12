@@ -467,3 +467,10 @@ When you find a _wait_ string, do the following:
 * then turn OFF all LEDs 
 
 Use `strcmp` as part of your solution.
+
+
+Now proceed to the next lab (see table of contents).
+
+---
+
+[Back to Table of Contents](./README.md)

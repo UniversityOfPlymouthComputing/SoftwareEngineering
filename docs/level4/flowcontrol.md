@@ -305,5 +305,9 @@ Note the `break` keyword is **required** to avoid falling through into the next 
 | - | A solution is provided |
 | |
 
+Now proceed to the next lab (see table of contents).
 
+---
+
+[Back to Table of Contents](./README.md)
 
