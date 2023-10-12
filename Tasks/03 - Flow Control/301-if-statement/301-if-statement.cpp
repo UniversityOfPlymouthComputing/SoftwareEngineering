@@ -29,7 +29,7 @@ int main()
     do {
         cout << "Please enter a level (between 0 and 100)" << endl;
         cin >> level;
-    } while (level < 0);
+    } while ((level < 0) || (level == 0));
 
     if (level <= low)                       // check the level
     {
