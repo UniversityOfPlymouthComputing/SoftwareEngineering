@@ -414,16 +414,23 @@ There is much more you can do with C++ strings, and this is just an introduction
 | Challenge 1 | Web Scraping |
 | - | - |
 | 1. | Make 405-c++ strings challenge the start up project |
-| 2. | Complete the first task |
+| - | Complete the first task |
 | -  | The string `input` is a very basic web page. One of the "attributes" is a title, which is set to "42".
 | - | Write some code to extract the numerical value from the `input` string |
 | | |
 
 | Challenge 2 | Word Count |
 | - | - |
-| 3. | The user is prompted to type in a sentence. |
+| - | The user is prompted to type in a sentence. |
 | - | Modify this code to count the number of times the word `the` is included |
 | | |
+
+
+| Challenge 3 | Reversing the elements of an array |
+| - | - |
+|  | Starting with an array of integers, can you write some code to reverse their order? |
+| (a) | For the first version, you can use a second array to hold the result |
+| (b) | For the second version, try and perform this using a single array (known as in-place modification) |
 
 
 ## Header Files and Namespaces
