@@ -7,7 +7,7 @@ int main()
 
 
     // ************************ Using printf ******************************* 
-    printf("Hello Everyone. We are using C\nHow are things?\n");
+    printf("Hello Everyone. We are using C\nHow are things?\");
     // TASK (a) - remove \n from the string above - what does this change? 
     
     // ******************* Using printf placeholders *********************** 
