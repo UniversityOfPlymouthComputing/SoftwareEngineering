@@ -9,10 +9,12 @@ int main()
         printf("Hello Everyone. We are using C\nHow are things?\n");
     printf("Hello Everyone. We are using C\nHow are things?\n");
 
-    int age = 23;
+    puts("Answer when n is removed there is an error and no new line\n");
 
     int age = 35;
-    printf("age=%d,age\n"); 
+    printf("my age is %d\n",age); 
+
+
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
