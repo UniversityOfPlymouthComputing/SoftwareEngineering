@@ -29,7 +29,7 @@ int main()
     // You can output complex strings to the terminal
     int p = 3;
     int q = 4;
-    printf("p=%d, q=%d\n", p, q);
+     
 
     // TASK(c) - using printf, display the radius and the area using a single printf statement
     // SOLUTION
