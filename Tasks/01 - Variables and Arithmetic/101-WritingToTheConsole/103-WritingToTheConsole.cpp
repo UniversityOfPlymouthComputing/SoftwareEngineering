@@ -10,7 +10,7 @@ int main()
     printf("Hello Everyone. We are using C\nHow are things?\n");
 
     int age = 23;
-    printf("My age is %d\n", age);
+
     int age = 35;
     printf("age=%d,age\n"); 
 }
