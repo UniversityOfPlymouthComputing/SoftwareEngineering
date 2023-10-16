@@ -12,4 +12,5 @@ int main() {
     double res = squareThis(y);
     cout << "res = " << res << endl;
     cout << "y = " << y << endl;
+    cout << "y is " << y << endl;
 }
