@@ -516,10 +516,17 @@ This also makes it quite simple to move our functions into separate files within
 | 1. | [Watch this video on how to split your code in separate concerns]() |
 | 2. | Create a project 512-SplittingTheProject as shown in the video |
 | 3. | Try and replicate what you saw in the video |
+| - | A solution is available |
+
+Now that we've split our functions into separate files, they can all be accessed anywhere in the project. We say they have **global scope**.
 
 ### Static Global Variables and Functions
 
-Global functions are quite common, but global variables are not to be encouraged. If you do have variables that need to be shared across separate functions, there is an option known as a **static global**. This works for both functions and variables.
+Global functions are quite common, but sometimes we don't want them to be global. Global variables are actually not to be encouraged at all. 
+
+There is an another option known as a **static global** scope that applies to both functions and variables.
+
+
 
 
 
