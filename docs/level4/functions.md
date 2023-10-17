@@ -527,7 +527,7 @@ Global functions are quite common, but sometimes we don't want them to be global
 There is an another option known as a **static global** scope that applies to both functions and variables.
 
 
-
+# DO NOT GO BEYOND THIS POINT
 
 
 
