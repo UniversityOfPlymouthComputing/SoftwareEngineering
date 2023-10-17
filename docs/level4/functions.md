@@ -513,7 +513,7 @@ This also makes it quite simple to move our functions into separate files within
 
 | Task | 512-SplittingTheProject |
 | - | - |
-| 1. | [Watch this video on how to split your code in separate concerns]() |
+| 1. | [Watch this video on how to split your code in separate concerns](https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=b3c3f6c9-e104-470f-9740-b09e00fd8b42) |
 | 2. | Create a project 512-SplittingTheProject as shown in the video |
 | 3. | Try and replicate what you saw in the video |
 | - | A solution is available |
