@@ -511,18 +511,17 @@ Splitting our project into separate files is sometimes confusing, but an essenti
 
 All the functions we have written so far have been **global**. This is the default, and makes our function potentially accessible from anywhere within the project.
 
+This also makes it quite simple to move our functions into separate files within our project.
 
-
-### Static Global Functions
-
-### Namespaces
-
-### Lambda Functions (local functions)
-
+| Task | 512-SplittingTheProject |
+| - | - |
+| 1. | [Watch this video on how to split your code in separate concerns]() |
+| 2. | Create a project 512-SplittingTheProject as shown in the video |
+| 3. | Try and replicate what you saw in the video |
 
 ### Challenges
 
-Your program doesn't do anything yet bu it does contain one function - that is main(), every C/C++ program must have one (and only one) function called main() this is where program execution starts.
+Your program doesn't do anything yet but it does contain one function - that is main(), every C/C++ program must have one (and only one) function called main() this is where program execution starts.
 
 | Task | Details |
 | :--- | :--- |
