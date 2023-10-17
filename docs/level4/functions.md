@@ -9,11 +9,9 @@
  [Passing Parameters by Pointer](#passing-parameters-by-pointer)
  [Passing Parameters by Reference](#passing-parameters-by-reference)
 [Function Scope](#function-scope)
- Global Functions
- Static Global Functions
- Namespaces
- Lambda Functions (local)
-
+ [Global Functions](#global-functions)
+ [Static Global Functions and Variables](#static-global-variables-and-functions)
+ 
 ## Fundamentals
 
 You have already used a function: `main`
@@ -518,6 +516,14 @@ This also makes it quite simple to move our functions into separate files within
 | 1. | [Watch this video on how to split your code in separate concerns]() |
 | 2. | Create a project 512-SplittingTheProject as shown in the video |
 | 3. | Try and replicate what you saw in the video |
+
+### Static Global Variables and Functions
+
+Global functions are quite common, but global variables are not to be encouraged. If you do have variables that need to be shared across separate functions, there is an option known as a **static global**. This works for both functions and variables.
+
+
+
+
 
 ### Challenges
 
