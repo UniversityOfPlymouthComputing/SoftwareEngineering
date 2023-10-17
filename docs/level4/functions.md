@@ -8,11 +8,11 @@
  [Working with complex data structures](#working-with-complex-data-structures)
  [Passing Parameters by Pointer](#passing-parameters-by-pointer)
  [Passing Parameters by Reference](#passing-parameters-by-reference)
-Function Scope
+[Function Scope](#function-scope)
  Global Functions
  Static Global Functions
+ Namespaces
  Lambda Functions (local)
- namespaces
 
 ## Fundamentals
 
@@ -495,6 +495,29 @@ void flipPoint(Point& p)
 ```
 
 The data type `Point& p` is a reference type, backed by a hidden pointer. This brings C++ closer to the syntax of other languages. It gets you reference type behavior, without the pointer syntax. It is cleaner and easier to read (and there are some safety benefits as well).
+
+## Function Scope
+
+So far we have kept all our code in a single file. In practise, this is only done in the case of very simple projects. Most projects are build from multiple source files. There are many reasons for this:
+
+* Build Time - the compiler on builds files that have changed. If everything is in one file, everything has to be recompiled even with the slightest change.
+* Separation of Concerns - it is good to keep related code together. It helps navigate large complex projects, and maybe divide work between different individuals.
+* Reuse - if functions are all in one file, then to reuse those functions would need the sharing of all code with other projects. When factored into separate files, you can selectively reuse just the functions that you need. This also applies if you are reusing someone elses code (such as a complex library).
+* Safety - some functions can be made hidden from the rest of the project while others are shared. This might be because they are for "internal use only", and for others to use them directly risks breaking the internal state of the program.
+
+Splitting our project into separate files is sometimes confusing, but an essential skill as our projects grow larger.
+
+### Global Functions
+
+All the functions we have written so far have been **global**. This is the default, and makes our function potentially accessible from anywhere within the project.
+
+
+
+### Static Global Functions
+
+### Namespaces
+
+### Lambda Functions (local functions)
 
 
 ### Challenges
