@@ -1,11 +1,13 @@
 # Functions and Function Scope
 
-Fundamentals of Functions
- Functions as subroutines
- Functions with parameters
- Functions with return types
- Passing by value and reference
- Working with complex data structures
+[Fundamentals of Functions](#fundamentals)
+ [Simple Functions](#simple-functions)
+ [Functions with parameters](#functions-with-parameters)
+ [Function Prototypes](#function-prototypes)
+ [Functions with return types](#returning-values)
+ [Working with complex data structures](#working-with-complex-data-structures)
+ [Passing Parameters by Pointer](#passing-parameters-by-pointer)
+ [Passing Parameters by Reference](#passing-parameters-by-reference)
 Function Scope
  Global Functions
  Static Global Functions
@@ -54,6 +56,10 @@ fn main() {
 ```
 
 Most *compiled* languages have a similar mechanism. They do share the same lineage of course.
+
+### Simple Functions
+
+Let's first look at a simple example of a function.
 
 | Task | 501-function |
 | :--- | :--- |
@@ -121,7 +127,7 @@ Note the position of the **global variable** `L` is not ideal. This variable can
 
 Let's now remove the need for the global `L` by *passing it as a parameter*.
 
-### Parsing Parameters
+### Functions with Parameters
 
 In the previous section, our function was parameterless:
 
@@ -362,7 +368,7 @@ Note how structures can be both passed as parameters and returned from functions
 >
 > One solution is to use a `struct`. You will find `struct` in many languages.
 
-### Passing by pointer
+### Passing Parameters by Pointer
 
 Like the baked-in data types, structures are **value types**. When you equate one to the the other, a copy is performed. Passing and returning structures therefore involves a lot of copy operations, at least that is the logic. 
 
@@ -449,7 +455,7 @@ float calculateLength(Point p)
 }
 ```
 
-### Passing by Reference
+### Passing Parameters by Reference
 
 Pointers exist in both the C and C++ languages, and are fundamental to how programs manipulate memory. Many people find them confusing, and find their syntax unpleasant to read. In other languages pointers will still be there, but are usually hidden from view.  
 
