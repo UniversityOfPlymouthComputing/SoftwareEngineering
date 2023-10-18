@@ -1,22 +1,24 @@
 #include <stdio.h>
 
-
-int main ()
+int main()
 {
+	puts("Press a letter or number,then press return");
+	puts("Press t than return to quit");
 
-    puts("Press a letter or number, then press return");
-    puts("Press q then return to quit");
+	char userEnteredCharacter;
+	char returnKey;
 
-    char userenteredcharacter;
-    char returnkey;
-do
-{
-    userenteredcharacter = getchar();
-    returnkey = getchar();
-    printf("you type %c\n", userentercharacter);
-    printf("you also pressed returnkey (userenteredcharacter %d)\n", returnkey);
+	do
+	{
+		userEnteredCharacter = getchar();     //ASCII character
+		returnKey = getchar();                //Return key
+		printf("You typed %c\n", userEnteredCharacter);
+		//printf("You also pressed return (ASCII %d)\n, returnKey);  //Uncomment this
+	} while (userEnteredCharacter != 't');  //repear if condintion is met which it the !=
+
+	puts("Finished");
+
 }
-while ((userentercharacter != 'q') && (userentercharacter != 'Q'));
 
-     puts("Finished");
-}
+
+  
