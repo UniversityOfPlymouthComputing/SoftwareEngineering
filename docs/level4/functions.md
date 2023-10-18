@@ -11,6 +11,7 @@
 [Function Scope](#function-scope)
  [Global Functions](#global-functions)
  [Static Global Functions and Variables](#static-global-variables-and-functions)
+[Challenges](#challenges)
  
 ## Fundamentals
 
@@ -522,63 +523,80 @@ Now that we've split our functions into separate files, they can all be accessed
 
 ### Static Global Variables and Functions
 
-Global functions are quite common, but sometimes we don't want them to be global. Global variables are actually not to be encouraged at all. 
+Global functions are quite common, but sometimes we don't want them to be global. Global variables are actually not to be encouraged at all (try and use local). 
 
 There is an another option known as a **static global** scope that applies to both functions and variables.
 
+In the next task (513-StaticGlobals), another `struct` is used to represent a rectangle.
 
-# DO NOT GO BEYOND THIS POINT
+```C++
+struct Rect_t
+{
+	uint32_t width;
+	uint32_t height;
+	uint64_t area;
+};
+```
 
+The data type is `Rect_t` (the capitalisation of `R` and the `_t` suffix are a convention for a *type*). This data type encapsulates three members:
 
+* width of the rectangle `width`
+* height of the rectangle `height`
+* area of the rectangle `area`
 
+Let's see this working in this simple example.
 
-### Challenges
+| TASK | 513-StaticGlobals |
+| - | - |
+| 1. | Make 513-StaticGlobals the startup project. |
+| 2. | Step through the code, reading the comments and observing the output |
+|  | Step into each function (except `cout`) | 
+| 3. | There is a function called `updateArea`. It is never called in main. <a title="It is called when ever the area of the rectangle needs to be recalculated, such as when first created, or when one of the sides changes length.">When is it called and why?</a> |
+| 4. | Try calling `updateArea` from within main (uncomment the line at the end of main). |
+
+**Key Points:**
+
+The function `updateArea` is declared as `static`. This means it is only visible within the file in which is is declared, which in this case is `Rect_t.cpp`. It is not visible in any other file (this also means the function name `updateArea` could also be re-used in another file).
+
+We can use the `static` keyword to limit the **scope** of a function (or global variable). To understand *why* we limit scope, note the following:
+
+* In main,  the `width` and `height` are be set to literal values.
+   * They are never changed directly. It is always done via the functions `CreateRect`, `updateHeight` and `updateWidth`
+   * If either `width` or `height` are changed via these functions, the area is always re-calculated automatically
+   * For each combination of height and width, there is only one solution to area.
+* The member `area` is only re-calculated on need (when one of it's dependents changes). For more complex problems, where the cost of calculations is much higher, this technique is useful to maximise performance.
+* We never set the area from main (more strictly, anywhere outside `Rec_t.cpp`)
+   * There is no function provided for this (`updateArea` is static, so cannot be accessed from outside `Rec_t.cpp`)
+   * If we allowed this, what would the correct height and width be? For any chosen value of area, there can be many combinations of height and width
+* **If we stick to the functions provided**, the above is always enforced, and **the data integrity of a rectangle data structure cannot be broken**.
+
+What has been created here is an **Application Programming Interface** (known as **API**).
+
+> **Limitation**
+>  
+> We can still break this code by not using the API. The compiler cannot stop us modifying the area directly. 
+
+```C++
+	Rect_t r1 = CreateRect(10, 20);
+    r1.area = -99;
+	display(r1);
+```
+
+The good news is that there is a way to enforce these rules, but for that, we have to leave `C` completely and embrace the C++ way, which is Object Orientated Programming (OOP).
+
+## Challenges
 
 Your program doesn't do anything yet but it does contain one function - that is main(), every C/C++ program must have one (and only one) function called main() this is where program execution starts.
 
-| Task | Details |
+| Challenge 1 | Simple API |
 | :--- | :--- |
-| 2 | Modify your program to create two integer variables, add them together store the result in another variable. Use printf() to print the values of the variables and the result.
+| 1 | Write a program to create two integer variables, add them together store the result in another variable. Use `cout` to print the values of the variables and the result.
+| 2 | Now create a simple API to add, subtract, multiply and divide integers |
+| - | These should be written in a separate source file `MyLib.cpp`. Create a header to list all the function declarations |
+| 3 | Modify main to test your API |
+| 4 | What happens if you accidentally divide by zero? Try it and think about how you might handle this. | 
 
-| Task | Details |
-| :--- | :--- |
-| 3 | Modify your program to subtract the smaller of your two variables from the larger one. Assign the result of this subtraction to a new variable and use printf() to output all 4 variables. Your code might look a bit like this:
-
-```C++
-int main()
-{
-    int var1, var2;
-
-    //Prompt the user
-    cout << endl << "Enter value 1: ";
-    cin >> var1;
-    cout << endl << "Enter value 2: ";
-    cin >> var2;
-
-    // create variables to hold the reslts of the calculation
-    int sum = var1 + var2;
-    int diff = 0;          
-
-    if (var1 >= var2)               // check which variable is larger - also this covers the case where they are the same
-    {
-        diff = var1 - var2;         // do the subtraction
-    }
-    else
-    {
-        diff = var2 - var1;         // do the subtraction
-    }
-
-    // print out the results
-    cout << "var1 = " << var1;
-    cout << ", var2 = " << var2;
-    cout << ", sum = " << sum; 
-    cout << ", absolute diff = " << diff << endl;
-}
-```
-
-| Task | Details |
-| :--- | :--- |
-| 4 | The two operations (addition and subtraction) are good candidates for putting into functions. This will clean up the code in main() and allow the functions to be called from multiple places in your program. Lets start with the addition, add this code to your program before main()
+Here is the first API to get you stared:
 
 ```C++
 int add( int a, int b)
@@ -589,180 +607,37 @@ int add( int a, int b)
 }
 ```
 
-This defines a function called add() that takes two parameters (both type int) and returns an integer.
 
-To use this functio we need to 'call' it from within main() and process the value it returns.
 
-Here is the complete program now:
+| Challenge 2 | Working with Arrays |
+| :--- | :--- |
+| 1 | Create a new project. Within the main() function add a for loop that runs through an array of integers such that it adds up all the values and stores the result in the variable `total`. Print out the total to the terminal
 
 ```C++
-#include <iostream>
-
-int add(int a, int b)
-{
-    int result;
-    result = a + b;
-    return result;
-}
-
-int main()
-{
-    int var1 = 42, var2 = 12;       // create the two integer variables
-    int sum = 0, diff = 0;          // create variables to hold the reslts of the calculation
-
-    sum = add(var1, var2);
-
-    if (var1 >= var2)               // check which variable is larger - also this covers the case where they are the same
-    {
-        diff = var1 - var2;         // do the subtraction
-    }
-    else
-    {
-        diff = var2 - var1;         // do the subtraction
-    }
-    // print out the results
-    printf("var1 = %d, var2 = %d sum = %d diff = %d\n\n", var1, var2, sum, diff);
-}
-```
-The line sum = add(var1, var2) calls the function add() passing it the two variables (var1 and var2) the return variable is assigned to sum.
-
-| Task | Details |
-| :--- | :--- |
-| 4 | Repeat the process above to add a function called difference() that takes as parameters the two variables var1 and var2 and returns the difference between them. Call your new function from within main().
-
-| Task | Details |
-| :--- | :--- |
-| 5 | Change your source code to that below, withing the main() function add a for loop that runs through the array nums[] and adds up all the values and put the result in the variable 'total'. print out the total to the terminal
-
-```C++
-#include <iostream>
-
-
 int main()
 {
     int nums[10] = { 12, 5, 77, 23, 102, 42, 98, 64, 17, 59};
     int total = 0;
     // your code below here
-
 }
-
 ```
-Something like this would work:
+
+| | |
+| - | - |
+| 2 | Can you write a function that takes an array as a parameter and returns the sum. |
+| - | You may struggle with this at first. Remember that an `array` variable is really a pointer (address). |
+| 3 | Add a second parameter to your function that specifies the length of the array.  Your function might look something like this |
 
 ```C++
-for (int i = 0; i <= 9; i++)
-{
-    total += a[i];
-}
-
-printf("Total is %d", total);
-
+int sumArray(int* arrayPointer, int N)
 ```
 
-| Task | Details |
-| :--- | :--- |
-| 6 | The task now is to put the code that sums the array into a function, to do this we need to pass the address of the array to the function like this:
+| Challenge 3 (advanced) | C++ Collections |
+| - | - |
+| 1. | Look at the project `ArrayAndVector`. Build and read the comments |
+| 2. | Modify challenge 2 to use the `array<>` type? |
 
-```C++
-#include <iostream>
+---
 
-void sumArray(int *a)
-{
-    int total = 0;
-    
-    for (int i = 0; i <= 9; i++)
-    {
-        total += a[i];
-    }
+[Back to Table of Contents](./README.md)
 
-    printf("Total is %d", total);
-}
-
-
-int main()
-{
-    int nums[] = { 12, 5, 77, 23, 102, 42, 98, 64, 17, 59};
-    
-    sumArray(nums); 
-}
-
-```
-
-Copy the code above into Visual Studio and compile.
-
-| Task | Details |
-| :--- | :--- |
-| 7 | The function sumArray in the code above works but only for an array with 10 elements. Amend the code so that the function sumArray now accepts two arguments, the second argument tells the function the size of the array. Also change the function such that it returns the result (total) to the function main().
-
-Something like this:
-```C++
-
-#include <iostream>
-
-int sumArray(int *a, int s)
-{
-    int total = 0;
-    printf("s = %d\n", s);
-    
-    for (int i = 0; i <= (s - 1); i++)
-    {
-        total += a[i];
-        printf("%d %d\n", i, a[i]);
-    }
-
-    return total;
-}
-
-
-int main()
-{
-    int nums[] = { 12, 5, 77, 23, 102, 42, 98, 64, 17, 59};
-    int arraySize = sizeof(nums) / sizeof(nums[0]);
-    printf("Array size %d\n", arraySize);
-    int result = 0;
-
-    result = sumArray(nums, arraySize); 
-
-    printf("Total is %d\n", result);
-}
-
-```
-
-| Task | Details |
-| :--- | :--- |
-| 7 | Finally, it's better to have the body of the functions(s) after main() with the 'prototype' of the function(s) before main(). Amend the code to achieve this.
-
-Something like this:
-
-```C++
-#include <iostream>
-
-int sumArray(int* , int );      // Don't forget the semicolon after the prototype !!
-
-int main()
-{
-    int nums[] = { 12, 5, 77, 23, 102, 42, 98, 64, 17, 59};
-    int arraySize = sizeof(nums) / sizeof(nums[0]);
-    printf("Array size %d\n", arraySize);
-    int result = 0;
-
-    result = sumArray(nums, arraySize); 
-
-    printf("Total is %d\n", result);
-}
-
-int sumArray(int* a, int s)
-{
-    int total = 0;
-    printf("s = %d\n", s);
-
-    for (int i = 0; i <= (s - 1); i++)
-    {
-        total += a[i];
-        printf("%d %d\n", i, a[i]);
-    }
-
-    return total;
-}
-
-```
