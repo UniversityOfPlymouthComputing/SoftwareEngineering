@@ -1,17 +1,20 @@
 #include <stdio.h>
 
 int main()
+
 {
-    int i = 0;
+	int i = 0;
 
-    puts("Start while loop");
+	puts("Start while loop");
 
-    while (i < 5)
-    {
-        printf("i = %d\n", i);
-        i++;        // same as i = i + 1 but more concise;
-    }
+	while (i < 7)
 
-    printf("Exiting with i=%d\n", i);
+	{
+		printf("i=%d\n", i);
+		i++;             //same as i=i + 1 but more the point
+
+	}
+
+	printf("Exiting with i=%d\n", i);
+
 }
-
