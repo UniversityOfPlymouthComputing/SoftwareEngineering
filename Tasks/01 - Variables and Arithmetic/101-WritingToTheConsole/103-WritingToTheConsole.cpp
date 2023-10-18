@@ -6,16 +6,22 @@ int main()
     puts("Hello World!\n");   //Write Hello World to the terminal
 
     printf("Hello World!\n");
-        printf("Hello Everyone. We are using C\nHow are things?\n");
+    printf("Hello Everyone. We are using C\nHow are things?\n");
     printf("Hello Everyone. We are using C\nHow are things?\n");
 
     puts("Answer when n is removed there is an error and no new line\n");
 
     int age = 35;
-    printf("my age is %d\n",age); 
+    printf("my age is %d\n", age);
+
+    printf("my age is %d\n", age);
+
+
 
     // TASK(b) - Use printf to displa the value of the variable area. Look at the lecture slides and find out how to limit this to 3 decimal places
     // 
+   
+
     float raduis =10.0f;
     float area = 3.415926 * raduis * raduis;
 
