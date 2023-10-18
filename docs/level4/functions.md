@@ -1,19 +1,21 @@
 # Functions and Function Scope
 
-[Fundamentals of Functions](#fundamentals)
- [Simple Functions](#simple-functions)
- [Functions with parameters](#functions-with-parameters)
- [Function Prototypes](#function-prototypes)
- [Functions with return types](#returning-values)
- [Working with complex data structures](#working-with-complex-data-structures)
- [Passing Parameters by Pointer](#passing-parameters-by-pointer)
- [Passing Parameters by Reference](#passing-parameters-by-reference)
-[Function Scope](#function-scope)
- [Global Functions](#global-functions)
- [Static Global Functions and Variables](#static-global-variables-and-functions)
-[Challenges](#challenges)
+**Contents**
+
+* [Fundamentals of Functions](#fundamentals)
+   1.  [Simple Functions](#simple-functions)
+   1.  [Functions with parameters](#functions-with-parameters)
+   1.  [Function Prototypes](#function-prototypes)
+   1.  [Functions with return types](#returning-values)
+   1.  [Working with complex data structures](#working-with-complex-data-structures)
+   1.  [Passing Parameters by Pointer](#passing-parameters-by-pointer)
+   1.  [Passing Parameters by Reference](#passing-parameters-by-reference)
+* [Function Scope](#function-scope)
+   1.  [Global Functions](#global-functions)
+   1. [Static Global Functions and Variables](#static-global-variables-and-functions)
+* [Challenges](#challenges)
  
-## Fundamentals
+## Fundamentals of Functions
 
 You have already used a function: `main`
 
@@ -606,8 +608,6 @@ int add( int a, int b)
   return result;
 }
 ```
-
-
 
 | Challenge 2 | Working with Arrays |
 | :--- | :--- |
