@@ -533,7 +533,7 @@ Global functions are quite common, but sometimes we don't want them to be global
 
 There is an another option known as a **static global** scope that applies to both functions and variables.
 
-In the next task (513-StaticGlobals), another `struct` is used to represent a rectangle.
+In the next task (`513-StaticGlobals`), another `struct` is used to represent a rectangle.
 
 ```C++
 struct Rect_t
@@ -558,18 +558,18 @@ Let's see this working in this simple example.
 | 2. | Step through the code, reading the comments and observing the output |
 |  | Step into each function (except `cout`) | 
 | 3. | There is a function called `updateArea`. It is never called in main. <a title="It is called when ever the area of the rectangle needs to be recalculated, such as when first created, or when one of the sides changes length.">When is it called and why?</a> |
-| 4. | Try calling `updateArea` from within main (uncomment the line at the end of main). |
+| 4. | Try calling `updateArea` from within main (uncomment the line at the end of main). <a title="Because it is a static function. It is only visible within the file in which it is defined">Why do you think this is now permitted?</a>|
 
 **Key Points:**
 
-The function `updateArea` is declared as `static`. This means it is only visible within the file in which is is declared, which in this case is `Rect_t.cpp`. It is not visible in any other file (this also means the function name `updateArea` could also be re-used in another file).
+The function `updateArea` is declared as `static`. This means it is only visible within the file in which is is defined, which in this case is `Rect_t.cpp`. It is not visible in any other file (this also means the function name `updateArea` could also be re-used in another file).
 
 We can use the `static` keyword to limit the **scope** of a function (or global variable). To understand *why* we limit scope, note the following:
 
 * In main,  the `width` and `height` are be set to literal values.
    * They are never changed directly. It is always done via the functions `CreateRect`, `updateHeight` and `updateWidth`
-   * If either `width` or `height` are changed via these functions, the area is always re-calculated automatically
-   * For each combination of height and width, there is only one solution to area.
+   * If either `width` or `height` are changed via these functions, the area is always re-calculated automatically by these functions. This is done so we cannot forget!
+   * For each combination of `height` and `width`, there is only one solution to area.
 * The member `area` is only re-calculated on need (when one of it's dependents changes). For more complex problems, where the cost of calculations is much higher, this technique is useful to maximise performance.
 * We never set the area from main (more strictly, anywhere outside `Rec_t.cpp`)
    * There is no function provided for this (`updateArea` is static, so cannot be accessed from outside `Rec_t.cpp`)
@@ -592,7 +592,7 @@ The good news is that there is a way to enforce these rules, but for that, we ha
 
 ## Challenges
 
-Your program doesn't do anything yet but it does contain one function - that is main(), every C/C++ program must have one (and only one) function called main() this is where program execution starts.
+Below are a set of challenges for you to work on in your own time. Solutions will become available at a later date.
 
 | Challenge 1 | Simple API |
 | :--- | :--- |
@@ -615,7 +615,7 @@ int add( int a, int b)
 
 | Challenge 2 | Working with Arrays |
 | :--- | :--- |
-| 1 | Create a new project. Within the main() function add a for loop that runs through an array of integers such that it adds up all the values and stores the result in the variable `total`. Print out the total to the terminal
+| 1 | Create a new project. Within the `main()` function, add a for loop that runs through an array of integers such that it adds up all the values and stores the result in the variable `total`. Print out the total to the terminal
 
 ```C++
 int main()
@@ -640,6 +640,7 @@ int sumArray(int* arrayPointer, int N)
 | - | - |
 | 1. | Look at the project `ArrayAndVector`. Build and read the comments |
 | 2. | Modify challenge 2 to use the `array<>` type? |
+
 
 ---
 
