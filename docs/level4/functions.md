@@ -88,7 +88,7 @@ Both are *semantically* similar - they perform the same basic function. So, let'
 
 | Task | 501-function (continued) |
 | :--- | :--- |
-| 6 | Create a function `displayBanner()` to perform the repetitive code. |
+| 6 | Create a function `displayBanner()` to perform the repetitive code (see code below). |
 | - | Use this function to remove code repetition in the main function |
 | - | Place this function just before `main` (see code snippet below) |
 | - | A solution is provided |
@@ -122,8 +122,10 @@ int main()
 >
 > We will meet this when you begin object orientated programming
 
-Note the position of the **global variable** `L` is not ideal. This variable can be both read and written from anywhere in your project. This means that you cannot reuse the variable name `L` elsewhere without causing ambiguity. 
+Note the position of the **global variable** `L` is not ideal. This variable can be both read and written from anywhere in your project. This means that you cannot reuse the variable name `L` elsewhere without causing ambiguity or errors.  
 
+> When the same global variable name is used twice by mistake, this is known as a **name collision**
+>
 > As a general rule, only use global variables when absolutely necessary.
 
 Let's now remove the need for the global `L` by *passing it as a parameter*.
@@ -159,7 +161,9 @@ We can then invoke this from main, passing in the length of the string.
 | 1 | Make 503-passing-parameters the start up project |
 | 2 | Step through the code using the debugger as shown in the video. |
 
-> **Note** that the variable `L` is now declared inside the `main` function. We say is it a local variable, and only visible within the **scope** of `main`.
+> **Note** that the variable `L` is now declared inside the `main` function. We say is it a **local variable**, and only visible within the **scope** of `main`.
+>
+> `L` is now local to main.
 
 What if we really wanted to make the function more useable, so that we can simply pass in the string, and have it displayed with the surrounding banner?
 
@@ -210,7 +214,7 @@ You will note that the code no longer builds. You may get an error such as:
 
 ` 'displayWithinBanner': identifier not found`
 
-The compiler performs one-pass through the file. If it encounters a function call (e.g. inside main) before it has seen the function, it has no way to check the data types are correct and compatible. Therefore, in C and C++, you usually **declare** your functions first.
+The compiler performs one-pass through the file. If it encounters a function name (e.g. inside `main`) before it has seen the function, it has no way to check the parameter and return data types are correct (or compatible). Therefore, in C and C++, you usually **declare** your functions first.
 
 | |
 | - |
@@ -225,7 +229,7 @@ void displayBanner(int stringLen);
 void displayWithinBanner(string message);
 ```
 
-Note the semi-colons at the end of each line. These are known as function **declarations**. They do not contain the code, just the interface. The function itself is called the function **definition**.
+Note the semi-colons at the end of each line. These are known as function **declarations**. They do not contain the code, just the *interface*. The function itself (currently at the bottom of main) is called the function **definition**.
 
 | |
 | - |
@@ -245,11 +249,11 @@ Now when you try and call these functions in your code (where ever they are loca
 >
 > This highlights an important difference between **strongly typed** languages (such as C,C++,Rust,Swift,C#,Java) and **loosely typed** languages (such as Python, PHP and JavaScript)
 >
-> Compilers try and perform checks at compile time, and will not build your code unless it conforms to certain (sometimes strict) rules. This makes them harder to write, but also safer in some respects.
+> Compilers try and perform checks at compile time, and will not build your code unless it conforms to certain (sometimes strict) rules. This makes them harder to write, but is also safer in some respects.
 >
 > Interpreted languages do not have compile phase, so such errors are typically found at *run time*. They also tend to be loosely typed, performing conversions automatically where it can (or crashing if it cannot be done). This makes testing challenging.
 >
-> Both have merits. As you can probably appreciate, safety or business critical applications tend to prefer the compiled type-safe languages. The downside is you need to compile your code for each platform you run it on. Web applications need to run on all types of machine, so tend to be interpreted.
+> Both have merits. As you can probably appreciate, safety or business critical applications tend to prefer the compiled type-safe languages. The downside is you need to compile your code for each platform you run it on. Web applications need to run on all types of machine, so tend to us interpreted languages.
 >
 > Check out [web assembly](https://developer.mozilla.org/en-US/docs/WebAssembly) to see how type-safe languages are now being used in web applications.
 >
@@ -281,9 +285,9 @@ Let's now add another function to try and make `main` simpler.
 
 | | |
 | - | - |
-| 3 | Create another function `absDiff` that accepts two integer parameters, and returns an integer. Don't forget the prototype at the top of the file. |
+| 3 | Create another function `absDiff` that accepts two integer parameters, and returns an integer. Don't forget the declaration (aka function prototype) at the top of the file. |
 | | The code should calculate the difference between the two parameters, such that the smaller value is always subtracted from the larger |
-| *hint* | Move and modify the code between the comments \*\*1\*\* and \*\*2\*\* out of main and into this new function. |
+| *hint* | Move and modify the code between the comments \*\*1\*\* and \*\*2\*\* out of main and into this new function. Don't forget to call this function from `main` |
 | - |  A solution is available |
 
 ### Working with complex data structures
@@ -348,11 +352,11 @@ Finally, we can copy from structure to another with ease:
 Point p2 = p;
 ```
 
-This will copy each member value from `p` into `p2`. Note that `p` and `p2` are separate independent variables, with differing addresses in memory.
+This will copy each member value from `p` into `p2`. Note that `p` and `p2` are separate independent variables, with different addresses in memory.
 
 > **Terminology**
 >
-> We say that the data type Point **encapsulates** it's members (two integers and a floating point value in this case).
+> We say that the data type `Point` **encapsulates** it's members (two integers and a floating point value in this case).
 
 | Task | 507-UsingStructures |
 | - | - |
@@ -419,7 +423,7 @@ void flipPoint(Point* p)
 }
 ```
 
-As the function `flipPoint` has the address of `p` (and not a copy!), it has the capability to directly modify it's memory, and hence it's data members. It therefore has the ability to overwrite whatever is passed to it.
+As the function `flipPoint` has the address of `p` (and not a copy of the data!), it has the capability to directly modify it's memory, and hence it's data members. It therefore has the ability to overwrite whatever is passed to it.
 
 > We say that `p1` has been passed **by reference** (as opposed to **by value**)
 
@@ -480,7 +484,7 @@ Doing this actually modified `p1`.
 
 > Looking at this line, it would be understandable if you did not expect `p1` to be modified!.
 > 
-> This is point of some controversy. When using pointers, it is apparent that you are passing an address by the presence of the `&` operator (e.g. flipPoint(&p1);)
+> This is point of some controversy. When using pointers, it is apparent that you are passing an address by the presence of the `&` operator (e.g. `flipPoint(&p1);`)
 > 
 > With references, you just have to know.
 
@@ -501,10 +505,10 @@ The data type `Point& p` is a reference type, backed by a hidden pointer. This b
 
 So far we have kept all our code in a single file. In practise, this is only done in the case of very simple projects. Most projects are build from multiple source files. There are many reasons for this:
 
-* Build Time - the compiler on builds files that have changed. If everything is in one file, everything has to be recompiled even with the slightest change.
-* Separation of Concerns - it is good to keep related code together. It helps navigate large complex projects, and maybe divide work between different individuals.
-* Reuse - if functions are all in one file, then to reuse those functions would need the sharing of all code with other projects. When factored into separate files, you can selectively reuse just the functions that you need. This also applies if you are reusing someone elses code (such as a complex library).
-* Safety - some functions can be made hidden from the rest of the project while others are shared. This might be because they are for "internal use only", and for others to use them directly risks breaking the internal state of the program.
+* **Build Time** - the compiler on builds files that have changed. If everything is in one file, everything has to be recompiled even with the slightest change.
+* **Separation of Concerns** - it is good to keep related code together. It helps navigate large complex projects, and maybe divide work between different individuals.
+* **Reuse** - if functions are all in one file, then to reuse those functions would need the sharing of all code with other projects. When factored into separate files, you can selectively reuse just the functions that you need. This also applies if you are reusing someone elses code (such as a complex library).
+* **Safety** - some functions can be made hidden from the rest of the project while others are shared. This might be because they are for "internal use only", and for others to use them directly risks breaking the internal state of the program.
 
 Splitting our project into separate files is sometimes confusing, but an essential skill as our projects grow larger.
 
@@ -517,7 +521,7 @@ This also makes it quite simple to move our functions into separate files within
 | Task | 512-SplittingTheProject |
 | - | - |
 | 1. | [Watch this video on how to split your code in separate concerns](https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=b3c3f6c9-e104-470f-9740-b09e00fd8b42) |
-| 2. | Create a project 512-SplittingTheProject as shown in the video |
+| 2. | Create a project `512-SplittingTheProject` as shown in the video |
 | 3. | Try and replicate what you saw in the video |
 | - | A solution is available |
 
@@ -529,7 +533,7 @@ Global functions are quite common, but sometimes we don't want them to be global
 
 There is an another option known as a **static global** scope that applies to both functions and variables.
 
-In the next task (513-StaticGlobals), another `struct` is used to represent a rectangle.
+In the next task (`513-StaticGlobals`), another `struct` is used to represent a rectangle.
 
 ```C++
 struct Rect_t
@@ -554,18 +558,18 @@ Let's see this working in this simple example.
 | 2. | Step through the code, reading the comments and observing the output |
 |  | Step into each function (except `cout`) | 
 | 3. | There is a function called `updateArea`. It is never called in main. <a title="It is called when ever the area of the rectangle needs to be recalculated, such as when first created, or when one of the sides changes length.">When is it called and why?</a> |
-| 4. | Try calling `updateArea` from within main (uncomment the line at the end of main). |
+| 4. | Try calling `updateArea` from within main (uncomment the line at the end of main). <a title="Because it is a static function. It is only visible within the file in which it is defined">Why do you think this is now permitted?</a>|
 
 **Key Points:**
 
-The function `updateArea` is declared as `static`. This means it is only visible within the file in which is is declared, which in this case is `Rect_t.cpp`. It is not visible in any other file (this also means the function name `updateArea` could also be re-used in another file).
+The function `updateArea` is declared as `static`. This means it is only visible within the file in which is is defined, which in this case is `Rect_t.cpp`. It is not visible in any other file (this also means the function name `updateArea` could also be re-used in another file).
 
 We can use the `static` keyword to limit the **scope** of a function (or global variable). To understand *why* we limit scope, note the following:
 
 * In main,  the `width` and `height` are be set to literal values.
    * They are never changed directly. It is always done via the functions `CreateRect`, `updateHeight` and `updateWidth`
-   * If either `width` or `height` are changed via these functions, the area is always re-calculated automatically
-   * For each combination of height and width, there is only one solution to area.
+   * If either `width` or `height` are changed via these functions, the area is always re-calculated automatically by these functions. This is done so we cannot forget!
+   * For each combination of `height` and `width`, there is only one solution to area.
 * The member `area` is only re-calculated on need (when one of it's dependents changes). For more complex problems, where the cost of calculations is much higher, this technique is useful to maximise performance.
 * We never set the area from main (more strictly, anywhere outside `Rec_t.cpp`)
    * There is no function provided for this (`updateArea` is static, so cannot be accessed from outside `Rec_t.cpp`)
@@ -588,7 +592,7 @@ The good news is that there is a way to enforce these rules, but for that, we ha
 
 ## Challenges
 
-Your program doesn't do anything yet but it does contain one function - that is main(), every C/C++ program must have one (and only one) function called main() this is where program execution starts.
+Below are a set of challenges for you to work on in your own time. Solutions will become available at a later date.
 
 | Challenge 1 | Simple API |
 | :--- | :--- |
@@ -611,7 +615,7 @@ int add( int a, int b)
 
 | Challenge 2 | Working with Arrays |
 | :--- | :--- |
-| 1 | Create a new project. Within the main() function add a for loop that runs through an array of integers such that it adds up all the values and stores the result in the variable `total`. Print out the total to the terminal
+| 1 | Create a new project. Within the `main()` function, add a for loop that runs through an array of integers such that it adds up all the values and stores the result in the variable `total`. Print out the total to the terminal
 
 ```C++
 int main()
@@ -636,6 +640,7 @@ int sumArray(int* arrayPointer, int N)
 | - | - |
 | 1. | Look at the project `ArrayAndVector`. Build and read the comments |
 | 2. | Modify challenge 2 to use the `array<>` type? |
+
 
 ---
 
