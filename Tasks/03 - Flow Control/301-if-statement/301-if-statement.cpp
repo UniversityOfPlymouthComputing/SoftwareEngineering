@@ -29,7 +29,11 @@ int main()
     do {
         cout << "Please enter a level (between 0 and 100)" << endl;
         cin >> level;
-    } while (level < 0);
+    } while ((level < 0) || (level > 100)); // keep goin until valid number between 0 and 100 is entered
+
+    if (level == 0) {
+        cout << "Tank is empty" << endl; 
+    }
 
     if (level <= low)                       // check the level
     {
