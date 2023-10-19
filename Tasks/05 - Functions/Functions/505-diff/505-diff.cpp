@@ -12,8 +12,7 @@ int main()
     //Prompt the user
     cout << endl << "Enter value 1: ";
     cin >> var1;
-    cout << endl << "Enter value 2: ";
-    cin >> var2;
+    cout << endl << "Enter value 2: ";cin >> var2;
 
 
     // ***1***

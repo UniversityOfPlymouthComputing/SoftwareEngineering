@@ -9,10 +9,8 @@ void displayBanner(int stringLen)
 	cout << endl;
 }
 
-int main()
-{
-	const string message = "Welcome to Computer Science";
-
+void displayWithinBanner(string message)
+{	
 	//Get the length of the string
 	int L = message.length();			//L is now a LOCAL variable
 
@@ -27,5 +25,13 @@ int main()
 	displayBanner(L);
 
 	//Tell the calling shell all is well
+}
+
+int main()
+{
+	const string message = "Welcome to Computer Science";
+
+	displayWithinBanner(message);
+
 	return 0;
 }
