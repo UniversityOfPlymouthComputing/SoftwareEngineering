@@ -58,7 +58,91 @@ We will use C streams as the workings are less hidden than the C++ equivalent. G
 | 1. | Open the solution `FileIO` in Visual Studio |
 | 2. | Make `01-LowLevelIO` the start up project |
 | 3. | Step through the code with a debugger, and read the comments |
-| 4. | Note the commentary below |
+| 4. | [Watch this video](https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=86b895f8-de6e-4822-92f7-b0a500db567a) |
+| 5. | Note the commentary below |
+
+**Key Points:**
+
+We've been using streams all along! There are two streams that are already open:
+
+* `stdin` which is the default stream for read when you use the standard input functions, such as `scanf()` and `getchar()`
+* `stdout` which is the default stream for write when you use the standard output functions, such as `puts()`, `printf()` and `putchar()`.
+
+We saw how the following were identical:
+
+```C++
+printf("Hello");
+fprintf(stdout, "Hello");
+```
+
+Equally, the following are identical:
+
+```C++
+int a;
+scanf_s("%d", &a);
+fscanf_s(stdin, "%d", &a);
+```
+
+The filetype for a stream is a structure named `FILE`. We usually work with a pointer (address) to a stream (type `FILE*`).
+
+When writing to a file, we need a stream that is terminated with a file in the filing system. To obtain this, we can use the standard function `fopen_s`:
+
+```C++
+FILE* outputStream;
+fopen_s(&outputStream, "lowlevel_io.txt", "wt");
+```
+
+If this succeeds, it will return a pointer to a structure of type `FILE`, or `nullptr` if it fails:
+
+```C++
+if (outputStream == nullptr) {
+    puts("Could not open that file for write");
+    return -1;
+}
+```
+
+Once we have the stream, we can write to it just as before:
+
+```C++
+fprintf(outputStream, "12345\n");
+```
+
+Once we are finished writing to the file, we must remember to close it. This ensures all the data in the stream buffer is flushed.
+
+```C++
+fclose(outputStream);           
+```
+
+Reading is very similar. First we obtain a stream by "opening" a file:
+
+```C++
+FILE* inputStream;
+fopen_s(&inputStream, "lowlevel_io.txt", "rt");
+```
+
+Again, we check that this has been successful:
+
+```C++
+if (inputStream == nullptr) {
+    puts("Could not open that file for read");
+    return -1;
+}
+```
+
+If successful, we can now ready the stream (and hence the contents of the file):
+
+```C++
+int number;
+fscanf_s(inputStream, "%d", &number);
+```
+
+As with `scanf` (where the input stream is `stdin`), the string value is read as a string, converted to an integer and written into the variable `number`. Once you have finished reading, you should close the file:
+
+```C++
+fclose(inputStream);
+```
+
+The syntax of C streams can be a bit off-putting. The good news is that C++ has a much more tidy system for doing the same thing.
 
 ## C++ Streams with `iostream`
 
