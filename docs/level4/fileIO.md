@@ -2,19 +2,18 @@
 
 **Contents**
 
-* [User Input]()
+* [Streams](#streams)
    1. [Low Level Streams in C](#low-level-streams-in-c)
-   1. [Streams in C++ IO with `iostream`]
-   1. [String Streams with `sstream`]
-   1. [Command Line Parameters]
+   1. [C++ Streams with `iostream`]
 * [File IO in C++]
    1. [File Streams with `fstream`]
    1. [Basic File Parsing]
-   1. [String Parting]
+   1. [String Parsing]
+   1. [String Streams with `sstream`]
    1. [Regular Expressions]
 * [Challenges]
 
-## Low Level Streams in C
+## Streams
 
 A stream is computing concept that turns up in many places, including file processing and network programming. Conceptually, a stream is a sequence of bytes are are either read from a data source, or sent to data destination (sometimes known as a data sink).
 
@@ -43,6 +42,8 @@ The pipe itself also has some properties to be aware of:
   * Write operations will block in the event of a full pipe.
   * Read operations will typically block if the pipe is empty.
 
+## Low Level Streams in C
+
 With this in mind, let's look at an example. We will use C streams as the workings are less hidden than the C++ equivalent. Going forward, we will use C++ of course.
 
 | Task | 01-LowLevelIO |
@@ -50,9 +51,13 @@ With this in mind, let's look at an example. We will use C streams as the workin
 | 1. | Open the solution `FileIO` in Visual Studio |
 | 2. | Make `01-LowLevelIO` the start up project |
 | 3. | Step through the code with a debugger, and read the comments |
-| 4. | Note the commentry below |
+| 4. | Note the commentary below |
 
+## C++ Streams with `iostream`
 
+We have already encountered streams in C++. 
+
+# DO NOT READ BEYOND THIS POINT
 
 ## Fundamentals of Functions
 
