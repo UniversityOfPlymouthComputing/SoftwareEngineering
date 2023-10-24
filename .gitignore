@@ -430,3 +430,4 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+Tasks/06 - FileIO/01-LowLevelIO/lowlevel_io.txt
