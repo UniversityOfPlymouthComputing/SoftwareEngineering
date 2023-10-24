@@ -42,9 +42,16 @@ The pipe itself also has some properties to be aware of:
   * Write operations will block in the event of a full pipe.
   * Read operations will typically block if the pipe is empty.
 
+With this in mind, the following sections will introduce you to two of the most common uses of streams.
+
+* User Input and Output (IO)
+* File IO
+
+Remember - both are conceptually the same. What differs are the types of data source and destination.
+
 ## Low Level Streams in C
 
-With this in mind, let's look at an example. We will use C streams as the workings are less hidden than the C++ equivalent. Going forward, we will use C++ of course.
+We will use C streams as the workings are less hidden than the C++ equivalent. Going forward, we will use C++ of course.
 
 | Task | 01-LowLevelIO |
 | - | - | 
