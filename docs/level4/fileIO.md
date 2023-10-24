@@ -416,6 +416,8 @@ So far, it reads each string at a time until it gets to the subject area (COMP).
 | - | A solution is provided |
 | | |
 
+# DO NOT READ BEYOND THIS POINT
+
 ### Reading one line at a time
 
 So far, we have read files "one word at a time", where words are strings separated by white space or new lines. We actually throw away the spaces and new line characters in doing so.
@@ -453,7 +455,7 @@ By doing this, we have read each line in turn, retaining all the white space and
 | 4. | Can you use the same technique to locate the numerical module code? |
 | 5. | A solution is provided |
 
-# DO NOT READ BEYOND THIS POINT
+
 
 # Challenges
 
