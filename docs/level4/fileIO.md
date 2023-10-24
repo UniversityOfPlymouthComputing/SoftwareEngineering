@@ -7,6 +7,7 @@
    1. [C++ Streams with `iostream`]
 * [File IO in C++]
    1. [File Streams with `fstream`]
+   1. Appending Files with Flags
    1. [Basic File Parsing]
    1. [String Parsing]
    1. [String Streams with `sstream`]
@@ -67,6 +68,7 @@ We've been using streams all along! There are two streams that are already open:
 
 * `stdin` which is the default stream for read when you use the standard input functions, such as `scanf()` and `getchar()`
 * `stdout` which is the default stream for write when you use the standard output functions, such as `puts()`, `printf()` and `putchar()`.
+* The declarations for all these functions (and type `FILE`) are all in the header file `stdio.h`. That is why it is included at the top of almost every C program.
 
 We saw how the following were identical:
 
@@ -83,16 +85,17 @@ scanf_s("%d", &a);
 fscanf_s(stdin, "%d", &a);
 ```
 
-The filetype for a stream is a structure named `FILE`. We usually work with a pointer (address) to a stream (type `FILE*`).
+The filetype for a stream is a structure named `FILE`. We usually work with a pointer (address) to a stream (type `FILE*`). 
 
-When writing to a file, we need a stream that is terminated with a file in the filing system. To obtain this, we can use the standard function `fopen_s`:
+> I know pointers are confusing. Don't worry about this as we won't be working with FILE* for much longer
+
+The stream `stdout` is already created for us. However, when writing to a file, we need a new stream with a file as it's destination. To obtain such a stream, we can use the standard function `fopen_s`, specifying the file path and mode:
 
 ```C++
 FILE* outputStream;
-fopen_s(&outputStream, "lowlevel_io.txt", "wt");
+fopen_s(&outputStream, "lowlevel_io.txt", "wt"); //"wt" refers to write text
 ```
-
-If this succeeds, it will return a pointer to a structure of type `FILE`, or `nullptr` if it fails:
+This will prompt the operating system to create/overwrite a file "lowlevel_io.txt" and open it in write mode. If this succeeds, `outputStream` will be a pointer to a structure of type `FILE`. If it fails, it will simply be zero (`nullptr`):
 
 ```C++
 if (outputStream == nullptr) {
@@ -107,13 +110,13 @@ Once we have the stream, we can write to it just as before:
 fprintf(outputStream, "12345\n");
 ```
 
-Once we are finished writing to the file, we must remember to close it. This ensures all the data in the stream buffer is flushed.
+This writes data to the stream buffer, which in turn will get written into a file on your computer filing system. Once we are finished writing to the file, we must remember to close it. This ensures all the data in the stream buffer is written (known as *flushed*).
 
 ```C++
 fclose(outputStream);           
 ```
 
-Reading is very similar. First we obtain a stream by "opening" a file:
+Reading is very similar. First we once obtain a stream by "opening" a file, only this time in read mode:
 
 ```C++
 FILE* inputStream;
@@ -146,7 +149,234 @@ The syntax of C streams can be a bit off-putting. The good news is that C++ has 
 
 ## C++ Streams with `iostream`
 
-We have already encountered streams in C++. 
+We have already encountered streams in C++. Every time we use `cout` or `cin`, we are using the stream `stdout` and `stdin`.
+
+> Both `cout` and `cin` are declared in the header file `iostream`. This is why this file is included in almost every C++ program you see
+
+### Writing with `ofstream`
+
+| Task | 02-OpenForWrite |
+| - | - |
+| 1. | Make 02-OpenForWrite the start up project |
+| 2. | Step through the code and read the comments |
+| 3. | Using the file explorer, file the file "myfile.txt" and inspect it's contents |
+
+**Key Points:**
+
+To open a file to write, we use the data type `ofstream` and the `open` function as follows:
+
+```C++
+ofstream outputStream;
+outputStream.open("myfile.txt");
+```
+
+> There is no mode to say if we are writing or reading. `ofstream` is only used for writing.
+
+Again, we check to see if this worked. In order to hide away the underlying stream, a function `is_open()` is provided:
+
+```C++
+//Check to see if it worked
+if (outputStream.is_open() == false) {
+    cerr << "Cannot create the file" << endl;
+    return -1;
+}
+```
+
+|  |  |
+| - | - |
+| 4. | <a title="It contains the declaration for `ofstream`">Why do you think we also include the header file `fstream`?</a> |
+| | |
+
+> Additional
+>
+> Note how I've used `cerr` instead of `cout`? This uses another pre-existing stream called `stderr`. This is used for error messages, and separates them from application output.
+
+Now we write to the file just like using `cout`:
+
+```C++
+//Write a string to the file
+outputStream << "12345" << endl;
+outputStream << "-----";
+```
+
+Finally, when we have finished writing, we must remember to close the file:
+
+```C++
+//Close
+outputStream.close();
+```
+
+### Objects
+
+Did you notice how the "dot notation" was used in the code above? For example:
+
+```C++
+ofstream outputStream;
+```
+
+In the previous lab, we created new data types using **structures**.
+
+```C++
+struct Point {
+    int x;
+    int y;
+};
+
+Point dot;
+dot.x = dot.y;  //Modify the member x
+dot.y = 0;      //Modify the member y
+```
+
+Structure types have members (`x` and `y` in this case) that we can read and write. 
+
+`ofstream` is also a custom type, and will have members as well (some of them hidden). This will include data relating to the underlying file stream etc.. 
+
+> Unlike a C structure however, it also contains *member functions* which operate on its member data. One example is shown below: 
+
+```C++
+outputStream.open("myfile.txt");
+```
+
+The *member function* `open` performs all the tasks to create a stream for writing to the file "myfile.txt". The details are hidden from you. You just use it!
+
+> `outputStream` is a **class type**. C++ classes are similar to structures, but are much more powerful, and are the topic of the next lab.
+
+When you create a variable with a custom data type like this, we often call it an **object**. It is part of **object orientated programming**.
+
+|  |  |
+| - | - |
+| 5. | <a title="`is_open()` and `close()`">Identify two other member functions used in this code</a> |
+| | |
+
+Now we write to the file using a familiar syntax:
+
+```C++
+//Write a string to the file
+outputStream << "12345" << endl;
+outputStream << "-----" << endl;
+```
+
+> This will probably remind you of the `cout` syntax?
+
+Finally, we close the file
+
+```C++
+//Close
+outputStream.close();
+```
+
+### Reading with `ifstream`
+
+Let's now read the data from out newly created file and display it in the terminal
+
+| Task | 02-OpenForRead |
+| - | - |
+| 1. | Make 03-OpenForRead the start up project |
+| 2. | Build and run the code. <a title="There is no file myfile.txt in the folder">Why does it display an error?</a> |
+| 3. | Correct the error by copying `myfile.txt` from the `02-OpenForWrite` project into the `02-OpenForRead` project |
+| 4. | Build and run again to confirm the file is read and displayed |
+
+File reading is a little more complex. If the file does not exist, an attempt to open it will fail. Furthermore, you need to know if you reach the end of the file.
+
+**Key Points**
+
+First we create an object of type `ifstream`. Whereas `ofstream` is used for output (writing), `ifstream` is used for input (reading).
+
+```C++
+string fn = "myfile.txt";
+ifstream inputStream
+```
+
+Then we open and check as before:
+
+```C++
+inputStream.open(fn);
+if (!inputStream.is_open()) {
+    cerr << "Cannot open file " << fn << endl;
+    return -1;
+}
+```
+
+Note again how we are using *member functions* to both open and confirm. Next we read the data:
+
+```C++
+string nextWord;
+inputStream >> nextWord;
+while (inputStream.eof() == false) {
+    cout << nextWord << endl;
+    inputStream >> nextWord;
+}
+```
+
+|  | |
+| - | - |
+| 5. | Step through the code. <a title="Two words. The final read fails as the end of file is detected">How many reads are performed?</a> |
+| | |
+
+Similar to `cin`, we read using the `>>` operators. Each time we do this, we then check for an end of file using the `eof()` member function. This continues until the end of the file is reached.
+
+The final read will fail to read any data. This is what flags that the end of the file has been reached. Only then will the `eof()` function return a `true`.
+
+| Task | 04-TimesTables |
+| - | - |
+| 1. | Make 04-TimesTables the start up project. Build and run |
+| 2. | Currently all output is sent to the terminal. Change the code so all output is instead written into the file `tables.txt` |
+| - | A solution is provided |
+| - | *hint* - you need to replace `cout` with a different object of type `ofstream`. |
+| | |
+
+```C++
+int main()
+{
+	for (unsigned int r = 2; r <= 12; r++) {
+		for (unsigned int c = 2; c <= 12; c++) {
+			cout << r * c << "\t";
+		}
+		cout << endl;
+	}
+	cout << endl;
+
+	return 0;
+}
+```
+
+### Using Flags
+
+In the task [writing with ofstream](#writing-with-ofstream), the file was recreated every time. This is the default behavior. Sometimes we wish to modify the behavior, such as appending to the end of an existing file.
+
+For this, we can use special *flags* to modify file IO.
+
+| Experiment | 05-AppendingFiles |
+| - | - |
+| 1. | Make 05-AppendingFiles the start up project. |
+| 2. | Build and run the code. Confirm it has created a file called `myfile.txt` |
+| 3. | Inspect the contents of `myfile.txt` |
+| 4. | Change the module code from `1000` to `2000` | 
+| 5. | Re-run the code again. What happened to the file? |
+| 6. | Now comment out the line that reads: `outputStream.open("myfile.txt");` |
+| 7. | Uncomment the line that reads: `outputStream.open("myfile.txt", ios::app);` |
+| 8. | Rerun the experiment and note the change in behaviour |
+
+**Key Points**
+
+* The default behaviour of `open()` is to delete any existing content and re-write the file.
+* We can change this behaviour by specifying an addition flag parameter. In this case, we used `ios::app` so the file would be appended.
+
+
+For your reference, a table of flags have been included:
+
+| Mode | Description |
+| :--- | :--- |
+|  ios::in| Open file for input (default mode for ifstream)
+|  ios::out| Open file for output (default mode for ofstream)
+|  ios::binary| Open file in binary mode 
+|  ios::ate| Set initial file position at the end, if not set the initial file position is the start
+|  ios::app| All output is appended to the end of the file
+|  ios::trunc| If file is opened for output and already exists it's content is deleted before writing new data
+
+### Reading one line at a time
+
+So far, we have read files "one word at a time", where words are strings separated by white space or new lines
 
 # DO NOT READ BEYOND THIS POINT
 
