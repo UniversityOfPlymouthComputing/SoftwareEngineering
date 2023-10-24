@@ -1,3 +1,61 @@
+# User Input and File IO
+
+**Contents**
+
+* [User Input]()
+   1. [Low Level Streams in C](#low-level-streams-in-c)
+   1. [Streams in C++ IO with `iostream`]
+   1. [String Streams with `sstream`]
+   1. [Command Line Parameters]
+* [File IO in C++]
+   1. [File Streams with `fstream`]
+   1. [Basic File Parsing]
+   1. [String Parting]
+   1. [Regular Expressions]
+* [Challenges]
+
+## Low Level Streams in C
+
+A stream is computing concept that turns up in many places, including file processing and network programming. Conceptually, a stream is a sequence of bytes are are either read from a data source, or sent to data destination (sometimes known as a data sink).
+
+> You can think of a *stream* as a pipe down which you send data one byte at a time. The first to be written in is the first to be read out.
+
+<figure>
+<img src="./img/binarystream.jpg" width="600px">
+<figcaption>Visualising a data stream as a pipe connecting a data source and destination</figcaption>
+</figure>
+
+The the source and destination could be:
+
+* Terminal (keyboard or output)
+* File on a disk
+* A block of memory
+* A "network socket"
+* A device connected (e.g. audio playback or mouse)
+
+The pipe itself also has some properties to be aware of:
+
+* Data flow is typically one-direction 
+* Data ordering follows a "First In First Out" (FIFO) pattern.
+* The "pipe" itself usually has it's own storage capacity. 
+  * It can hold data until the destination is ready to read it (known as **buffering**)
+  * It has finite storage capacity (the pipe can get full)
+  * Write operations will block in the event of a full pipe.
+  * Read operations will typically block if the pipe is empty.
+
+With this in mind, let's look at an example. We will use C streams as the workings are less hidden than the C++ equivalent. Going forward, we will use C++ of course.
+
+| Task | 01-LowLevelIO |
+| - | - | 
+| 1. | Open the solution `FileIO` in Visual Studio |
+| 2. | Make `01-LowLevelIO` the start up project |
+| 3. | Step through the code with a debugger, and read the comments |
+| 4. | Note the commentry below |
+
+
+
+## Fundamentals of Functions
+
 In C++ writing to and reading from files is handled by the 'fstream' library in a very similar way to the way you have used 'cin' and 'cout'. By that we mean it handles the data as a stream and uses the '<<' and '>>' operators to control the flow.
 
 By way of a refresher this short program accepts a user name and outputs a greeting.
