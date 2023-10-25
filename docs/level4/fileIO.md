@@ -416,7 +416,6 @@ So far, it reads each string at a time until it gets to the subject area (COMP).
 | - | A solution is provided |
 | | |
 
-# DO NOT READ BEYOND THIS POINT
 
 ### Reading one line at a time
 
@@ -428,33 +427,62 @@ Sometimes we want to read in each line, separating reads by just newline charact
 | - | - |
 | 1. | Make 06-getline the startup project |
 | 2. | Build and step through the code. Read the comments to try and understand it |
-| 3. | <a title="When `getline() returns a zero">What condition causes the while loop to exit?</a> |
+| 3. | <a title="Use the end of file `eof()` function">How do you know if you've successfully read a line or reached the end of the file?</a> |
+| 4. | <a title="You add them with +">How do you join two strings together in C++?</a> |
+| 5. | Now write a loop to read all lines from the file and append them to the `allLines` string. When the program completes, `allLines` should contain the complete contents of the file. |
+| - | A solution is provided |
 
 **Key Points**
 
-In this task, we use the function `getline` to read one line at a time, and store the result in one large string. This is then searched 
+In this task, we use the function `getline` to read one line at a time, and store the result in one large string.
 
 ```C++
-// (ii) Read line-by-line (separated by newline)
+getline(inputStream, nextLine);
+```
+where `inputStream` is a stream we are reading, and `nextLine` is a string. As `nextLine` is modified by this function, we can probably assume it is *passed by reference* (although it is not obvious).
+
+One of the complexities of reading files is that unlike `cin`, a file stream will eventually reach the end of the file. 
+
+Any attempt to read beyond the end of a file will silently fail (it will not crash) and will simply not modify the string. We can test for this using the `eof()` member function.
+
+```C++
+if (inputStream.eof() == true) {
+    //Last read attempt failed - end of file
+} else {
+    //Last read attempt succeeded - you can use the data
+}
+```
+
+> Internally, when you attempt to read beyond the end of a file, the *end of file marker* will be set. This is internal to `ifstream` and all done for you. You simply check it with the `eof()` function.
+
+We also saw how we can use the `+` operator to join strings together in C++. For example:
+
+```C++
+string s1 = "Hello";
+string s2 = "World";
+string s3 = s1 + " " + s2;
+cout << s3;
+```
+
+This would display `Hello World` in the terminal. 
+
+> How this works will be revealed when we write our own class types. For now, we can enjoy the simplicity this brings!
+
+Sometimes you read code in this style:
+
+```C++
 string nextLine;
 string allLines;
 
 //Read remaining words
 while (getline(inputStream, nextLine)) {
-    allLines = allLines + " " + nextLine;         //Append the string
-    cout << nextLine << endl;
+    allLines = allLines + nextLine + "\n";         //Append the string
 }
 ```
 
-By doing this, we have read each line in turn, retaining all the white space and replacing new lines characters .
+This is relying on the return type of `getline()` to infer if we have reached the end of the file. Although often considered elegant and concise, this style can also be confusing for beginners.
 
-> Note this requires we also include the header `sstream`
-
-|  |  |
-| - | - |
-| 4. | Can you use the same technique to locate the numerical module code? |
-| 5. | A solution is provided |
-
+# DO NOT READ BEYOND THIS POINT
 
 
 # Challenges
