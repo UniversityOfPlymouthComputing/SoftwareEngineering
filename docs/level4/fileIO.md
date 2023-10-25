@@ -427,7 +427,7 @@ Sometimes we want to read in each line, separating reads by just newline charact
 | - | - |
 | 1. | Make 06-getline the startup project |
 | 2. | Build and step through the code. Read the comments to try and understand it |
-| 3. | <a title="Use the end of file `eof()` function">How do you know if you've successfully read a line or reached the end of the file?</a> |
+| 3. | <a title="Use the fail function `fail()` function">How do you know if you've successfully read a line?</a> |
 | 4. | <a title="You add them with +">How do you join two strings together in C++?</a> |
 | 5. | Now write a loop to read all lines from the file and append them to the `allLines` string. When the program completes, `allLines` should contain the complete contents of the file. |
 | - | A solution is provided |
@@ -441,19 +441,24 @@ getline(inputStream, nextLine);
 ```
 where `inputStream` is a stream we are reading, and `nextLine` is a string. As `nextLine` is modified by this function, we can probably assume it is *passed by reference* (although it is not obvious).
 
-One of the complexities of reading files is that unlike `cin`, a file stream will eventually reach the end of the file. 
+One of the complexities of reading files is that (unlike `cin`) a file stream will eventually reach the end of the file. 
 
-Any attempt to read beyond the end of a file will silently fail (it will not crash) and will simply not modify the string. We can test for this using the `eof()` member function.
+> The end of every stream has an **End Of File** (EOF) marker. 
+> 
+> * When you read the last item in a stream, this *might* include the EOF character. If so, you can stop reading. 
+> * If there is a space or newline after the last item, you will need to *try* and read another item in order to detect EOF marker
+>
+> Any attempt to read *beyond* the last item will silently fail (it will not crash) and will simply not modify the string. 
 
-```C++
-if (inputStream.eof() == true) {
-    //Last read attempt failed - end of file
-} else {
-    //Last read attempt succeeded - you can use the data
-}
-```
+* To test if an item was successfully read, use the function `fail()`.
+* To test if a stream has encountered the EOF marker, we use the function `eof()`
 
-> Internally, when you attempt to read beyond the end of a file, the *end of file marker* will be set. This is internal to `ifstream` and all done for you. You simply check it with the `eof()` function.
+|  |  |
+| - | - |
+| 6. | Now build and run the solution. Step through the code and read all comments |
+| | |
+
+#### String Concatination
 
 We also saw how we can use the `+` operator to join strings together in C++. For example:
 
@@ -468,19 +473,28 @@ This would display `Hello World` in the terminal.
 
 > How this works will be revealed when we write our own class types. For now, we can enjoy the simplicity this brings!
 
-Sometimes you read code in this style:
+### String Streams
 
-```C++
-string nextLine;
-string allLines;
+So far we have met the following types of stream:
 
-//Read remaining words
-while (getline(inputStream, nextLine)) {
-    allLines = allLines + nextLine + "\n";         //Append the string
-}
-```
+* `stdin` - read via `cin`, this defaults to the terminal input
+* `stdout` - written via `cout`, this defaults to the terminal output
+* `ifstream` - read only, where the source is a file
+* `ofstream` - write only, where the destination is a file
 
-This is relying on the return type of `getline()` to infer if we have reached the end of the file. Although often considered elegant and concise, this style can also be confusing for beginners.
+We have more more for you!
+
+* `istringstream` - read only, where the source is a string.
+
+This is very useful for reading individual words from a longer string. Let's look at it now:
+
+| Task | 09-StringStreams |
+| - | - |
+| 1. | Make 09-StringStreams the start up project. Build and step through the code, reading all comments |
+| 2. | Write a loop to read all words in the string, and count how many there are. |
+| -  | Within your loop, write each word on a separate line. When you read the word "Always.", add an extra line break. |
+| 3. | A solution is provided |
+
 
 # DO NOT READ BEYOND THIS POINT
 
