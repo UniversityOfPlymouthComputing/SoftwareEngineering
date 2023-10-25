@@ -1,28 +1,88 @@
-// 10-StringConversion.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+#include <sstream>
+#include <fstream>
+#include <stdexcept>
+using namespace std;
+
+//Used to create a file for testing purposes
+void createFile(string fn);
+int readFileIntoString(string fn, string& allLines);
 
 int main()
 {
-    std::cout << "Hello World!\n";
-    //Let's convert the string to an integer with the `stoi` function
-    int numericalValue;
-    try {
-        numericalValue = stoi(nextWord);
+    //Let's create a file for test purposes
+    createFile("myfile.txt");
+
+    //String to hold file content
+    string dataString;
+    int errCode = readFileIntoString("myfile.txt", dataString);
+
+    //If successful, display contents
+    if (errCode == 0) {
+        cout << dataString;
+    } else {
+        cerr << "Error: " << errCode << endl;
+        return errCode;
     }
-    catch (std::exception e) {
-        cout << "Oops, that did not go well" << endl << e.what() << endl;
-    }
+    
+    // Parse String
+    istringstream iss(dataString);
+
+
+    //Done
+    return 0;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+// Create a test file with filename fn
+void createFile(string fn)
+{
+    // (i) Open for write
+    ofstream outputStream;
+    outputStream.open(fn);
+    if (!outputStream.is_open()) {
+        cerr << "Cannot create file" << endl;
+        throw std::runtime_error("Cannot create " + fn);
+    }
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+    // (ii) Stream characters
+    outputStream << "Hello COMP1000" << endl << "--------------" << endl;
+    outputStream << "Subject Area: " << "COMP" << endl;
+    outputStream << "Module ID: " << 1000 << endl;
+
+    // (iii) Close
+    outputStream.close();
+}
+
+// Read the test file into a string
+int readFileIntoString(string fn, string& allLines)
+{
+    // (i) Open for read
+    ifstream inputStream;
+    inputStream.open(fn);
+    if (!inputStream.is_open()) {
+        cerr << "Cannot open file " << fn << endl;
+        return -1;
+    }
+
+    // (ii) Read line-by-line (separated by newline)
+    string nextLine;    //String to hold each line
+    allLines = "";      //Reset to empty string
+
+    //Use a loop to read all remaining lines
+    do {
+        //Read a line from the stream `inputString` into the string `nextLine`
+        getline(inputStream, nextLine);
+
+        //Did we successfully read a line?
+        if (!inputStream.fail()) {
+            //If so, append to the string `allLines` and add a newline character on the end
+            allLines = allLines + nextLine + "\n";
+        }
+        //The last read MIGHT include an EOF character
+    } while (!inputStream.eof());   //Loop condition is if we have NOT reached the end of the file
+
+    // (iii) Close the file
+    inputStream.close();
+
+    return 0;
+}
