@@ -663,60 +663,70 @@ A response to this is something known as "regular expressions". These are a way 
 
 Some examples have been included in the following experiment:
 
-| Experiment | 
+| Experiment | 13-regex |
+| - | - |
+| 1. | Make 13-regex the start up project |
+| 2. | Step through the code and read the comments |
+| 3. | Can you add more code to extract the Subject Area name? |
+| - | The extracted string should read "COMP" |
+| - | The pattern should be the following sequence: |
+| (i) | Any number of spaces |
+| (ii) | The word Subject |
+| (iii) | Any number of spaces |
+| (iv) | The work Area: |
+| (v) | Any number of spaces |
+| (vi) | A word (use \\w*) |
+| (vii) | At least one space after |
+| Solution | Read the discussion below. A solution is also provided |
+| | |
 
+Here is a key extract from this task:
 
-# DO NOT READ BEYOND THIS POINT
+```C++
+    regex  pattern("Module\\s*(ID):\\s*(\\d+)");
+    smatch match;
+    string tag;
+    string strCode;
+    int code;
+
+    //look for the pair "ID:" and <module number>
+    if (regex_search(dataString, match, pattern)) {
+        cout << "Full Match:" << match[0] << endl;
+        if (match.size() >= 3) {
+            tag = match[1];
+            strCode = match[2];
+            cout << "Pair found: (" << tag << ", " << strCode << ")" << endl;
+```
+
+The function `regex_search()` takes three parameters:
+
+* The string being searched
+* A special type `smatch` which presents as an array of matched substrings
+* A search pattern of type `regex`
+
+The tricky part is getting the search pattern right. This is a VERY big topic, but some basics are presented here. Our pattern is as follows:
+
+`Module\\s*(ID):\\s*(\\d+)`
+
+This can be interpreted as: 
+
+* The literal string "Module", 
+* followed by any number of spaces \\s* (including zero spaces), 
+* followed by the string "ID:", 
+* followed by any number of spaces `\\s*`, 
+* followed by at least one digit `\\d+`
+
+The parenthesis capture the components of the search we wish to extract in `match`. In this case, we expect to capture "ID" and "1000"
+
+> Note - normally, regular expressions use a single \\. For C++, you use two \\\
+
+It should be stressed - this is an ADVANCED task. It is probably just as good to know regular expressions exist. It would be ambitious to use them at this stage.
+
+If you are interested, do experiment with https://regex101.com/
+
 
 # Challenges
 
-
-| Challenge 1 | Details |
-| :--- | :--- |
-|  1 | Create a project that creates a text file, (name the file test.txt) open it for writing and use a for loop to accept 5 words from the user and write each word to the file on a new line - add at the beginning of each line the number of the counter you are using within the for loop. This number should count from 1 to 5. So the file contents should start something like this:
-
-1 : The    
-2 : Life    
-3 : of  
-4 : Brian  
-5 : *****
-
-Remember to check the file has opened and don't forget to close it after use.
-
-Keep this file we will be using it soon...
-
------->>>> Solution here <<<<<---------
-
-```C++
-#include <iostream>
-#include <fstream>
-
-using namespace std;
-
-int main()
-{
-    string inputstr;
-
-    ofstream outFile;           // Create the output stream called 'outFile'
-    outFile.open("test.txt");  // Using this stream open the file called 'test.txt'
-
-    if (outFile.is_open())      // check to see if the file has been opened
-    {
-        for (int i = 1; i <= 5; i++)
-        {
-            cout << "Please enter line " << i << endl;
-            cin >> inputstr;
-            outFile << i << " : " << inputstr << endl;
-        }
-
-        outFile.close();        // Close the file - easy to forget this, if so file corruption is possible
-    }
-    else
-    {
-        cout << "Unable to open file test.txt";    // Inform user of file error
-    }
-    return 0;
-}
- 
+Challenges are for self-study only. Solutions are not usually provided. They are intended to encourage you to explore new ideas. By all means use AI tools to help you .  
 
 ```
