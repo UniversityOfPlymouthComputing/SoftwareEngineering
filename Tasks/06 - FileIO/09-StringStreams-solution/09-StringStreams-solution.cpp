@@ -37,9 +37,6 @@ int main()
         if (nextWord == "Always.") {
             cout << endl;
         }
-        if (nextWord == "for") {
-            cout << "close!" << endl;
-        }
         
     }
 
