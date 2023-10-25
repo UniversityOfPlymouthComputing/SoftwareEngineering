@@ -617,7 +617,6 @@ catch (exception e)
 }
 ```
 
-# DO NOT READ BEYOND THIS POINT
 
 |   |   |
 | - | - |
@@ -629,12 +628,45 @@ catch (exception e)
 
 In this section, we introduce you to a couple other useful functions:
 
-* `find()` - can search for a string within another string
+* `find()` - can search for a string within another string, returning the character position (if successful) or -1 if not successful.
 * `substr()` - can be used to extract a string from within another string
 
+| TASK | 12-findAndSubstr |
+| - | - |
+| 1. | Make 12-findAndSubstr the start up project |
+| 2. | Build and step through the code. Read all comments |
+| 3. | Note how the substring "ID:" is located |
+| 4. | Now add more code to find "Area:" and the string that follows (the subject group) |
+| 5. | Display the result in the terminal |
+| - | A solution is provided |
+
+**Key Points**
+
+Note the two forms of `substr()`
+
+```C++
+string previous = dataString.substr(a, b);    //from a ... (b-1)
+string following = dataString.substr(b);      //From b... end
+```
+* With two parameters, it returns a string in the range to `a...b-1`
+* With one parameter, it returns a string in the range `b...N`, where `N` is the position of the last character in the string.
+
+Note also that each search used a separate instance of `istringstream`. This is safer than trying to reuse the same one (the documentation was vague!)
+
+### Using regular expressions (advanced)
+
+You may have noticed that the code in the previous sections was getting longer, especially with all the error checking. 
+
+> String parsing can get very tedious and can become error prone.
+
+A response to this is something known as "regular expressions". These are a way to specify a way to find and extract certain patterns found in string data.
+
+Some examples have been included in the following experiment:
+
+| Experiment | 
 
 
-### Using regular expressions
+# DO NOT READ BEYOND THIS POINT
 
 # Challenges
 
