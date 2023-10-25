@@ -47,17 +47,44 @@ int main()
             // Read the next word - it "should" be the module number, encoded as a string
             iss >> nextWord;
             if (!iss.fail()) {
-                //Convert a string to an integer
-                moduleNumber = stoi(nextWord);
-                //Write the new module code
-                cout << "COMP" << moduleNumber + 1 << endl;
-                //We are done! Break from the outer loop
-                break;
+                //TRY to Convert a string to an integer
+                try {
+                    moduleNumber = stoi(nextWord);
+                    //Write the new module code
+                    cout << "COMP" << moduleNumber + 1 << endl;
+                    //We are done! Break from the outer loop
+                    break;
+                }
+                catch (exception e)
+                {
+                    // It seems stoi() has thrown an exception - suspect the file is corrupt or the format has changed
+
+                    //Detailed info to the error stream
+                    cerr << "Error! Data file format was not as expected. Exception thrown = " << e.what() << endl;
+                    cerr << "String value following \"ID:\" was expected to be numeric, and not \"" << nextWord << "\"" << endl;
+                    //User focused feedback to stdout
+                    cout << "The code has decided to break today. Please report this to the developers" << endl;
+                    cout << "Take the rest of the day off" << endl;
+                    return -1;
+                }
+            }
+            else {
+                // Case where we've hit the end of the file
+                // This should not happen of course
+                 
+                //Detailed info to the error stream
+                cerr << "String value following \"ID:\" was expected to be numeric, not empty" << endl;
+                cout << "Your data file seems to be missing imporant information." << endl;
+                //User focused feedback to stdout
+                cout << "Please report this to the developers" << endl;
+                cout << "By all means try turning it all off and on again, but I don't think it will make much difference" << endl;
+                return -1;
             }
         }
     }
 
     // Done
+    cout << "All is well!" << endl;
     return 0;
 }
 
@@ -75,9 +102,8 @@ void createFile(string fn)
     // (ii) Stream characters
     outputStream << "Hello COMP1000" << endl << "--------------" << endl;
     outputStream << "Subject Area: " << "COMP" << endl;
-
     //We've switched to Roman Numerals - did I mention that in my last email?
-    outputStream << "Module ID: " << "M" << endl;
+    outputStream << "Module ID: " << "M" << endl;   
 
     // (iii) Close
     outputStream.close();

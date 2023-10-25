@@ -458,7 +458,7 @@ One of the complexities of reading files is that (unlike `cin`) a file stream wi
 | 6. | Now build and run the solution. Step through the code and read all comments |
 | | |
 
-#### String Concatination
+#### String Concatenation
 
 We also saw how we can use the `+` operator to join strings together in C++. For example:
 
@@ -493,11 +493,148 @@ This is very useful for reading individual words from a longer string. Let's loo
 | 1. | Make 09-StringStreams the start up project. Build and step through the code, reading all comments |
 | 2. | Write a loop to read all words in the string, and count how many there are. |
 | -  | Within your loop, write each word on a separate line. When you read the word "Always.", add an extra line break. |
-| 3. | A solution is provided |
+| 3. | Display how many words were read |
+| 4. | A solution is provided |
 
+The output should look like this:
+
+```
+May
+the
+force
+be
+with
+you.
+Always.
+
+Ok,
+maybe
+that's
+asking
+too
+much.
+How
+about
+3
+days-a-week
+with
+time
+off
+for
+birthdays?
+Total Number of Word: 22
+```
+
+**Key Points**
+
+We also saw how to compare a string with another.
+
+```C++
+if (nextWord == "May") {
+    cout << "That is what I expected" << endl;
+}
+else {
+    cout << "Something weird is happening?" << endl;
+}
+```
+Again, with C++ strings you can compare with the `==` operator.
+
+### String Conversion
+
+So far we have looked at ways of reading text data into a string, either one word at a time, or one line at a time. A common requirement is to extract relevant data for further processing or storage. In the case of numerical data, this will require an attempt to "convert" a string to some numerical data type. To write robust code (that does not crash), we also need to consider conditions where this is not possible.
+
+There are a number of string conversion functions available. Some of them are listed below
+
+* `stoi()` - convert string to integer
+* `stol()` - convert string to long
+* `stof()` - convert string to float
+* `stod()` - convert string to double
+
+Consider the following code extract:
+
+```C++
+string strNum = "123";
+int num = stoi(strNum);     //Attempt to convert a string to an integer
+cout << num + 1 << endl;    //Write the result + 1
+```
+
+We will now use the `stoi()` function to construct a new module code. First we will find the string with the module number ("1000"). We will read this, convert it to an integer, add one, then display a new module code as "COMP1001"
+
+| TASK | 10-StringConversion |
+| - | - |
+| 1. | Make 10-StringConversion the startup project |
+| 2. | Build the code. Then step through each line, reading the comments |
+| 3. | Complete the code to read the module code as a string (it is the next one), convert it to an integer with `stoi()`, add 1 to the result, and display a new module code. |
+| - | See the comments for further guidance |
+| - | The correct output should be COMP1001 |
+| - | A solution is provided |
+
+### Exception Handling
+
+In the previous example, we performed a conversion from type `string` to type `int`. However, there is a potential problem here. What if the string cannot be converted to an integer?
+
+| TASK | 11-ExceptionHandling |
+| - | - |
+| 1. | Make 11-ExceptionHandling the startup project |
+| 2. | Build and run the code. Note that it crashes |
+| 3. | Use the debugger to find WHERE the code crashes |
+| - | <a title="moduleNumber = stoi(nextWord);">On what line does it crash?</a> |
+| 4. | Use the debugger to find WHY ir crashes |
+| - | <a title="nextWord is not a number. It is a letter (Roman Numeral)">Why does it crash?</a> |
+| 5 | Now inspect the `createFile()` function. Read through it and especially the comments. Can you see the problem? |
+
+This might look a bit drastic, but it is better that the code has crashed so that you are alerted to the problem.
+
+> The worst thing would be for this to fail silently. Code could get deployed to a customer with unpredictable consequences
+
+However, all is not lost. We have another (powerful) method of detecting these errors so that they can be handled more *gracefully*. 
+
+The writers of `stoi()` decided that in the event of a failure, it would **throw an exception**. 
+
+> Exceptions are a special type of error that make it easier to communicate errors in software no matter how deeply hidden they may be. 
+
+As a consumer of the `stoi()` function, we are able to **catch** any errors and find out more details about them.
+
+The concept works as follows:
+
+* We "try" to execute some code that we know can/might fail either now, or sometime in the future (e.g. someone changes a file format!). 
+   * If it does not crash, the code may continue
+   * If it does crash, we get the opportunity to run another block of code, and handle the error in the way we deem suitable
+
+For example:
+
+```C++
+try {
+    // "try" this
+    moduleNumber = stoi(nextWord);
+    cout << moduleNumber + 1 << endl;
+} 
+catch (exception e)
+{
+    // If stoi() fails, then this code runs
+    cerr << "That failed with error \"" << e.what() << "\"" << endl;
+    return -1;
+}
+```
 
 # DO NOT READ BEYOND THIS POINT
 
+|   |   |
+| - | - |
+| 6 | Add try-catch blocks to the code to handle the error more gracefully. |
+| - | A solution is provided |
+| | |
+
+### Using find
+
+In this section, we introduce you to a couple other useful functions:
+
+* `find()` - can search for a string within another string
+* `substr()` - can be used to extract a string from within another string
+
+
+
+### Using regular expressions
 
 # Challenges
 
