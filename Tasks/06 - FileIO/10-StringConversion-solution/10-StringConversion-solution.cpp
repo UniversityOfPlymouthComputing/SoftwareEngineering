@@ -21,7 +21,7 @@ int main()
     if (errCode != 0) {
         cerr << "Error: " << errCode << endl;
         return errCode;
-    } 
+    }
 
     // Parse String word by word
     istringstream iss(dataString);
@@ -30,7 +30,7 @@ int main()
     int moduleNumber;
     string nextWord;
 
-    while (iss.eof() == false) 
+    while (iss.eof() == false)
     {
         //Try to read the next word
         iss >> nextWord;
@@ -44,9 +44,16 @@ int main()
         //Look for the string that comes before the module code
         if (nextWord == "ID:") {
             cout << "Found \"ID:\". The code should be next...." << endl;
-            //TODO:
-            // Read the next word
-            // If successful, try to convert to an integer then break from the while loop
+            // Read the next word - it "should" be the module number, encoded as a string
+            iss >> nextWord;
+            if (!iss.fail()) {
+                //Convert a string to an integer
+                moduleNumber = stoi(nextWord);
+                //Write the new module code
+                cout << "COMP" << moduleNumber + 1 << endl;
+                //We are done! Break from the outer loop
+                break;
+            }
         }
     }
 
