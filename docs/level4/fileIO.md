@@ -4,15 +4,21 @@
 
 * [Streams](#streams)
    1. [Low Level Streams in C](#low-level-streams-in-c)
-   1. [C++ Streams with `iostream`]
-* [File IO in C++]
-   1. [File Streams with `fstream`]
-   1. Appending Files with Flags
-   1. [Basic File Parsing]
-   1. [String Parsing]
-   1. [String Streams with `sstream`]
-   1. [Regular Expressions]
-* [Challenges]
+   1. [C++ Streams with `iostream`](#c-streams-with-iostream)
+      1. [Writing with `ofstream`](#writing-with-ofstream)
+      1. [Objects](#objects)
+      1. [Reading with `ifstream`](#reading-with-ifstream)
+      1. [Using Flags](#using-flags)
+   1. [Parsing Files](#parsing-files)
+      1. [Parsing - one word at a time](#parsing---one-word-at-a-time)
+      1. [Reading one line at a time](#reading-one-line-at-a-time)
+         1. [String Concatenation](#string-concatenation)
+      1. [String Streams](#string-streams)
+      1. [String Conversion](#string-conversion)
+      1. [Exception Handling](#exception-handling)
+      1. [Using find](#using-find)
+      1. [Regular expressions (advanced)](#regular-expressions-advanced)
+* [Challenges](#challenges)
 
 ## Streams
 
@@ -653,7 +659,7 @@ string following = dataString.substr(b);      //From b... end
 
 Note also that each search used a separate instance of `istringstream`. This is safer than trying to reuse the same one (the documentation was vague!)
 
-### Using regular expressions (advanced)
+### Regular expressions (advanced)
 
 You may have noticed that the code in the previous sections was getting longer, especially with all the error checking. 
 
