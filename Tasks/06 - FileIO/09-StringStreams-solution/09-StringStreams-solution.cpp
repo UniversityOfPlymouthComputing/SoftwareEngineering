@@ -22,6 +22,8 @@ int main()
     //Read first word (words are separated by spaces or newlines)
     istringstream iss(sentence);
     int count = 0;
+    
+    //Keep looping as long as we are NOT at the end of the file
     while (!iss.eof()) {
         iss >> nextWord;
         if (iss.fail()) {
@@ -40,7 +42,8 @@ int main()
         
     }
 
-    cout << "Total Number of Word: " << count << endl;
+    //Finally, the word count
+    cout << "Total Number of Words: " << count << endl;
 
     //Done
     return 0;

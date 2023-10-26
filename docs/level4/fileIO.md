@@ -79,7 +79,8 @@ We've been using streams all along! There are two streams that are already open:
 
 * `stdin` which is the default stream for read when you use the standard input functions, such as `scanf()` and `getchar()`
 * `stdout` which is the default stream for write when you use the standard output functions, such as `puts()`, `printf()` and `putchar()`.
-* The declarations for all these functions (and type `FILE`) are all in the header file `stdio.h`. That is why it is included at the top of almost every C program.
+
+The declarations for all these functions (and type `FILE`) are all in the header file `stdio.h`. That is why it is included at the top of almost every C program.
 
 We saw how the following were identical:
 
@@ -100,7 +101,7 @@ The filetype for a stream is a structure named `FILE`. We usually work with a po
 
 > I know pointers are confusing. Don't worry about this as we won't be working with FILE* for much longer
 
-The stream `stdout` is already created for us. However, when writing to a file, we need a new stream with a file as it's destination. To obtain such a stream, we can use the standard function `fopen_s`, specifying the file path and mode:
+The stream `stdout` is already created for us, and by default, it pointed to the terminal output. However, when writing to a *file*, we need a new stream with a file as it's destination. To obtain such a stream, we can use the standard function `fopen_s`, specifying the file path and mode:
 
 ```C++
 FILE* outputStream;
@@ -143,7 +144,7 @@ if (inputStream == nullptr) {
 }
 ```
 
-If successful, we can now ready the stream (and hence the contents of the file):
+If successful, we can now read the stream (and hence the contents of the file):
 
 ```C++
 int number;
@@ -156,7 +157,7 @@ As with `scanf` (where the input stream is `stdin`), the string value is read as
 fclose(inputStream);
 ```
 
-The syntax of C streams can be a bit off-putting. The good news is that C++ has a much more tidy system for doing the same thing.
+The syntax of C streams can be a bit off-putting. The good news is that C++ has a much more tidy system for doing the same thing. Being an object orientated language, it is able to hide many of the details.
 
 ## C++ Streams with `iostream`
 
@@ -174,7 +175,7 @@ We have already encountered streams in C++. Every time we use `cout` or `cin`, w
 
 **Key Points:**
 
-To open a file to write, we use the data type `ofstream` and the `open` function as follows:
+To open a file to write, we use the data type `ofstream` (short for *output file stream*) and the `open` function as follows:
 
 ```C++
 ofstream outputStream;
@@ -198,9 +199,11 @@ if (outputStream.is_open() == false) {
 | 4. | <a title="It contains the declaration for `ofstream`">Why do you think we also include the header file `fstream`?</a> |
 | | |
 
-> Additional
+> **Additional**
 >
 > Note how I've used `cerr` instead of `cout`? This uses another pre-existing stream called `stderr`. This is used for error messages, and separates them from application output.
+>
+> It is possible to redirect `cerr` so the user does not see it. This won't be done in this lab, but be aware this is possible
 
 Now we write to the file just like using `cout`:
 
@@ -219,13 +222,13 @@ outputStream.close();
 
 ### Objects
 
-Did you notice how the "dot notation" was used in the code above? For example:
+Did you notice how the "dot notation" was used in the code above? This is because we are using a special type of variable known as an **object**. For example:
 
 ```C++
-ofstream outputStream;
+ofstream outputStream; //Object
 ```
 
-In the previous lab, we created new data types using **structures**.
+We did something similar in the previous lab, when we created new data types using **structures**.
 
 ```C++
 struct Point {
@@ -238,7 +241,7 @@ dot.x = dot.y;  //Modify the member x
 dot.y = 0;      //Modify the member y
 ```
 
-Structure types have members (`x` and `y` in this case) that we can read and write. 
+Structure types have *members* (`x` and `y` in this case) that we can read and write. 
 
 `ofstream` is also a custom type, and will have members as well (some of them hidden). This will include data relating to the underlying file stream etc.. 
 
@@ -276,9 +279,11 @@ Finally, we close the file
 outputStream.close();
 ```
 
+The syntax might seem a little strange, including the use of the `<<` operator. Later in the course, we will meet a nice feature of C++ (and other languages) known as *operator overloading*, where you will learn to create your own objects that behave in a similar way.
+
 ### Reading with `ifstream`
 
-Let's now read the data from out newly created file and display it in the terminal
+Let's now read the data from our newly created file and display it in the terminal
 
 | Task | 02-OpenForRead |
 | - | - |
@@ -321,12 +326,12 @@ while (inputStream.eof() == false) {
 
 |  | |
 | - | - |
-| 5. | Step through the code. <a title="Two words. The final read fails as the end of file is detected">How many reads are performed?</a> |
+| 5. | Step through the code. <a title="Two words. The final read fails to read any new data as the end of file is detected">How many reads are performed?</a> |
 | | |
 
-Similar to `cin`, we read using the `>>` operators. Each time we do this, we then check for an end of file using the `eof()` member function. This continues until the end of the file is reached.
+Similar to `cin`, we read using the `>>` operator. Each time we do this, we then check for an end of file using the `eof()` member function. This continues until the end of the file is reached.
 
-The final read will fail to read any data. This is what flags that the end of the file has been reached. Only then will the `eof()` function return a `true`.
+The final read will fail to read any data. This also flags that the end of the file has been reached. Only then will the `eof()` function return a `true`.
 
 | Task | 04-TimesTables |
 | - | - |
@@ -353,7 +358,7 @@ int main()
 
 ### Using Flags
 
-In the task [writing with ofstream](#writing-with-ofstream), the file was recreated every time. This is the default behavior. Sometimes we wish to modify the behavior, such as appending to the end of an existing file.
+In the task [writing with ofstream](#writing-with-ofstream), the file was recreated every time, overwriting the existing file if present. This is the default behavior. Sometimes we wish to modify the behavior, such as appending to the end of an existing file.
 
 For this, we can use special *flags* to modify file IO.
 
@@ -366,7 +371,7 @@ For this, we can use special *flags* to modify file IO.
 | 5. | Re-run the code again. What happened to the file? |
 | 6. | Now comment out the line that reads: `outputStream.open("myfile.txt");` |
 | 7. | Uncomment the line that reads: `outputStream.open("myfile.txt", ios::app);` |
-| 8. | Rerun the experiment and note the change in behaviour |
+| 8. | Re-run the experiment and note the change in behaviour |
 
 **Key Points**
 
@@ -387,13 +392,13 @@ For your reference, a table of flags have been included:
 You can combine these flags with the **or** operator `|`
 
 ```C++
-`outputStream.open("myfile.txt", ios::app | ios:binary );`
+outputStream.open("myfile.txt", ios::app | ios:binary );
 ```
 ## Parsing Files
 
-Very often, we want to extract a particular piece of information from a file. We may also want to convert it from a string into a number. The term parsing data includes reading structured string data and extracting relevant information for further processing.
+Very often, we want to extract a particular piece of information from a file. We may also want to convert it from a string into a number. The expression *parsing data* includes reading structured string data and extracting relevant information for further processing.
 
-We will do some basic file parsing in the following sections. In all these sections, we start with the following file contents:
+This is an important topic, so we will do some basic file parsing in the following sections. In most these sections, we start with the following file contents:
 
 ```
 Hello COMP1000
@@ -402,8 +407,8 @@ Subject Area: COMP
 Module ID: 1000
 ```
 
-The structure is as follows:
-* Ignore all text until you encounter an underline 
+The structure is described as follows:
+* Text before the underline are just comments 
 * Then you will find the term `Subject Area:` followed by the subject area code (string)
 * Then you will find the term `Module ID:` followed by the module code (integer)
 
@@ -416,7 +421,7 @@ With this method, we will read one string at a time:
 | Task | 07-SimpleParsing |
 | - | - |
 | 1. | Make 07-SimpleParsing the start up project |
-| 2. | Build and run the code to see what it does |
+| 2. | Build and run the code to see what it does. Read all comments |
 
 So far, it reads each string at a time until it gets to the subject area (COMP).
 
@@ -427,6 +432,18 @@ So far, it reads each string at a time until it gets to the subject area (COMP).
 | - | A solution is provided |
 | | |
 
+**Key Points**
+
+* This approach relied on knowing precisely how many words there were, and in what order.
+* If the file format were to change slightly, this code might fail. We might say this is *fragile* 
+* This demonstrated one of the methods for converting strings to integers
+
+```C++
+    int code;
+    inputStream >> code;
+```
+
+The downside of this is that if it fails, it will do so *silently*. There are other more *robust* techniques that we will meet later.
 
 ### Reading one line at a time
 
@@ -436,16 +453,17 @@ Sometimes we want to read in each line, separating reads by just newline charact
 
 | Task | 08-ReadingByLine |
 | - | - |
-| 1. | Make 06-getline the startup project |
+| 1. | Make `06-getline` the startup project |
 | 2. | Build and step through the code. Read the comments to try and understand it |
 | 3. | <a title="Use the fail function `fail()` function">How do you know if you've successfully read a line?</a> |
 | 4. | <a title="You add them with +">How do you join two strings together in C++?</a> |
 | 5. | Now write a loop to read all lines from the file and append them to the `allLines` string. When the program completes, `allLines` should contain the complete contents of the file. |
+| Hint | Look carefully at the `fail()` and `eof()` member functions. You might struggle with this task at first. |
 | - | A solution is provided |
 
 **Key Points**
 
-In this task, we use the function `getline` to read one line at a time, and store the result in one large string.
+In this task, we use the function `getline()` to read one line at a time, and store the result in one large string.
 
 ```C++
 getline(inputStream, nextLine);
@@ -482,7 +500,9 @@ cout << s3;
 
 This would display `Hello World` in the terminal. 
 
-> How this works will be revealed when we write our own class types. For now, we can enjoy the simplicity this brings!
+> How this works will be revealed when we write our own C++ class types and perform some *operator overloading*. 
+>
+> For now, we can enjoy the simplicity this brings!
 
 ### String Streams
 
@@ -495,17 +515,17 @@ So far we have met the following types of stream:
 
 We have more more for you!
 
-* `istringstream` - read only, where the source is a string.
+* `istringstream` - read only, where the source is a string (of words separated by whitespace).
 
 This is very useful for reading individual words from a longer string. Let's look at it now:
 
 | Task | 09-StringStreams |
 | - | - |
-| 1. | Make 09-StringStreams the start up project. Build and step through the code, reading all comments |
+| 1. | Make `09-StringStreams` the start up project. Build and step through the code, reading all comments |
 | 2. | Write a loop to read all words in the string, and count how many there are. |
 | -  | Within your loop, write each word on a separate line. When you read the word "Always.", add an extra line break. |
 | 3. | Display how many words were read |
-| 4. | A solution is provided |
+| - | Again, make use of the `eof()` and `fail()` functions. A solution is provided |
 
 The output should look like this:
 
@@ -538,7 +558,11 @@ Total Number of Word: 22
 
 **Key Points**
 
-We also saw how to compare a string with another.
+* This time, the stream was not a file, but another string. Despite this, it behaves in exactly the same way. We even use the "end of file" function `eof()`.
+   * Whether working with a keyboard, file, network or some other device, most basic operations are identical if you can obtain a `stream` object.
+   * `cout` and `cin` do not ever end, so `eof()` always returns `false`. You can call it however.
+
+* We also saw how to compare a string with another.
 
 ```C++
 if (nextWord == "May") {
@@ -548,11 +572,15 @@ else {
     cout << "Something weird is happening?" << endl;
 }
 ```
-Again, with C++ strings you can compare with the `==` operator.
+> This is *another* example of *operator overloading*. C++ strings can use the `==` operator to compare the *string contents*. This is different to testing if they are the same object.
 
 ### String Conversion
 
-So far we have looked at ways of reading text data into a string, either one word at a time, or one line at a time. A common requirement is to extract relevant data for further processing or storage. In the case of numerical data, this will require an attempt to "convert" a string to some numerical data type. To write robust code (that does not crash), we also need to consider conditions where this is not possible.
+So far we have looked at ways of reading text data into a string, either one word at a time, or one line at a time. A common requirement is often to extract relevant data for further processing or storage. In the case of numerical data, this will require an attempt to "convert" a string to some numerical data type. To write robust code (that does not crash or return incorrect values silently), we also need to consider conditions where this is not possible.
+
+> When we write software, we often need to be *defensive*. This means anticipating conditions where something might fail, and taking necessary actions if they do.
+>
+> This is a fundamental of good practice.
 
 There are a number of string conversion functions available. Some of them are listed below
 

@@ -21,7 +21,7 @@ int main()
         return -1;
     }
 
-    //Write a string to the file
+    //Write a string to the file - instead of cout, it's `outputStream`
     outputStream << "12345" << endl;
     outputStream << "-----" << endl;
 

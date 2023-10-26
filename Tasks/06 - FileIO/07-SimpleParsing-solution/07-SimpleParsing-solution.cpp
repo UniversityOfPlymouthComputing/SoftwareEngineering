@@ -37,11 +37,14 @@ int main()
     string subjectArea;
     inputStream >> subjectArea;
 
+    //Read another two strings and discard
     for (unsigned int n = 0; n < 2; n++) {
         inputStream >> nextWord;
     }
+
+    //We are now at the position where we find the code
     int code;
-    inputStream >> code;
+    inputStream >> code;    //Let's hope this is in the right place :)
     cout << "New module code will be " << subjectArea << code + 1 << endl;
 
     // (iii) Close
