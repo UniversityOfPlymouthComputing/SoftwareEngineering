@@ -1,5 +1,9 @@
 # User Input and File IO
 
+Reading and writing files is a very common task in computer science. In this lab, you will cover the basics of file input and output (IO). We will also look at some methods for extracting information stored within files, and some of the challenges as well.
+
+Follow the instructions and perform all tasks in order. All tasks have starter code and solutions.
+
 **Contents**
 
 * [Streams](#streams)
@@ -24,7 +28,7 @@
 
 A stream is computing concept that turns up in many places, including file processing and network programming. Conceptually, a stream is a sequence of bytes are are either read from a data source, or sent to data destination (sometimes known as a data sink).
 
-> You can think of a *stream* as a pipe down which you send data one byte at a time. The first to be written in is the first to be read out.
+> You can think of a *stream* as a pipe down which you send data one byte at a time. The first to be written in is the first to be read out. We say it follows a "First In First Out" (FIFO) principle.
 
 <figure>
 <img src="./img/binarystream.jpg" width="600px">
@@ -33,13 +37,13 @@ A stream is computing concept that turns up in many places, including file proce
 
 The the source and destination could be:
 
-* Terminal (keyboard or output)
-* File on a disk
+* Terminal (keyboard input or text output)
+* A File on a disk
 * A block of memory
 * A "network socket"
-* A device connected (e.g. audio playback or mouse)
+* Another connected device (e.g. audio playback or mouse)
 
-The pipe itself also has some properties to be aware of:
+The pipe itself also has some properties we need to be aware of:
 
 * Data flow is typically one-direction 
 * Data ordering follows a "First In First Out" (FIFO) pattern.
@@ -49,16 +53,17 @@ The pipe itself also has some properties to be aware of:
   * Write operations will block in the event of a full pipe.
   * Read operations will typically block if the pipe is empty.
 
-With this in mind, the following sections will introduce you to two of the most common uses of streams.
+With this in mind, the following sections will introduce you to some of the most common uses of streams.
 
 * User Input and Output (IO)
 * File IO
+* String processing
 
-Remember - both are conceptually the same. What differs are the types of data source and destination.
+Note - Although these are different types of data source and destination, from the view of the computer, these will appear as virtual identical.
 
 ## Low Level Streams in C
 
-We will use C streams as the workings are less hidden than the C++ equivalent. Going forward, we will use C++ of course.
+We will begin with C streams as the workings are less hidden than the C++ equivalent. Going forward, we will use C++ of course.
 
 | Task | 01-LowLevelIO |
 | - | - | 
