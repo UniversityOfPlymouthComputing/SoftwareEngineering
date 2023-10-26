@@ -30,13 +30,13 @@ int main()
     // -----------------------------------------------------------
     // What we are searching for                            RegEx
     // -----------------------------------------------------------
-    // The word Module                                      Module
+    // The literal string Module                            Module
     // Any number of space characters                       \\s*
     // The string ID:                                       ID:
     // Any number of space characters                       \\s*
     // A numerical value with 1 or more digits              \\d+
     //  
-    // Huge thanks to https://regex101.com/ for making this so easy
+    // Huge thanks to https://regex101.com/ for making this so easy (easy being a relative term of course)
 
     regex  pattern("Module\\s*(ID):\\s*(\\d+)");
     smatch match;

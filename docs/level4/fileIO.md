@@ -676,14 +676,15 @@ catch (exception e)
 * try-catch is an advanced, but very important technique.
    * It is far from unique to C++. Almost every modern languages has a try-catch equivalent (most use very similar syntax)
 * It is hoped that you were able to use the debugger to track down the line that crashed.
-* This is a **vital skill** that you are encouraged to practise during these labs AND when you attempt your coursework.
+   * This is a **vital skill** that you are encouraged to practise during these labs AND when you attempt your coursework.
+* Again, note how `cout` and `cerr` are both used. One is developer focused (to aid crash reporting and diagnostics) and the other is user focused (so they can report the bug).
 
 ### Using find
 
 In this section, we introduce you to a couple other useful functions:
 
 * `find()` - can search for a string within another string, returning the character position (if successful) or -1 if not successful.
-* `substr()` - can be used to extract a string from within another string
+* `substr()` - can be used to extract a smaller string from within another larger string
 
 | TASK | 12-findAndSubstr |
 | - | - |
@@ -696,16 +697,17 @@ In this section, we introduce you to a couple other useful functions:
 
 **Key Points**
 
-Note the two forms of `substr()`
+* Note the two forms of `substr()`
 
 ```C++
 string previous = dataString.substr(a, b);    //from a ... (b-1)
 string following = dataString.substr(b);      //From b... end
 ```
-* With two parameters, it returns a string in the range to `a...b-1`
-* With one parameter, it returns a string in the range `b...N`, where `N` is the position of the last character in the string.
+With two parameters, it returns a string in the range to `a...b-1`.
+ With one parameter, it returns a string in the range `b...N`, where `N` is the position of the last character in the string.
 
-Note also that each search used a separate instance of `istringstream`. This is safer than trying to reuse the same one (the documentation was vague!)
+* Note also that each search used a separate instance of `istringstream`. This is safer than trying to reuse the same one (the documentation was vague!)
+* This method is somewhat more robust than before, and much better than simply counting words. It is more tolerant to the file format changing. 
 
 ### Regular expressions (advanced)
 
@@ -755,7 +757,7 @@ Here is a key extract from this task:
 The function `regex_search()` takes three parameters:
 
 * The string being searched
-* A special type `smatch` which presents as an array of matched substrings
+* A special type `smatch` which presents as an array of matched substrings (more C++ cleverness)
 * A search pattern of type `regex`
 
 The tricky part is getting the search pattern right. This is a VERY big topic, but some basics are presented here. Our pattern is as follows:
@@ -767,17 +769,18 @@ This can be interpreted as:
 * The literal string "Module", 
 * followed by any number of spaces \\s* (including zero spaces), 
 * followed by the string "ID:", 
-* followed by any number of spaces `\\s*`, 
-* followed by at least one digit `\\d+`
+* followed by *any* number of spaces `\\s*`, 
+* followed by *at least one* digit `\\d+`
 
-The parenthesis capture the components of the search we wish to extract in `match`. In this case, we expect to capture "ID" and "1000"
+The parenthesis `()` capture the components of the search we wish to extract in `match`. In this case, we expect to capture "ID" and "1000"
 
 > Note - normally, regular expressions use a single \\. For C++, you use two \\\
 
-It should be stressed - this is an ADVANCED task. It is probably just as good to know regular expressions exist. It would be ambitious to use them at this stage.
+**Key Points**
 
-If you are interested, do experiment with https://regex101.com/
-
+* It should be stressed - this is an ADVANCED task. At this stage, it is probably useful to know regular expressions exist and have an idea of what they are. It would be ambitious to use them at this stage.
+   * If you are interested, do experiment with https://regex101.com/
+* Nearly every language has a regular expression library you can use. At some point you might want to take some time to experiment with them. They can save a LOT of code. 
 
 # Challenges
 
