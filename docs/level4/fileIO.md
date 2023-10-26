@@ -786,4 +786,24 @@ The parenthesis `()` capture the components of the search we wish to extract in 
 
 Challenges are for self-study only. Solutions are not usually provided. They are intended to encourage you to explore new ideas. By all means use AI tools to help you .  
 
-```
+| Challenge 1 - File Copy |
+| - | 
+| Can you write a program to read a file and write the same contents into another |
+| This will (in effect) perform a file copy |
+| This is one example where the C function `getchar()` makes things simpler |
+
+| Challenge 2 - Web Scraping |
+| - |
+| In the folder for challenge 2 is a file `Fake Python.html` (source: https://realpython.com/beautiful-soup-web-scraper-python/) |
+| Read this file and extract the location using the attribute id="location" |
+| The correct answer is "Stewartbury" |
+
+| Challenge 3 - Web Scraping with regex (advanced) |
+| - |
+| Use regex to extract the location. Try and make it as robust as you can |
+| Even with this, note how *fragile* the solution can be |
+
+---
+
+[Back to Table of Contents](./README.md)
+
