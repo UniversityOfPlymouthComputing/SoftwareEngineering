@@ -13,7 +13,7 @@ int main()
     puts("Please enter a new numberical value: ");
     scanf_s("%d", &newCode);
     printf("The new code is COMP%d\n", newCode);
-
+    
     //There are two "streams" that are already "open" - and you've been using them all this time!
     //
     // They are known as:
