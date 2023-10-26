@@ -608,9 +608,17 @@ We will now use the `stoi()` function to construct a new module code. First we w
 | - | The correct output should be COMP1001 |
 | - | A solution is provided |
 
+**Key Points**
+
+* Note how some of the code is now moved out into functions?
+  * This was done (in part) to keep the main function simple, so the reader can focus on the aspects that are important.
+ * At this point, we are assuming the file format to be perfect and predictable
+
 ### Exception Handling
 
-In the previous example, we performed a conversion from type `string` to type `int`. However, there is a potential problem here. What if the string cannot be converted to an integer?
+In the previous example, we performed a conversion from type `string` to type `int`. However, there is a potential problem here. What if the string cannot be converted to an integer? Maybe the file format changed and this was not accounted for in the software?
+
+In this task, we will demonstrate just this:
 
 | TASK | 11-ExceptionHandling |
 | - | - |
@@ -618,21 +626,21 @@ In the previous example, we performed a conversion from type `string` to type `i
 | 2. | Build and run the code. Note that it crashes |
 | 3. | Use the debugger to find WHERE the code crashes |
 | - | <a title="moduleNumber = stoi(nextWord);">On what line does it crash?</a> |
-| 4. | Use the debugger to find WHY ir crashes |
+| 4. | Use the debugger to find WHY it crashes |
 | - | <a title="nextWord is not a number. It is a letter (Roman Numeral)">Why does it crash?</a> |
 | 5 | Now inspect the `createFile()` function. Read through it and especially the comments. Can you see the problem? |
 
-This might look a bit drastic, but it is better that the code has crashed so that you are alerted to the problem.
+This might look a bit drastic, but it is helpful that the code has crashed so that you are alerted to the problem.
 
 > The worst thing would be for this to fail silently. Code could get deployed to a customer with unpredictable consequences
 
-However, all is not lost. We have another (powerful) method of detecting these errors so that they can be handled more *gracefully*. 
+However, all is not lost. We have another (powerful) method of detecting these errors so that they can be handled more *gracefully*. This is known as **exception handling**.
 
 The writers of `stoi()` decided that in the event of a failure, it would **throw an exception**. 
 
 > Exceptions are a special type of error that make it easier to communicate errors in software no matter how deeply hidden they may be. 
 
-As a consumer of the `stoi()` function, we are able to **catch** any errors and find out more details about them.
+As we **try** to use the `stoi()` function in our code, so we are able to **catch** any errors and find out more details about them.
 
 The concept works as follows:
 
@@ -662,6 +670,13 @@ catch (exception e)
 | 6 | Add try-catch blocks to the code to handle the error more gracefully. |
 | - | A solution is provided |
 | | |
+
+**Key Points**
+
+* try-catch is an advanced, but very important technique.
+   * It is far from unique to C++. Almost every modern languages has a try-catch equivalent (most use very similar syntax)
+* It is hoped that you were able to use the debugger to track down the line that crashed.
+* This is a **vital skill** that you are encouraged to practise during these labs AND when you attempt your coursework.
 
 ### Using find
 
