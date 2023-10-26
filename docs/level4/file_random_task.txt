@@ -1,0 +1,93 @@
+The following program  writes 5 sets of data to a file called cars.dat. 
+
+Each record in the file is 38 bytes long (see comments in the code)
+
+Using the length of the data fields (e.g. make is 10 chars) you can establish how to retrieve 
+specific parts of the data.
+
+The objects created using the fstream library maintain a file position variable as follows:
+
+    ifstream keeps an internal get position with the location of the element to be read in the next input operation.
+
+    ostream, keeps an internal put position with the location where the next element has to be written.
+
+    fstream, keeps both, the get and the put position, like iostream.
+
+These internal stream positions point to the locations within the stream where the next reading or writing operation is performed. 
+
+These positions can be observed and modified using the following member functions:
+
+    tellg() and tellp()
+    These two member functions with no parameters return a value of the member type streampos, 
+    which is a type representing the current get position (in the case of tellg) or the put position (in the case of tellp).
+
+    seekg() and seekp()
+    These functions allow to change the location of the get and put positions. Both functions are overloaded with two different prototypes. The first form is:
+
+    seekg ( position );
+    seekp ( position );
+
+The task is to access the data file and achieve the following:
+
+(1) Read each record (make, mode, colour, bhp, mpg) and print them out to the console one record per line
+(2) Calculate the average mpg figure
+(3) Print out the car with the highest bhp figure
+(4) Modify the colour and mpg data for the Citroen, the print out all the records again (as in (1))
+
+Help available here https://cplusplus.com/doc/tutorial/files/
+
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+
+int main()
+{
+    // make model and colour are 10 chars
+    // bhp is 5 chars
+    //mpg is 3 chars
+    //Total record length is 38
+    string make[5] =  {"Subaru    ",
+                       "Ford      ",
+                       "Citroen   ",
+                       "Mazda     ",
+                       "Mercedes  " };
+    string model[5] = {"WRX       ",
+                       "Puma      ",
+                       "Berlingo  ",
+                       "MX5       ",
+                       "E220      " };
+    string colour[5] ={"Blue      ",
+                       "Silver    ",
+                       "Red       ",
+                       "Green     ",
+                       "Black     " };
+    string bhp[5] = { "250  ", 
+                      "105  ", 
+                      "87   ", 
+                      "132  ",
+                      "121  "};
+    string mpg[5] = { "28 ", 
+                      "52 ", 
+                      "35 ", 
+                      "45 ", 
+                      "48 " };
+    int recordLen = 38;
+
+    ofstream carFile("cars.dat", ios::binary);
+
+    if (carFile.is_open())
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            carFile << make[i] << model[i] << colour[i] << bhp[i] << mpg[i];
+        }  
+        carFile.close();
+    }
+    else
+    {
+        cerr << "Could not open cars.dat" << endl;
+    }
+}
+
+
