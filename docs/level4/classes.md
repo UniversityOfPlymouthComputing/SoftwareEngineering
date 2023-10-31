@@ -208,7 +208,7 @@ updateArea(r1);             //Pass a REFERENCE of the data
 cout << r1.area << endl;    //Output is 6.0
 ```
 
-This works because **the parameter `ref` has the same address as `r1`**.  
+This works because **the parameter `ref` is a reference type, so has the same address as `r1`**.  
 
 > An argument against this is that it is less clear from the code that `updateArea` performs in-place modification. You would simply have to "know". 
 
@@ -276,7 +276,7 @@ You probably got an error message similar to:
 
 `'Rect::height': cannot access private member declared in class 'Rect'`
 
-To understand this, we now need to look at the class declaration.
+This error occurs because the member variable `height` cannot be accessed outside of the class. This rule is enforced by the **compiler**. To understand how this is done, we now need to look at the class declaration.
 
 ```C++
 class Rect
@@ -351,6 +351,16 @@ void setHeight(float h) {
 
 Note how this function is able to directly read and modify `height`? This is because `setHeight` is a **class member function of `Rect`**.
 
+The member functions in this class include:
+
+* `updateArea` - this is a private member function, so can only be called from another class member function.
+* `display` - used to write information to the terminal
+* `setHeight` - a "setter function", used to set the value of the `height` member variable (and then update the area)
+* `getArea` - a "getter" function that returns a **copy** of the area member variable
+* `Rect` - a special function known as a **constructor**. This will be discussed next.
+
+All these member functions have access to all member variables and member functions in the class.
+
 ### Constructor
 
 There is a very special and important member function called a constructor. A  constructor function has the following unique properties:
@@ -420,11 +430,28 @@ void updateArea() {
 }
 ```
 
-> This is allowed as the constructor function is a member of the class, so can access anything in the `private` section.
->
+This is allowed as the constructor function is a member of the class, so can access anything in the `private` section.
+
 > You cannot call `updateArea()` from outside the class however because it is `private`.
 
-Let's look at another member function, `setHeight`:
+#### Setters and Getters
+
+The member variable `area` is not accessible from outside the class. However, **read only** access can be provided by using a *getter function*
+
+```C++
+double getArea() {
+    return area;
+}
+```
+
+This function returns a **copy** of the current value of `area`. In main, we could use this as follows:
+
+```C++
+Rect r2(2.0f, 3.0f);
+double a = r2.getArea();
+```
+
+Note that `a` and the internal `area` are entirely independent. We also can allow properties to be set using a **setter function**, such as the member function, `setHeight`:
 
 ```C++
 void setHeight(float h) {
@@ -435,7 +462,14 @@ void setHeight(float h) {
 }
 ```
 
-Once again we infer `this->`. This is a public function, so can be called from anywhere. This is called a *setter* as it is used to set a member variable. Of course, all the necessary house keeping is performed as well (updating the area in this case).
+Once again we infer `this->`. You might use it as follows: 
+
+```C++
+Rect r2(2.0f, 3.0f);
+r2.setHeight(5.0f);
+```
+
+As `setHeight` is a public function, so it can be called from anywhere. This is called a *setter* as it is used to set a member variable. Of course, all the necessary house keeping is performed as well (updating the area in this case).
 
 | TASK |  |
 | - | - |
@@ -470,9 +504,13 @@ The difference is subtle.
 * The `height` property is then initialised to `h`
 * THEN the constructor code body is entered
 
-In simple term, initialisation lists are performed before the constructor runs. The significance of this will become apparent later.
+In summary, initialisation lists are performed **before** the constructor runs. The significance of this will become apparent later.
 
-### Destructors 
+### Destructors
+
+We've met the constructor function, which is called when ever an object is created. We can also create a destructor that runs when ever an object is destroyed. To illustrate this, let's expand out `Rect` class to include some file handling.
+
+# DO NOT READ PAST THIS POINT
 
 ### Overloading
 
