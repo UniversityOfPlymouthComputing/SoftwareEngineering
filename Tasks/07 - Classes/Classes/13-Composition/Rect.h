@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <fstream>
-
+#include "StringBanner.h"
 using namespace std;
 
 namespace COMP1000 {
@@ -11,21 +11,18 @@ namespace COMP1000 {
         double width;
         double height;
         double area;
-        //Now they are pointers
-        string* fileName = nullptr;
-        ofstream* outputStream = nullptr;
+        string fileName;
+        ofstream outputStream;
+        //StringBanner banner;
 
     private:
         void updateArea() {
             //Recalculate
             area = width * height;
-
             //Log IF the file has been opened
-            if (outputStream) {
-                if (outputStream->is_open()) {
-                    (*outputStream) << "width: " << width << ", height: " << height << ", area: " << area << endl;
-                }
-            } 
+            if (outputStream.is_open()) {
+                outputStream << "width: " << width << ", height: " << height << ", area: " << area << endl;
+            }
         }
     public:
         void updateArea(int w, int h)
@@ -40,21 +37,11 @@ namespace COMP1000 {
             //Log message to terminal
             cout << "Constructor running for " << id << endl;
 
-            //Allocate memory
-            fileName = new string(id + ".log");
-            if (fileName) {
-                outputStream = new ofstream(*fileName);
-            }
-           
-            //Defensive stategy - even if unlikely
-            if (!fileName || !outputStream) {
-                throw exception("Out of memory");
-            }
-
             //Open file (for append if it exists)
-            outputStream->open(*fileName, ios::app);
-            if (!outputStream->is_open()) {
-                cerr << "Cannot create file " << *fileName << endl;
+            fileName = id + ".log";
+            outputStream.open(fileName, ios::app);
+            if (!outputStream.is_open()) {
+                cerr << "Cannot create file " << fileName << endl;
                 throw exception("Cannot create file");
             }
 
@@ -79,24 +66,11 @@ namespace COMP1000 {
             cout << "Destructor running";
 
             //Only close a file if it has been opened
-            if (outputStream) {
-                if (outputStream->is_open()) {
-                    outputStream->close();
-                    cout << " for " << *fileName;
-                }
+            if (outputStream.is_open()) {
+                outputStream.close();
+                cout << " for " << fileName;
             }
-
             cout << endl;
-
-            //Free up memory
-            if (outputStream) {
-                delete outputStream;
-                outputStream = nullptr;
-            }
-            if (fileName) {
-                delete fileName;
-                fileName = nullptr;
-            }
         }
 
         //Setters and getters
@@ -121,8 +95,8 @@ namespace COMP1000 {
 
         // Output to terminal
         void display() {
-            if (fileName) {
-                cout << *fileName << ", ";
+            if (outputStream.is_open()) {
+                cout << fileName << ", ";
             }
             cout << "Width: " << width << ", Height : " << height << ", Area : " << area << endl;
         }

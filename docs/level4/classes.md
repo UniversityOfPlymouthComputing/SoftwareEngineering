@@ -15,15 +15,7 @@ In this session, we will look at a very important language feature of C++, that 
    1. [Overloading](#overloading)
    1. [Dynamically Instantiating Objects](#dynamically-instantiating-objects)
    1. [Composition](#composition)
-
-* Templates
-   1. Type parameters
-   1. Non-typed Parameters 
-* Statics
-   1. Members
-   1. Functions
-
-* Challenges
+* [Challenges](#challenges)
 
 ## Pointers and References
 
@@ -765,11 +757,12 @@ delete r1;
 
 * Dynamic memory allocation is a fairly large topic, and is not something you should use unless it is required. C++ is designed to be fast, and to give the developer control so code can be highly optimised. You will discover that other languages have mechanisms to try and automate some of the above. Be aware however that all such techniques come with overheads and a performance penalty. C++ also has some libraries to bring it in line with other languages, but this is too advanced at this stage.
 
-| TASK | (**advanced**) |
+| ADVANCED TASK | You were warned :) |
 | - | - |
 | 3. | Can you change the `Rect` class so that the members `filename` and `output` stream are created dynamically? |
 | - | The idea is that we only use memory for objects if we really need them |
-| - | *This is quite a challenging task*, so only attempt if confident! |
+| - | The types will need to become `string*` and `ofstream*`
+| - | *This is quite a challenging and fussy task*, so only attempt if confident! |
 | - | A solution is provided |
 
 ### Composition
@@ -799,23 +792,56 @@ int main() {
 
 Some objects **require** parameters when they are constructed (they do not have parameterless constructors).
 
+| TASK | 13-Composition |
+| - | - |
+| 1. | Make `13-Composition` the startup project. Build and run |
+| 2. | Inspect `StringBanner.h` to see the new class that has been added. Note the constructor parameters |
+| 2. | Open `Rect.h`. We are now going to add a new member of type `StringBanner` so we can use it in our code. Uncomment the line that reads |
+| - | `//StringBanner banner;` |
+| 3. | Try and build. Note the error message |
 
+You cannot create an object of type `StringBanner` without passing at least one parameter (the text to display)
 
+```C++
+StringBanner banner; //Does not compile as StringBanner has no parameterless constructor
+```
 
-## Templates
+The constructor for `StringBanner` has two parameters.
 
-### Type parameters
+```C++
+StringBanner(string txt, char bannerCharacter = '*') {
+    msg = txt;
+    bannerChar = bannerCharacter;
+}
+```
 
-### Non-typed Parameters 
+The first must be provided. The second is optional, and will use a default value (character `*`) if not provided.
 
-## Statics
+All members must be instantiated before the constructor can run. You can use an initialiser list do this:
 
-### Members
+| TASK | |
+| - | - |
+| 4. | Modify the constructors of `Rect` as follows |
 
-### Functions
+```C++
+Rect(double w, double h, string id) : banner(id) {
+    banner.display();
+    //Remaining code not shown for brevity
+    ...
+}
 
+Rect(double w, double h) : banner("NO FILE") {
+    banner.display();
+    //Remaining code not shown for brevity
+    ...
+}
+```
 
+What this does is ensure the constructor for object `banner` is run with the required information BEFORE the `Rect` constructor is run. 
 
-
+> If this were not the case, it would not be possible to invoke `banner.display()` in the constructor.
 
 # Challenges
+
+The challenges for this lab are particularly important. There is a large gap between following lab tasks and writing your own code. You are encouraged to try all challenges. In this particular case, a solution may be given. This is not THE solution as there may be multiple ways to achieve the same thing.
+
