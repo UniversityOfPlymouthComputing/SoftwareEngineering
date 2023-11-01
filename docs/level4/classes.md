@@ -871,6 +871,7 @@ The challenges for this lab are particularly important. There is a large gap bet
 | 3. | Open `ModuleRecord.cpp` - it is mostly empty! |
 | 4. | Complete this class to meet the following requirements |
 | 5. | Optional - write all function definitions in the CPP file |
+| 6. | Write code in main to test the class |
 
 The following information should be encapsulated:
 
