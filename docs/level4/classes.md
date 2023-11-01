@@ -6,22 +6,16 @@ In this session, we will look at a very important language feature of C++, that 
 
 * [Pointers and References](#pointers-and-references)
    1. [Pass by Value and Pass by Reference](#pass-by-value-and-pass-by-reference)
+* [Name Spaces]()
 * [Fundamentals of Classes](#fundamentals-of-classes)
    1. [Simple class type](#simple-class-type)
-   1. Constructor
-   1. Initialiser Lists
-   1. Destructors 
-   1. Overloading
-* Encapsulation
-   1. Public and Private members
-   1. Create an API
-* Composition
-   1. Objects as members
-   1. Initialisation of objects 
-* Instantiating
-   1. Static Instantiation
-   1. Dynamic Instantiation
-   1. References vs Pointers
+   1. [Constructor](#constructor)
+   1. [Initialiser Lists](#initialiser-lists)
+   1. [Destructors](#destructors) 
+   1. [Overloading](#overloading)
+   1. [Dynamically Instantiating Objects](#dynamically-instantiating-objects)
+   1. [Composition](#composition)
+
 * Templates
    1. Type parameters
    1. Non-typed Parameters 
@@ -131,6 +125,75 @@ Therefore, by modifying `refToU`, you must also modify `a`.
 
 Do not think this is just a `C++` feature. Most languages have reference types. Under the hood are pointers, but they are purposely hidden from view.
 
+## Name Spaces
+
+Something you might have noticed at the top of most examples is the following:
+
+```C++
+using namespace std;
+```
+
+To understand this, it helps to have created our own namespace. An example is shown below:
+
+| EXPERIMENT | 02-NameSpaces |
+| - | - |
+| 1. | Make `02-NameSpaces` the startup project |
+| 2. | Build the code, and step through with the debugger to see what it does |
+| 3. | Now uncomment the line that reads `\\int x = 0;` |
+| 4. | Note the error message |
+
+Let's look at this in stages. First, the namespace declaration:
+
+```C++
+namespace COMP1000 {
+int x;
+int addOne(int u) {
+    return u + 1;
+}
+```
+
+The code within the namespace declaration looks like a variable named `x` and a function named `addOne`. However, these are not the *fully qualified names*. By enclosing them within a namespace declaration, their actual names are `COMP1000::x` and `COMP1000::addOne`.
+
+> We say that `COMP1000` is the **scope**
+> 
+> The `::` is known as the scoping operator
+
+This is done to avoid **name collisions**. In a large project, it is quite possible there will be other symbols with the name `x` or `addOne`.
+
+These full-qualified names are using in the following code:
+
+```C++
+COMP1000::x = 20;
+cout << "x = " << COMP1000::x << endl;
+COMP1000::x = COMP1000::addOne(COMP1000::x);
+cout << "x = " << COMP1000::x << endl;
+```
+
+It would seem reasonable to question why we bother. Afterall, we could simply use longer names, such as `COMP1000_x` or `COMP1000_addOne`, to avoid name collisions. Yes, that is possible, but there are some problems:
+
+* Long names make code hard to read
+* What if you change your mind (in 2 years time, this might be COMP1001). I will have to rename all my variables and functions.
+   * Companies often use brands or product names. These can change as products and businesses evolve.
+* There is even a possibility you use a library that has the same namespace (rare I admit).
+
+To address the first point, we can *try* and infer the namespace as follows:
+
+```C++
+using namespace COMP1000;
+x = addOne(x);
+cout << "x = " << x << endl;
+```
+
+Note the use of the `using` keyword here.
+
+* Beyond the `using` statement, the compiler will look for a variable `x` and `COMP1000::x`.
+   * If it finds one of them, it will use it
+   * If it finds both, it will not know which to use, so consider it to be ambiguous (and an error)
+
+This is when when we added a global `x`, we got an error.
+
+The same is true for `cout`, `cin` and `string` (etc..). All these have a prefix `std::`. However, writing this every time is tedious and clutters to code. This is why you see `using namespace std;` at the top. Of course, we need to ensure we do not create any name collisions if we do this.
+
 ## Fundamentals of Classes
 
 Most of the code we have seen uses the *baked in* data types, including `char, short, int, long, float, double`.
@@ -200,7 +263,7 @@ void updateArea(Rect& ref) {
 }
 ```
 
-Note how the dot-notation is used. When we invoke this, we might now do the following:
+Note how the dot-notation is used with a reference. When we invoke this, we might now do the following:
 
 ```C++
 Rect r1 = {2.0, 3.0, 0.0};  //Create and initialise
@@ -247,7 +310,7 @@ display(r1);
 display(r1);
 ```
 
-The compiler cannot stop us doing this with structures. However, with a class it can.
+The compiler cannot stop us doing this with structures. However, **with a class we can control access**.
 Now let's look at the version with a class:
 
 ```C++
@@ -360,6 +423,19 @@ The member functions in this class include:
 * `Rect` - a special function known as a **constructor**. This will be discussed next.
 
 All these member functions have access to all member variables and member functions in the class.
+
+#### Relationship to `namespace`
+
+It is also the case that a class is a *namespace* for it's members. The following code is also legal syntax:
+
+```C++
+Rect r2(2.0, 3.0);
+r2.Rect::display();
+r2.Rect::setHeight(10.0f);
+r2.Rect::display();
+```
+
+This style is unnecessary verbose in this instance, but later we will see occasions where it is used.
 
 ### Constructor
 
@@ -508,34 +584,220 @@ In summary, initialisation lists are performed **before** the constructor runs. 
 
 ### Destructors
 
-We've met the constructor function, which is called when ever an object is created. We can also create a destructor that runs when ever an object is destroyed. To illustrate this, let's expand out `Rect` class to include some file handling.
+We've met the constructor function, which is called when ever an object is created. We can also create a **destructor** that **runs when ever an object is destroyed**. To illustrate this, let's expand our `Rect` class to include some file handling.
 
-# DO NOT READ PAST THIS POINT
+| Experiment | 07-Destructors |
+| - | - |
+| 1. | Make `07-Destructors` the startup project |
+| 2. | Build the code, then step through with the debugger. Use step-in to step into functions |
+| Question |  <a title="When the function `demo()` exits">What causes the destructor to run for object `r0`</a> |
+| Question | <a title="When we exit the main function">What causes the destructor to run for object `r1`?</a> |
+| 3. | Now uncomment the line that reads `//Rect r3(5.0f, 6.0f, "r3");` |
+| 4. | Set breakpoints as shown in the image below |
+| Question | Which breakpoint is reached first? | 
+| Question | When the code exits, which object destructor ends last? |
+
+<figure>
+<img src="./img/breakpoint_before_main.png" width="600px">
+<figcaption>Course Icon</figcaption>
+</figure>
+
+**Key Points**
+
+In the `demo` function, we **statically allocated** the object `r0`
+
+```C++
+void demo() {
+    Rect r0(3.0f, 10.0f,"r0");
+    r0.display();
+}
+```
+
+When this function is called, the following will happen:
+
+* The memory for `r0` will be allocated (you don't see this) in an area that is dedicated to the `demo` function.
+* It's constructor will run. 
+   * The constructor performs all the tasks needed to initialise the object:
+      * Opens a file for write
+      * Initialises member variables
+      * Calculates the area
+* We use the object as needed
+* When the function ends, `r0` goes **out of scope**
+   * The destructor for `r0` is run and performs essential tasks to tidy up:
+      * The file is closed
+   * The memory is released and the object is **automatically** destroyed
+
+The exact same is true to `main` and `r1`. The `main` function is like any other. Anything created between the braces `{ }` is **local** to main, so only visible within `main`. The "scope" of `r1` is limited to the `main` function. When `main` exits, so `r1` is destroyed. 
+
+Up until now, we've assumed that `main` is the entry point to our code, but in fact it is not.
+
+The object `r3` has **global scope**.
+
+* It can be accessed from anywhere in your project
+* It's constructor runs **before** main
+* It's destructor runs **after** `main` has exit.
+
+> Sometimes you hear the expression "code before main". This not only includes global object constructors, but includes other code needed to set up the environment in which your program will execute (mostly hidden from you).
 
 ### Overloading
 
+In a class, we have seen you can write member functions to perform operations, including the reading and writing of private class member variables.
 
+Some times we want to add some flexibility. For example, in our `Rect` class, we provide a width, height and filename. The filename is used to log data to a file. What if we don't always want to log data to a file? File access will slow down our code and add more files to our disk.
 
-## Encapsulation
+In most OOP languages, you have a facility known as **overloading**. This is a mechanism by which we can have different versions of the same function. What differentiates the different versions are the function parameters.
 
-### Public and Private members
+| TASK | 09-Overloading |
+| - | - |
+| 1. | Make `09-Overloading the start up project` |
+| 2. | Build and step through the code (remember to step in, not over) |
+| 3. | In particular, note that changes when different parameters are used when creating the object |
 
-### Create an API
+On closer inspection of the `Rect` class, we see we now have **two** constructor functions
 
+```C++
+ Rect(double w, double h, string id) {
+    ...
+ }
 
+ Rect(double w, double h) {
+    ...
+ }
+```
 
-## Instantiating
-  
-### Static Instantiation
+The compiler determines which is called based on the parameters you pass. In this case:
 
-### Dynamic Instantiation
+* if you pass a `string` as a third parameter, the object is initialised to support file logging. 
+* If you only pass a width and height, no file logging is supported
+* You must use one of them
 
-### References vs Pointers
+|  |  |
+| - | - |
+| 4. | Make an overloaded version of `updateArea` that takes a new width and height as parameters. When this version is called, it should update the width and height (see below) and then recalculate the area: |
+| - | `void updateArea(int w, int h)` |
+| - | Make this version `public` to it can be called from main. |
+| - | You should test this new function by calling it from main  |
+| - | A solution is provided |
 
+### Dynamically Instantiating Objects
 
-### Objects as members
+So far, we've created objects in much the same way we would an ordinary variable.
 
-### Initialisation of objects 
+```
+<type> objectName[(<parameters>];
+```
+
+where the `type` is a class type.
+
+> Note that square brackets `[ ]` are often used to denote optional items
+
+In C++, this can be done at a global scope or (like most other languages) within some local scope, such as a function.
+
+> A local scope is always created where ever you use a pair of curly-braces `{ }`. You can create local objects within function, for loops, while loops etc. Once you exit past the close brace `}`, the object goes **out of scope**.
+
+For statically allocated objects, you control when they are created. They are only destroyed when they go out of scope.
+
+For **dynamically allocated objects**, you control both when an object is created, and when it is destroyed. For this you use the `new` and `delete` keywords.
+
+| TASK | 11-DynamicAllocation |
+| - | - |
+| 1. | Make `11-DynamicAllocation` the start up project |
+| 2. | Once again, step through the code, reading the comments and observing the behaviour. Try and discover the answer to the following two questions: |
+| Question | <a title="Line 18, when `new` is called"> Precisely when is the constructor for `r1` executed?</a> |
+| Question | <a title="Line 34, when `delete r3;` is called">Precisely when is the destructor for `r1` executed?</a> |
+
+**Key Points**
+
+* The variable `r1` is a pointer that can store the address of an object (type `Rect`) in memory:
+
+```C++
+Rect* r1;
+```
+* Until this pointer is initialised, it will contain random data, so it is good practise to initialise as follows:
+
+```C++
+Rect* r1 = nullptr;
+```
+
+* At the appropriate point in our code, we attempt to create an object in memory
+
+```C++
+r1 = new Rect(3.0f, 4.0f, "dynamic");
+```
+
+* This performs the following tasks:
+
+   * `new` requests enough memory for an object of type `Rect` 
+      * If successful, the start address is returned and copied into `r1`
+      * If not successful (memory full), `nullptr` (0) is returned and copied into `r1`
+   * If memory allocation was successful, the constructor for `Rect` will be called.
+      * This initialises the object as before
+      * Note that the pointer `this` and `r1` hold the same value
+
+* As `r1` is not the object itself, but the address of an object, we must **dereference** it using the arrow notation:
+
+```C++
+r1->display();
+```
+
+This is equivalent to the following:
+
+```C++
+(*r1).display();
+```
+
+where `r1` is the address (integer) and `*r1` is the contents of the memory at that address (an object of type `Rect`). You can also create a reference type:
+
+```C++
+Rect& r1Ref = *r1;  //One of my favourite tricks :)
+r1Ref.display();
+```
+
+* Finally, when we are finished with the object, we can force it to be destroyed as follows:
+
+```C++
+delete r1;
+```
+
+* This performs the following tasks:
+   * Call the destructor function
+   * Free up the memory this object occupies so it can be reused
+
+* Dynamic memory allocation is a fairly large topic, and is not something you should use unless it is required. C++ is designed to be fast, and to give the developer control so code can be highly optimised. You will discover that other languages have mechanisms to try and automate some of the above. Be aware however that all such techniques come with overheads and a performance penalty. C++ also has some libraries to bring it in line with other languages, but this is too advanced at this stage.
+
+| TASK | (**advanced**) |
+| - | - |
+| 3. | Can you change the `Rect` class so that the members `filename` and `output` stream are created dynamically? |
+| - | The idea is that we only use memory for objects if we really need them |
+| - | *This is quite a challenging task*, so only attempt if confident! |
+| - | A solution is provided |
+
+### Composition
+
+Our `Rect` class now has the following members:
+
+```C++
+double width;
+double height;
+double area;
+string fileName;
+ofstream outputStream;
+```
+
+Note that `string` and `ofstream` are objects which have *class types*. When have objects inside other objects, this is known as **composition**.
+
+> Our `Rect` class is benefitting from reusing all the mature and tested code encapsulated within the `string` and `ofstream` objects.
+
+This worked easily because they all have constructors that require no parameters. If we wrote the following in the `main` function, it would be perfectly legal syntax:
+
+```C++
+int main() {
+    string fileName;
+    ofstream outputStream;
+}
+```
+
+Some objects **require** parameters when they are constructed (they do not have parameterless constructors).
 
 
 
@@ -545,8 +807,6 @@ We've met the constructor function, which is called when ever an object is creat
 ### Type parameters
 
 ### Non-typed Parameters 
-
-
 
 ## Statics
 

@@ -18,13 +18,13 @@ namespace COMP1000 {
         void updateArea() {
             //Recalculate
             area = width * height;
-            //Log
+            //Log IF the file has been opened
             if (outputStream.is_open()) {
                 outputStream << "width: " << width << ", height: " << height << ", area: " << area << endl;
             }
         }
     public:
-        //Constructor
+        //Constructor - v1 (has an additional parameter used for file logging)
         Rect(double w, double h, string id) {
             //Log message to terminal
             cout << "Constructor running for " << id << endl;
@@ -37,6 +37,17 @@ namespace COMP1000 {
                 throw exception("Cannot create file");
             }
 
+            //Initialise members
+            width = w;
+            height = h;
+            updateArea();
+        }
+
+        // Constructor - v2 (As no file ID is provided, no file logging will be performed)
+        Rect(double w, double h) {
+            cout << "Constructor running" << endl;
+
+            //Initialise members
             width = w;
             height = h;
             updateArea();
@@ -44,10 +55,14 @@ namespace COMP1000 {
 
         //Destructor
         ~Rect() {
-            cout << "Destructor running for " << fileName << endl;
+            cout << "Destructor running";
+
+            //Only close a file if it has been opened
             if (outputStream.is_open()) {
                 outputStream.close();
+                cout << " for " << fileName;
             }
+            cout << endl;
         }
 
         //Setters and getters
