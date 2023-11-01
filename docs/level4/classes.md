@@ -864,3 +864,26 @@ The challenges for this lab are particularly important. There is a large gap bet
 | 3. | Complete all the functions in the class |
 | 4. | Add code to `main` to test the class |
 
+| Challenge 2 | 22-Challenge2-ModuleRecord |
+| - | - |
+| 1. | Make `22-Challenge2-ModuleRecord` the starup module |
+| 2. | Open `ModuleRecord.h` - it is mostly empty! |
+| 3. | Open `ModuleRecord.cpp` - it is mostly empty! |
+| 4. | Complete this class to meet the following requirements |
+| 5. | Optional - write all function definitions in the CPP file |
+
+The following information should be encapsulated:
+
+* Module name (string)
+* Module subject area (string, default is COMP)
+* Module code (unsigned integer)
+* Number of credits per semester (unsigned integer, default is 20)
+* Number of semesters (unsigned integer, default is 1)
+
+One initialized, none of the information can be updated.
+
+The following APIs need to be created:
+
+* `string moduleSummary()` - returns a string that describes all information about the module
+* `int totalCredits()` - returns the total number of credits (Number of credits per semester multiplied by the Number of semesters)
+
