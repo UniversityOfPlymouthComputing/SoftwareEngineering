@@ -7,13 +7,14 @@ void StringBanner::displayLine() {
 	}
 }
 
+// NOTE that any default parameter values are provided in the header declaration, and not here.
 StringBanner::StringBanner(string txt, char bannerCharacter) {
 	//Copy message
 	msg = txt;
 	bannerChar = bannerCharacter;
 }
 
-
+// display banner
 void StringBanner::display() {
 	displayLine();
 	cout << endl;

@@ -857,7 +857,10 @@ Until now, as we create a class, it has all been written in a single header file
 
 The challenges for this lab are particularly important. There is a large gap between following lab tasks and writing your own code. You are encouraged to try all challenges. In this particular case, a solution may be given. This is not THE solution as there may be multiple ways to achieve the same thing.
 
-| Challenge 1 | 
-| - |
-| 1. | Create
+| Challenge 1 | 20-Challenge1-StudentRecord | 
+| - | - |
+| 1. | Make `20-Challenge1-StudentRecord` the start up project |
+| 2. | Read through `StudentRecord.h` |
+| 3. | Complete all the functions in the class |
+| 4. | Add code to `main` to test the class |
 
