@@ -97,7 +97,7 @@ int main()
         cout << "Dave is " << ageMap["Dave"] << endl;
     }
     else {
-        cerr << "Never hear of Dave" << endl;
+        cerr << "Never heard of Dave" << endl;
     }
 
 }
