@@ -15,6 +15,7 @@ In this session, we will look at a very important language feature of C++, that 
    1. [Overloading](#overloading)
    1. [Dynamically Instantiating Objects](#dynamically-instantiating-objects)
    1. [Composition](#composition)
+   1. [Separating Declaration and Definition](#separating-declaration-and-definition)
 * [Challenges](#challenges)
 
 ## Pointers and References
@@ -841,7 +842,22 @@ What this does is ensure the constructor for object `banner` is run with the req
 
 > If this were not the case, it would not be possible to invoke `banner.display()` in the constructor.
 
+## Separating Declaration and Definition
+
+Until now, as we create a class, it has all been written in a single header file. In C++, we have the option to split the *declaration* and the *definition* into separate files. 
+
+| TASK | 15-SeparatingDeclarationAndDefinition | 
+| - | - |
+| 1. | [Watch this video](https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=a328c961-7ff5-4c59-933e-b0ad00d8732d) to understand what is meant by separating declaration and definition |
+| 2. | Move the definition of the function `display()` to `StringBanner.cpp` |
+| - | A solution is provided |
+
+
 # Challenges
 
 The challenges for this lab are particularly important. There is a large gap between following lab tasks and writing your own code. You are encouraged to try all challenges. In this particular case, a solution may be given. This is not THE solution as there may be multiple ways to achieve the same thing.
+
+| Challenge 1 | 
+| - |
+| 1. | Create
 

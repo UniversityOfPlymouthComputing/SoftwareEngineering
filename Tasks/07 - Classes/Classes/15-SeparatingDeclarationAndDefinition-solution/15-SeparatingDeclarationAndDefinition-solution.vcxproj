@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{897a6116-4e3b-4289-a0b2-d1897f62a052}</ProjectGuid>
-    <RootNamespace>My15SeparatingDeclarationAndDefinition</RootNamespace>
+    <ProjectGuid>{85f5cbab-e367-4bc9-8ba0-7bbb170f0d8a}</ProjectGuid>
+    <RootNamespace>My15SeparatingDeclarationAndDefinitionsolution</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -127,7 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="15-SeparatingDeclarationAndDefinition.cpp" />
+    <ClCompile Include="15-SeparatingDeclarationAndDefinition-solution.cpp" />
     <ClCompile Include="StringBanner.cpp" />
   </ItemGroup>
   <ItemGroup>
