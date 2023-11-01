@@ -855,7 +855,7 @@ Until now, as we create a class, it has all been written in a single header file
 
 # Challenges
 
-The challenges for this lab are particularly important. There is a large gap between following lab tasks and writing your own code. You are encouraged to try all challenges. In this particular case, a solution may be given. This is not THE solution as there may be multiple ways to achieve the same thing.
+The challenges for this lab are particularly important. There is a large gap between following lab tasks and writing your own code. You are encouraged to try all challenges. In some cases, if solution is provided, this is not THE solution as there may be multiple ways to achieve the same goals.
 
 | Challenge 1 | 20-Challenge1-StudentRecord | 
 | - | - |
@@ -864,16 +864,18 @@ The challenges for this lab are particularly important. There is a large gap bet
 | 3. | Complete all the functions in the class |
 | 4. | Add code to `main` to test the class |
 
+In the next challenge, less is provided as a starting point. This is so you can start to practise on your own.
+
 | Challenge 2 | 22-Challenge2-ModuleRecord |
 | - | - |
 | 1. | Make `22-Challenge2-ModuleRecord` the starup module |
 | 2. | Open `ModuleRecord.h` - it is mostly empty! |
 | 3. | Open `ModuleRecord.cpp` - it is mostly empty! |
-| 4. | Complete this class to meet the following requirements |
+| 4. | Complete this class to meet the requirements below |
 | 5. | Optional - write all function definitions in the CPP file |
 | 6. | Write code in main to test the class |
 
-The following information should be encapsulated:
+**Requirement** - The following information should be encapsulated:
 
 * Module name (string)
 * Module subject area (string, default is COMP)
@@ -881,10 +883,34 @@ The following information should be encapsulated:
 * Number of credits per semester (unsigned integer, default is 20)
 * Number of semesters (unsigned integer, default is 1)
 
-One initialized, none of the information can be updated.
+Once initialized, none of the information can be updated.
 
-The following APIs need to be created:
+**Requirement** - The following APIs need to be created:
 
 * `string moduleSummary()` - returns a string that describes all information about the module
 * `int totalCredits()` - returns the total number of credits (Number of credits per semester multiplied by the Number of semesters)
 
+If you have some spare time and want an advanced challenge, then try challenge 3.
+
+| Challenge 3 | 24-Challenge3-YearRecord (advanced)|
+| - | - |
+| 1. | Make `24-Challenge3-YearRecord` the start up project |
+| 2. | Create a class to encapsulate data about an academic year on a given program |
+| 3. | Modify main to test it |
+
+The following information should be encapsulated (minimum set):
+
+* The number of students in the year (fixed once set)
+* The number of modules in the year (fixed once set)
+* An array of modules (array of type `ModuleRecord`)
+* An array of students (array of type `StudentRecord`)
+
+The following functionality needs to be added:
+
+* Ability to add a student
+* Ability to add a module
+* Ability to check if a student is in the year
+
+> Tip
+>
+> You can either use simple primitive arrays, or you might want to research the vector type.
