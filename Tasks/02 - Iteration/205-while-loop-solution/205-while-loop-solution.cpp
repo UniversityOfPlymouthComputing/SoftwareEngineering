@@ -2,7 +2,7 @@
 
 int main()
 {
-    int i = -10;
+    int i = 10;
 
     puts("Start while loop");
 
