@@ -60,6 +60,7 @@ This is **bold**
 
 This is *italic*
 
+This is <u>underline</u> and this is not.
 
 ## Hyperlinks
 
