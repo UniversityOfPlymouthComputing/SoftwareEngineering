@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{a6eb4610-8350-4a40-a047-aa37552bc458}</ProjectGuid>
-    <RootNamespace>My04CompositionAsAlternative</RootNamespace>
+    <ProjectGuid>{a78db1b6-ae5a-4df9-990d-82be46fb790f}</ProjectGuid>
+    <RootNamespace>My08OperatorOverloading</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -127,7 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="04-CompositionAsAlternative.cpp" />
+    <ClCompile Include="08-OperatorOverloading.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pets.h" />

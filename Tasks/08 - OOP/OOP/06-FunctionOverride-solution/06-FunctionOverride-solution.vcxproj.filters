@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="04-CompositionAsAlternative.cpp">
+    <ClCompile Include="06-FunctionOverride-solution.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

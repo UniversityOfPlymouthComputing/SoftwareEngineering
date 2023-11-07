@@ -18,7 +18,9 @@ In this section, we will look at another more subtle way to re-use code in a cla
 
    * [Composition: Initialisation and Access](#composition-initialisation-and-access)
 
-   * [Operator Overloading](#operator-overloading) 
+   * [Function Overloading](#function-overloading)
+
+      * [Operator Overloading](#operator-overloading) 
 
    * [Challenges](#challenges)
 
@@ -214,8 +216,157 @@ This would explicitly call the version in the `Pet` class, and not the `Tortoise
 
 ## Composition: Initialisation and Access
 
+Composition is where a member of a class is another class type. This is another way to add functionality to a class. Consider the example of a class which encapsulates details needed for a vetinary bill:
 
-## Operator Overloading
+```C++
+class MedicalCase {
+public:
+    
+private:
+    Pet _client;    //Composition - this needs parameters to be instantiated!
+    int _vetID;
+    float _bill;
+    ...
+```
+
+Here we see a `private` member `_client` of type `Pet`. However, no parameters (name and age) have been included as we do not yet know them. Looking at the class `Pet` you will see it only has one constructor, and that **requires** both the name and the age.
+
+> It is important to note that we cannot use `_client` until it is properly initialised with a name and an age.
+>
+> This includes using it in the constructor (or any other member function)
+
+Two techniques are shown in the next example:
+
+| Experiment | 04-CompositionAsAlternative |
+| - | - |
+| 1. | Make `04-CompositionAsAlternative` the start up project |
+| 2. | Set a breakpoint on the line `MedicalCase case1("Tiddles", 13, 101);` |
+| 3. | Build and run the code until it stops on the break point |
+| 4. | Step INTO the code. At what point does the constructor for `Pet` run? |
+| - | Note the constructor of `MedicalCase` used here |
+
+**key points**
+
+Consider the code below. As `Pet` does not have a parameterless constructor, we need to do some extra work. The object `_client` MUST be initialised before the constructor of `MedicalCase` is called.
+
+```C++
+class MedicalCase {
+public:
+    
+private:
+    Pet _client;    //Composition - this needs parameters to be instantiated!
+    int _vetID;
+    float _bill;
+    ...
+```
+
+We use the **initialiser list** to do this. The simplest approach is to pass the `name` and `age` property as shown below. 
+
+```C++
+MedicalCase case1("Tiddles", 13, 101);
+```
+
+Looking at the constructor of `MedicalCase` below, we see the constructor of `_client` being called in the initialiser list:
+
+```C++
+public:
+    // Constructor - note the initialisation list ensure _client is instantiated before the constructor runs 
+    MedicalCase(string name, int age, int vid) : _client(name, age)
+    {
+        _vetID = vid;
+        _bill = 0.0f;
+        cout << "Case set up for " << _client.getName() << endl;
+    }
+    ...
+```
+
+* Other techniques can be used, but we won't discuss them here.
+
+## Function Overloading
+
+Sometimes, you may want to perform the similar tasks using the same function name. One useful facility is **function overloading**. This is best explained by example:
+
+| TASK | 06-FunctionOverloading |
+| - | - |
+| 1. | Make `06-FunctionOverloading` the startup project |
+| 2. | Build and debug the code, stepping into the functions in `main` |
+| - | Make note of the different versions of `addCharge` |
+| 3. | Note the version that takes a `vector<float>` as a parameter. This contains a list of charges that each need to be added. Modify the code to add all these charges on |
+| Hint | Use a for-loop to iterate through the vector and extract each value. You can then call the version of `addCharge` which adds a single value at a time |
+| - | A solution is provided |
+
+**Key Points**
+
+* Function overloading is a technique whereby multiple functions with the same name can be defined. However, they must differ by the types and number of parameters
+* This code had two versions of `addCharge`
+   * The first takes a single value and adds it on to the total
+   * The second takes a vector of values, and should add all of the values to the total
+
+### Operator Overloading
+
+C++ (and some other languages) have an interesting facility known as operator overloading. Consider the following code:
+
+```C++
+int a = 10;
+int b = 20;
+int c = a+b;
+```
+
+On the last line, the following is performed:
+
+* Read `a` from memory
+* Read `b` from memory
+* Perform an **integer** addition
+
+Now consider this code:
+
+```C++
+float a = 10.0f;
+float b = 20.0f;
+float c = a+b;
+```
+
+On the last line, the following is performed:
+
+* Read `a` from memory
+* Read `b` from memory
+* Perform a **floating point** addition
+
+At machine code level, there is a significant difference between an integer add and a floating point add. Therefore, **the behaviour of the operator `+`  depends on the data types of it's operands** (numbers to the left and right).
+
+The built in operators are already defined for the built in data types. Some combinations are not defined however. For example, you cannot perform a bit-shift on a floating point value:
+
+```C++
+float p = 1.2;
+p = p << 1; //DOES NOT COMPILE AS THIS HAS NOT MEANING
+```
+
+Equally, the following makes no sense:
+
+```C++
+Pet p1("Shifty", 7);
+p1 += 1;
+```
+
+The operator `+=` has no meaning for a custom class such as `Pet`. However, C++ allows you to define one!
+
+| TASK | 08-OperatorOverloading |
+| - | - |
+| 1. | Make `08-OperatorOverloading` the startup project |
+| 2. | When you see a line that uses `+=`, step IN. |
+| - | Note where this takes you |
+| 3. | When the code is complete, in the editor type `case1` and then press the `.` (dot). Note the options that pop up. |
+| 4. | <a title="Those functions are now private">Why are the `addCharge` functions no longer listed? (look at the class)</a> |
+| 5. | <a title="operator+=(double)">What is the full function name of the `+=` operator?</a> |  
+
+
+**Key points**
+
+* Operator overloading is a very appealing topic, and used in a meaningful way, can make code much more readable.
+   * Misused, and it can be confusing!
+* Operator overloading is quite a complex topic, and there is much more that could be said about it. If you pursue C++ as a language, you may wish to research this further for your own interest.
+
+# DO NOT READ PAST THIS POINT
 
 ## Challenges
 

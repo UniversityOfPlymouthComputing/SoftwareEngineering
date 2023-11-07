@@ -21,9 +21,10 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{a6eb4610-8350-4a40-a047-aa37552bc458}</ProjectGuid>
-    <RootNamespace>My04CompositionAsAlternative</RootNamespace>
+    <ProjectGuid>{006a7b9c-c16a-415a-8601-5bdebd34bc71}</ProjectGuid>
+    <RootNamespace>My06FunctionOverride</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>06-FunctionOverloading</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -127,7 +128,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="04-CompositionAsAlternative.cpp" />
+    <ClCompile Include="06-FunctionOverride.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\04-CompositionAsAlternative\04-CompositionAsAlternative.vcxproj">
+      <Project>{a6eb4610-8350-4a40-a047-aa37552bc458}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Pets.h" />
