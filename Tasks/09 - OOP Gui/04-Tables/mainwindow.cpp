@@ -20,6 +20,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->tableWidget->setItem(2, 0, new QTableWidgetItem("COMP1066"));
     ui->tableWidget->setItem(2, 1, new QTableWidgetItem("55.7"));
 
+    qDebug() << "Ready\n";
+
 }
 
 MainWindow::~MainWindow()
@@ -32,7 +34,7 @@ void MainWindow::updateMarks(float adjustment)
     //Read and convert to numbers again, modify, and write back
     QTableWidget* tableWidget = ui->tableWidget;
 
-    for (unsigned int row = 0; row < ui->tableWidget->rowCount(); row++) {
+    for (int row = 0; row < ui->tableWidget->rowCount(); row++) {
         QString strData = tableWidget->item(row,1)->text();
         bool didConvert;
         float val = strData.toFloat(&didConvert);
@@ -53,5 +55,18 @@ void MainWindow::on_buttonPrev_clicked()
 void MainWindow::on_buttonNext_clicked()
 {
     updateMarks(1.0f);
+}
+
+
+void MainWindow::on_tableWidget_cellChanged(int row, int column)
+{
+    qDebug() << "cellChanged: " << row << " and column " << column;
+    qDebug() << ui->tableWidget->item(row, column)->text();
+}
+
+
+void MainWindow::on_tableWidget_cellEntered(int row, int column)
+{
+    qDebug() << "cellEntered: " << row << " and column " << column;
 }
 
