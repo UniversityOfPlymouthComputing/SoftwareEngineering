@@ -65,8 +65,4 @@ void MainWindow::on_tableWidget_cellChanged(int row, int column)
 }
 
 
-void MainWindow::on_tableWidget_cellEntered(int row, int column)
-{
-    qDebug() << "cellEntered: " << row << " and column " << column;
-}
 
