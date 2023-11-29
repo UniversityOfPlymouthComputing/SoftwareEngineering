@@ -91,6 +91,47 @@ You will use the Qt Creator IDE and documentation to find both the object names 
 | 6. | In the constructor for `MainWindow`, use the `connect` function to set up the signal-slot connection using code |
 | - | A solution is provided |
 
+## Menus and Actions
+
+In this task, we will create an application menu. Menu items also emit signals when triggered (clicked on).
+
+| TASK | 04-MenusAndActions |
+| - | - |
+| 1. | [Watch this video](https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=01e6db92-e4e5-4136-91d9-b0c9011bf58e) to see how to add menus and connect up signals and slots |
+| 2. | Open the project in the folder `04-MenusAndActions`. Build and run, now test the Show button and the "Wise Saying" menu item (as shown in the video) |
+| 3. | Add another menu item "Edit", and then an action "Paste" (as shown below) |
+
+<figure>
+<img src="./img/paste-menu.png" width="600px">
+<figcaption>Course Icon</figcaption>
+</figure>
+
+| | |
+| - | - |
+| 4. | Connect the Paste action to a slot. This slot should update the string with the content of the clipboard |
+
+At the top of your `MainWindow.cpp`, you should add the following:
+
+```C++
+#include <QClipboard>
+```
+
+In your slot, use the following to obtain the string data on the clipboard and update the label:
+
+```C++
+QString str = QApplication::clipboard()->text();
+if (!str.isEmpty()) {
+    ui->labelMessage->setText(str);
+}
+```
+
+Don't forget to connect the menu action signal to your slot (member function). As before, put this code in the constructor of `MainWindow`.
+
+| | |
+| - | - |
+| 4. | When you run your code, be sure to copy some text to the clipboard first. |
+| - | A solution is provided | 
+
 
 ## Invoking other Processes
 
@@ -112,7 +153,11 @@ This will tell you where the application `ls` is stored on the disk. Again, the 
 
 Both of these applications write to the file stream `stdout` (by default, the terminal). Error messages might also be written to the file stream `stderr`. Qt is able to capture both sets of information separately.
 
+# TO BE DONE - STOP HERE
 
+Challenge:
+
+https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=3a56ca79-cb20-42c1-8a41-b0c901183bf4
 
 # References
 
