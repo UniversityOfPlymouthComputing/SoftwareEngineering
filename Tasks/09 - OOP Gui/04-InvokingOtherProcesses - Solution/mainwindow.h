@@ -18,10 +18,16 @@ public:
     ~MainWindow();
 
 private slots:
-    void okButtonClicked(bool);
-    void secondButtonClicked(bool);
+    void pushButtonClicked();
+
+    void copyResult();
+
+    void returnPressed();
+
+    void textChanged();
 
 private:
     Ui::MainWindow *ui;
+    QString filePath;
 };
 #endif // MAINWINDOW_H

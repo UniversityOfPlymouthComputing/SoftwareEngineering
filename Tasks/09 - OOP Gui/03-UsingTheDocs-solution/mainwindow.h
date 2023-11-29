@@ -17,11 +17,10 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-private slots:
-    void okButtonClicked(bool);
-    void secondButtonClicked(bool);
-
 private:
     Ui::MainWindow *ui;
+
+private slots:
+    void updateSlider(int);
 };
 #endif // MAINWINDOW_H

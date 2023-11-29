@@ -32,7 +32,7 @@ C++ can be thought of as a super-set of the C language. We will start with C, an
 | 6 | [User and File IO](/docs/level4/fileIO.md) | Terminals and File IO in C and C++ |
 | 7 | [Structures and C++ Classes](/docs/level4/classes.md) | structures, simple classes, encapsulation, objects, statics |
 | 8 | [Object Orientated Programming (OOP)](oop.md) | Inheritance, composition, overloading, overriding |
-| 9 | GUI OOP | OOP with Qt Widgets |
+| 9 | [GUI OOP](oop_gui.md) | OOP with Qt Widgets |
 | 10 | Functional Programming | C++ closures, recursive programming |
 
 ### Recommended Resources

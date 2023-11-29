@@ -23,6 +23,13 @@
      </widget>
     </item>
     <item>
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="text">
+       <string>And again</string>
+      </property>
+     </widget>
+    </item>
+    <item>
      <widget class="QLabel" name="labelMessage">
       <property name="text">
        <string>I have a message...</string>
@@ -40,7 +47,7 @@
      <x>0</x>
      <y>0</y>
      <width>529</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>
