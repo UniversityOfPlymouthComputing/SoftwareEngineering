@@ -28,17 +28,24 @@ void MainWindow::pushButtonClicked()
 #else
     QString program = "which";
 #endif
+    //Get command parameters
     QString app = ui->lineEdit->text();
     QStringList arguments = {app};
+
+    //Launch child process and block until completed (should be very quick)
     process.start(program, arguments);
     process.waitForStarted();
     process.waitForFinished();
+
+    //Read stdout and stderr and save in strings
     QString output = process.readAllStandardOutput();
     QString error = process.readAllStandardError();
 
-    //Update UI
+    //Update UI with results
     ui->label->setText(output);
     ui->label_2->setText(error);
+
+    //Only enable the copy menu item if stdout is not empty
     if (!output.isEmpty()) {
         this->filePath = output;
         ui->actionCopy_Result->setEnabled(true);

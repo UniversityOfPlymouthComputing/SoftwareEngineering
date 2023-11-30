@@ -47,7 +47,7 @@ In the previous task, we saw how to create an event handler. This uses a mechani
 
 | TASK | 02-Hello World in Code|
 | - | - |
-| 1. | Watch the video [Hello World](https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=f64471a8-1703-4554-a571-b0c900b3d38c) |
+| 1. | Watch the video [Hello World in Code](https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=f64471a8-1703-4554-a571-b0c900b3d38c) |
 | 2. | Open the project in the folder `02-HelloWorld In Code` |
 | 3. | Use the `connect` function to set up the signal-slot event handler (as shown in the video) |
 | 4. | Drag in a second button below the first |
@@ -139,25 +139,152 @@ By now, you will see how Qt gets you a user interface, but you might also note t
 
 Luckily, Qt has a generic solution for this. In the next task, we will look at an application that find where other programs are saved.
 
-If on Microsoft Windows, open a command prompt and type the following:
+> **Experiment**
+>
+> If on Microsoft Windows, open a command prompt and type the following:
+>
+> `where.exe notepad.exe`
+>
+> This will tell you where the program `notepad.exe` is located on your disk (you might have more than one!). If on Mac OS or Linux, open a terminal and type the following:
+> 
+> `which ls`
+> 
+> This will tell you where the application `ls` is stored on the disk. Again, the `which` command is used on Unix-like systems to locate an application.
 
-`where.exe notepad.exe`
+Both of these applications write to the file stream `stdout` (by default, the terminal). Error messages might also be written to the file stream `stderr`. 
 
-This will tell you where the program `notepad.exe` is located on your disk (you might have more than one!). The application `where.exe` is one of the built-in applications in Microsoft Windows.
+Your application is able to launch these as a **child process**, allow them to run and capture their output(s).
 
-If on Mac OS or Linux, open a terminal and type the following:
+| TASK | 05-InvokingOtherProcesses |
+| - | - |
+| 1. | Open the project in the folder `05-InvokingOtherProcesses` |
+| 2. | Build and run the code |
+| 3. | If on Windows, in the next box, type `xcopy.exe` then click the Locate button |
+| - | If on Linux or Mac OS, type `cp` then click the Locate button |
+| 4. | Click the Edit menu, then click "Copy Result" |
+| 5. | Open a text editor and paste to test |
+| 6. | Read the comments in `MainWindow.cpp` to try and understand how this works |
+| 7. | Complete the application to match what is shown in [this video](https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=3a56ca79-cb20-42c1-8a41-b0c901183bf4) |
+| -  | A solution is provided |  
 
-`which ls`
+**Key Points**
 
-This will tell you where the application `ls` is stored on the disk. Again, the `which` command is used on Unix-like systems to locate an application.
+* Our Qt program has launched another, in this case `where.exe` in the case of Windows, or `which` on other systems
+   * These are both applications that are bundled with the operating system, so we can reply on them being installed
+   * Our program was also able to capture both `stdout` and `stderr`
+* When you get one application to launch another in this way and capture it's output, this is a form of **Inter Process Communication (IPC)**
+   * You application is known as the parent application
+   * The application you launch is the child application
+   * A parent application is able to capture the standard output of a child. When you run applications from a terminal, this is how the terminal is able to capture the output. The same applies to visual studio.
+* By calling another application from our own, we have been able to leverage the functionality of that application
+   * It means we can *separate concerns* - the GUI application can focus on GUI tasks and does not need much logic
+   * It does rely on the child application also being installed and in the executable path
+   * We also need to be careful about keeping versions of the two applications compatible
 
-Both of these applications write to the file stream `stdout` (by default, the terminal). Error messages might also be written to the file stream `stderr`. Qt is able to capture both sets of information separately.
+Let's look at some key sections of code:
 
-# TO BE DONE - STOP HERE
+### Launching a child process
 
-Challenge:
+When the button is clicked, the `pushButtonClicked` slot is invoked. Let's look at the first few lines:
 
-https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=3a56ca79-cb20-42c1-8a41-b0c901183bf4
+```C++
+    void MainWindow::pushButtonClicked()
+    {
+        QProcess process;
+    #ifdef Q_OS_WINDOWS
+        QString program = "where.exe";
+    #else
+        QString program = "which";
+    #endif
+        //Get command parameters
+        QString app = ui->lineEdit->text();
+        QStringList arguments = {app};
+
+        //Launch child process and block until completed (should be very quick)
+        process.start(program, arguments);
+        process.waitForStarted();
+        process.waitForFinished();
+        ...
+```
+
+* The only code that differs between Windows and the others is the name of the child process we wish to launch
+
+```C++
+    #ifdef Q_OS_WINDOWS
+        QString program = "where.exe";
+    #else
+        QString program = "which";
+    #endif
+```
+
+The pre-processor directive `#ifdef` works at compile-time. In other words, it is used to modify **the source code** being built. The constant `Q_OS_WINDOWS` is defined only for the Windows version of Qt. As a consequence:
+
+   * On Windows, the line `QString program = "where.exe";` is compiled
+   * On others, the line `QString program = "which";` is compiled
+
+* Qt tends to favour it's own `QString` over the regular `std::string` class to improve cross-platform compatibility.
+* The cross-platform functionality for opening a child process is encapsulated in the `QProcess` class. It has the following key member functions:
+
+   * `start` - launches a child process, passing command line parameters. This runs **in parallel** to the parent, sometimes on a separate CPU core.
+   * `waitForStarted()` will block the parent from running further code until the child process has fully launched. We should not attempt to read any output until the application has launched.
+   * `waitForFinished` will block the parent from running further code until the child process has exit. In our case, this makes sense as `where.exe` (or `which`) is very fast
+ 
+
+* We then read the output of the child process as follows:
+
+```C++    
+        QString output = process.readAllStandardOutput();
+        QString error = process.readAllStandardError();
+```
+
+* Again, the `QProcess` class allows us to perform the same fundamental operation on Windows, Mac OS and Linux without changing the source code.
+
+* The UI is updated
+   * Text labels are updated with `stdout` and `stderr` of the child process
+   * We also enable/disable the copy menu depending on whether a non-empty result was obtained 
+
+```C++
+        //Update UI with results
+        ui->label->setText(output);
+        ui->label_2->setText(error);
+
+        //Only enable the copy menu item if stdout is not empty
+        if (!output.isEmpty()) {
+            this->filePath = output;
+            ui->actionCopy_Result->setEnabled(true);
+        } else {
+            ui->actionCopy_Result->setEnabled(false);
+        }
+    }
+```
+
+### Using the Clipboard
+
+* In the event handler (slot) for the `Copy Results` menu item, we are able to copy the last good output to the operating system clip-board.
+
+```C++
+    void MainWindow::copyResult()
+    {
+        QApplication::clipboard()->setText(this->filePath);
+    }
+```
+
+* Note that the following two header files were also needed:
+
+```C++
+    #include <QProcess>
+    #include <QClipboard>
+```
+
+# Summary
+
+Although there is a lot more to know about the Qt framework, hopefully this was a good insight into a real-world use of OOP. Put simply, it makes it possible to write *clean* cross platform code so that it can be built on at least three operating systems without modification.
+
+Key to this is abstraction through encapsulation, whereby the complex details of specific operations are hidden from view.
+
+Qt must have accumulated millions of development hours involving thousands of developers since it's inception (1995 was the first release). We are benefiting by **reusing** the class libraries and tooling to rapidly produce applications with sophisticated graphical user interfaces.
+
+
 
 # References
 
@@ -170,6 +297,8 @@ https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=3a56ca79-cb20-42c
 [[4] VIDEO - Qt 101 - Hello World](https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=f64471a8-1703-4554-a571-b0c900b3d38c)
 
 [[5] VIDEO - Qt 102 - Hello World in Code](https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=3eb8d6fe-376c-471a-b00a-b0c900c4cada)
+
+[[6] VIDEO - Menus and Actions](https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=01e6db92-e4e5-4136-91d9-b0c9011bf58e)
 
 [[6] Qt Signals and Slots (official documentation)](https://doc.qt.io/qt-6/signalsandslots.html)
 
