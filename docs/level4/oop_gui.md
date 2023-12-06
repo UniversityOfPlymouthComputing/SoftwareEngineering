@@ -54,7 +54,7 @@ In the previous task, we saw how to create an event handler. This uses a mechani
 
 | TASK | 02-Hello World in Code|
 | - | - |
-| 1. | Watch the video [Hello World in Code](https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=f64471a8-1703-4554-a571-b0c900b3d38c) |
+| 1. | Watch the video [Hello World in Code](https://plymouth.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=3eb8d6fe-376c-471a-b00a-b0c900c4cada) |
 | 2. | Open the project in the folder `02-HelloWorld In Code` |
 | 3. | Use the `connect` function to set up the signal-slot event handler (as shown in the video) |
 | 4. | Drag in a second button below the first |
